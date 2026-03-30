@@ -206,8 +206,8 @@ struct DiffLineView: View {
     /// Optional paired line content for computing character diffs on modified lines
     var pairedLineContent: String? = nil
     
-    @AppStorage("matchingCharColor") private var matchingCharColor = "blue"
-    @AppStorage("differentCharColor") private var differentCharColor = "red"
+    @AppStorage("lineDiffColor") private var lineDiffColor = "blue"
+    @AppStorage("charDiffColor") private var charDiffColor = "red"
     @AppStorage("fontSizeOffset") private var fontSizeOffset = 0
     
     /// Base font size for content display
@@ -265,7 +265,6 @@ struct DiffLineView: View {
         if diffs.isEmpty {
             Text(line.content)
                 .font(contentFont)
-                .foregroundColor(colorFromName(matchingCharColor))
                 .lineLimit(1)
                 .truncationMode(.tail)
         } else {
@@ -273,7 +272,7 @@ struct DiffLineView: View {
                 ForEach(Array(diffs.enumerated()), id: \.offset) { _, diff in
                     Text(String(line.content[diff.range]))
                         .font(contentFont)
-                        .foregroundColor(diff.isChanged ? colorFromName(differentCharColor) : colorFromName(matchingCharColor))
+                        .foregroundColor(diff.isChanged ? colorFromName(charDiffColor) : .primary)
                 }
             }
             .lineLimit(1)
@@ -343,9 +342,7 @@ struct DiffLineView: View {
     private var backgroundColor: Color {
         switch line.changeType {
         case .unchanged: return .clear
-        case .added: return Color.green.opacity(0.15)
-        case .removed: return Color.red.opacity(0.15)
-        case .modified: return Color.orange.opacity(0.15)
+        case .added, .removed, .modified: return colorFromName(lineDiffColor).opacity(0.3)
         }
     }
 }

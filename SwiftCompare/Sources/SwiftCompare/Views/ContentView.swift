@@ -3,6 +3,16 @@ import SwiftUI
 /// Main content view with mode selection and comparison panels
 struct ContentView: View {
     @EnvironmentObject var appState: AppState
+    @AppStorage("selectedTheme") private var selectedTheme = "system"
+    
+    /// Computed color scheme based on user's theme preference
+    private var preferredColorScheme: ColorScheme? {
+        switch selectedTheme {
+        case "light": return .light
+        case "dark": return .dark
+        default: return nil  // system default
+        }
+    }
     
     var body: some View {
         VStack(spacing: 0) {
@@ -44,6 +54,7 @@ struct ContentView: View {
         ) { result in
             handleFolderSelection(result)
         }
+        .preferredColorScheme(preferredColorScheme)
     }
     
     private func handleFileSelection(_ result: Result<[URL], Error>) {

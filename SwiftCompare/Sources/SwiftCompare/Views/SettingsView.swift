@@ -10,8 +10,8 @@ struct SettingsView: View {
     @AppStorage("recursiveComparison") private var recursiveComparison = true
     @AppStorage("fontSizeOffset") private var fontSizeOffset = 0
     @AppStorage("selectedTheme") private var selectedTheme = "system"
-    @AppStorage("matchingCharColor") private var matchingCharColor = "blue"
-    @AppStorage("differentCharColor") private var differentCharColor = "red"
+    @AppStorage("lineDiffColor") private var lineDiffColor = "blue"
+    @AppStorage("charDiffColor") private var charDiffColor = "red"
     
     var body: some View {
         TabView {
@@ -28,8 +28,8 @@ struct SettingsView: View {
             AppearanceSettingsView(
                 fontSizeOffset: $fontSizeOffset,
                 selectedTheme: $selectedTheme,
-                matchingCharColor: $matchingCharColor,
-                differentCharColor: $differentCharColor
+                lineDiffColor: $lineDiffColor,
+                charDiffColor: $charDiffColor
             )
             .tabItem {
                 Label("Appearance", systemImage: "paintbrush")
@@ -40,7 +40,7 @@ struct SettingsView: View {
                 Label("File Types", systemImage: "doc.badge.gearshape")
             }
         }
-        .frame(width: 450, height: 300)
+        .frame(width: 450, height: 380)
         .padding()
     }
 }
@@ -72,8 +72,8 @@ struct GeneralSettingsView: View {
 struct AppearanceSettingsView: View {
     @Binding var fontSizeOffset: Int
     @Binding var selectedTheme: String
-    @Binding var matchingCharColor: String
-    @Binding var differentCharColor: String
+    @Binding var lineDiffColor: String
+    @Binding var charDiffColor: String
     
     private let themes = ["system", "light", "dark"]
     private let colorOptions = ["blue", "red", "green", "orange", "purple", "yellow", "cyan", "magenta"]
@@ -102,10 +102,10 @@ struct AppearanceSettingsView: View {
                     .foregroundColor(.secondary)
             }
             
-            Section("Character-Level Diff Colors") {
+            Section("Diff Highlighting Colors") {
                 HStack {
-                    Text("Matching characters:")
-                    Picker("", selection: $matchingCharColor) {
+                    Text("Line-level diff (background):")
+                    Picker("", selection: $lineDiffColor) {
                         ForEach(colorOptions, id: \.self) { color in
                             HStack {
                                 Circle()
@@ -120,8 +120,8 @@ struct AppearanceSettingsView: View {
                 }
                 
                 HStack {
-                    Text("Different characters:")
-                    Picker("", selection: $differentCharColor) {
+                    Text("Character-level diff (text):")
+                    Picker("", selection: $charDiffColor) {
                         ForEach(colorOptions, id: \.self) { color in
                             HStack {
                                 Circle()
@@ -135,27 +135,34 @@ struct AppearanceSettingsView: View {
                     .frame(width: 120)
                 }
                 
-                // Preview of character-level diff
-                HStack(spacing: 0) {
-                    Text("Preview: ")
+                // Preview of diff highlighting
+                VStack(alignment: .leading, spacing: 8) {
+                    Text("Preview:")
                         .foregroundColor(.secondary)
-                    Text("matching")
-                        .foregroundColor(colorFromName(matchingCharColor))
-                    Text(" vs ")
-                        .foregroundColor(.secondary)
-                    Text("different")
-                        .foregroundColor(colorFromName(differentCharColor))
+                    
+                    HStack(spacing: 0) {
+                        Text("Line background: ")
+                            .foregroundColor(.secondary)
+                        Text("changed line")
+                            .padding(.horizontal, 8)
+                            .padding(.vertical, 2)
+                            .background(colorFromName(lineDiffColor).opacity(0.3))
+                            .cornerRadius(4)
+                    }
+                    
+                    HStack(spacing: 0) {
+                        Text("Character diff: ")
+                            .foregroundColor(.secondary)
+                        Text("different")
+                            .foregroundColor(colorFromName(charDiffColor))
+                            .fontWeight(.medium)
+                    }
                 }
                 .font(.system(.body, design: .monospaced))
-            }
-            
-            Section("Line Colors") {
-                HStack {
-                    ColorLegendItem(color: .green.opacity(0.15), label: "Added lines")
-                    Spacer()
-                    ColorLegendItem(color: .red.opacity(0.15), label: "Removed lines")
-                    Spacer()
-                    ColorLegendItem(color: .orange.opacity(0.15), label: "Modified lines")
+                
+                Button("Reset Colors to Defaults") {
+                    lineDiffColor = "blue"
+                    charDiffColor = "red"
                 }
             }
         }
@@ -186,27 +193,6 @@ struct AppearanceSettingsView: View {
             nsColor = NSColor.systemBlue
         }
         return Color(nsColor: nsColor)
-    }
-}
-
-/// Color legend item
-struct ColorLegendItem: View {
-    let color: Color
-    let label: String
-    
-    var body: some View {
-        HStack(spacing: 8) {
-            RoundedRectangle(cornerRadius: 4)
-                .fill(color)
-                .frame(width: 24, height: 16)
-                .overlay(
-                    RoundedRectangle(cornerRadius: 4)
-                        .stroke(Color.secondary.opacity(0.3), lineWidth: 1)
-                )
-            Text(label)
-                .font(.caption)
-                .foregroundColor(.secondary)
-        }
     }
 }
 

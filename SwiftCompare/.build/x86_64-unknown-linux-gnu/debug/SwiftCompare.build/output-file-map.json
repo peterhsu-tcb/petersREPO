@@ -1,0 +1,75 @@
+{
+  "": {
+    "swift-dependencies": "/home/runner/work/petersREPO/petersREPO/SwiftCompare/.build/x86_64-unknown-linux-gnu/debug/SwiftCompare.build/master.swiftdeps"
+  },
+  "/home/runner/work/petersREPO/petersREPO/SwiftCompare/Sources/SwiftCompare/Models/ComparisonResult.swift": {
+    "dependencies": "/home/runner/work/petersREPO/petersREPO/SwiftCompare/.build/x86_64-unknown-linux-gnu/debug/SwiftCompare.build/ComparisonResult.d",
+    "object": "/home/runner/work/petersREPO/petersREPO/SwiftCompare/.build/x86_64-unknown-linux-gnu/debug/SwiftCompare.build/ComparisonResult.swift.o",
+    "swiftmodule": "/home/runner/work/petersREPO/petersREPO/SwiftCompare/.build/x86_64-unknown-linux-gnu/debug/SwiftCompare.build/ComparisonResult~partial.swiftmodule",
+    "swift-dependencies": "/home/runner/work/petersREPO/petersREPO/SwiftCompare/.build/x86_64-unknown-linux-gnu/debug/SwiftCompare.build/ComparisonResult.swiftdeps",
+    "diagnostics": "/home/runner/work/petersREPO/petersREPO/SwiftCompare/.build/x86_64-unknown-linux-gnu/debug/SwiftCompare.build/ComparisonResult.dia"
+  },
+  "/home/runner/work/petersREPO/petersREPO/SwiftCompare/Sources/SwiftCompare/Models/DiffResult.swift": {
+    "dependencies": "/home/runner/work/petersREPO/petersREPO/SwiftCompare/.build/x86_64-unknown-linux-gnu/debug/SwiftCompare.build/DiffResult.d",
+    "object": "/home/runner/work/petersREPO/petersREPO/SwiftCompare/.build/x86_64-unknown-linux-gnu/debug/SwiftCompare.build/DiffResult.swift.o",
+    "swiftmodule": "/home/runner/work/petersREPO/petersREPO/SwiftCompare/.build/x86_64-unknown-linux-gnu/debug/SwiftCompare.build/DiffResult~partial.swiftmodule",
+    "swift-dependencies": "/home/runner/work/petersREPO/petersREPO/SwiftCompare/.build/x86_64-unknown-linux-gnu/debug/SwiftCompare.build/DiffResult.swiftdeps",
+    "diagnostics": "/home/runner/work/petersREPO/petersREPO/SwiftCompare/.build/x86_64-unknown-linux-gnu/debug/SwiftCompare.build/DiffResult.dia"
+  },
+  "/home/runner/work/petersREPO/petersREPO/SwiftCompare/Sources/SwiftCompare/Models/FileItem.swift": {
+    "dependencies": "/home/runner/work/petersREPO/petersREPO/SwiftCompare/.build/x86_64-unknown-linux-gnu/debug/SwiftCompare.build/FileItem.d",
+    "object": "/home/runner/work/petersREPO/petersREPO/SwiftCompare/.build/x86_64-unknown-linux-gnu/debug/SwiftCompare.build/FileItem.swift.o",
+    "swiftmodule": "/home/runner/work/petersREPO/petersREPO/SwiftCompare/.build/x86_64-unknown-linux-gnu/debug/SwiftCompare.build/FileItem~partial.swiftmodule",
+    "swift-dependencies": "/home/runner/work/petersREPO/petersREPO/SwiftCompare/.build/x86_64-unknown-linux-gnu/debug/SwiftCompare.build/FileItem.swiftdeps",
+    "diagnostics": "/home/runner/work/petersREPO/petersREPO/SwiftCompare/.build/x86_64-unknown-linux-gnu/debug/SwiftCompare.build/FileItem.dia"
+  },
+  "/home/runner/work/petersREPO/petersREPO/SwiftCompare/Sources/SwiftCompare/Services/FileComparisonService.swift": {
+    "dependencies": "/home/runner/work/petersREPO/petersREPO/SwiftCompare/.build/x86_64-unknown-linux-gnu/debug/SwiftCompare.build/FileComparisonService.d",
+    "object": "/home/runner/work/petersREPO/petersREPO/SwiftCompare/.build/x86_64-unknown-linux-gnu/debug/SwiftCompare.build/FileComparisonService.swift.o",
+    "swiftmodule": "/home/runner/work/petersREPO/petersREPO/SwiftCompare/.build/x86_64-unknown-linux-gnu/debug/SwiftCompare.build/FileComparisonService~partial.swiftmodule",
+    "swift-dependencies": "/home/runner/work/petersREPO/petersREPO/SwiftCompare/.build/x86_64-unknown-linux-gnu/debug/SwiftCompare.build/FileComparisonService.swiftdeps",
+    "diagnostics": "/home/runner/work/petersREPO/petersREPO/SwiftCompare/.build/x86_64-unknown-linux-gnu/debug/SwiftCompare.build/FileComparisonService.dia"
+  },
+  "/home/runner/work/petersREPO/petersREPO/SwiftCompare/Sources/SwiftCompare/Services/FolderComparisonService.swift": {
+    "dependencies": "/home/runner/work/petersREPO/petersREPO/SwiftCompare/.build/x86_64-unknown-linux-gnu/debug/SwiftCompare.build/FolderComparisonService.d",
+    "object": "/home/runner/work/petersREPO/petersREPO/SwiftCompare/.build/x86_64-unknown-linux-gnu/debug/SwiftCompare.build/FolderComparisonService.swift.o",
+    "swiftmodule": "/home/runner/work/petersREPO/petersREPO/SwiftCompare/.build/x86_64-unknown-linux-gnu/debug/SwiftCompare.build/FolderComparisonService~partial.swiftmodule",
+    "swift-dependencies": "/home/runner/work/petersREPO/petersREPO/SwiftCompare/.build/x86_64-unknown-linux-gnu/debug/SwiftCompare.build/FolderComparisonService.swiftdeps",
+    "diagnostics": "/home/runner/work/petersREPO/petersREPO/SwiftCompare/.build/x86_64-unknown-linux-gnu/debug/SwiftCompare.build/FolderComparisonService.dia"
+  },
+  "/home/runner/work/petersREPO/petersREPO/SwiftCompare/Sources/SwiftCompare/SwiftCompareApp.swift": {
+    "dependencies": "/home/runner/work/petersREPO/petersREPO/SwiftCompare/.build/x86_64-unknown-linux-gnu/debug/SwiftCompare.build/SwiftCompareApp.d",
+    "object": "/home/runner/work/petersREPO/petersREPO/SwiftCompare/.build/x86_64-unknown-linux-gnu/debug/SwiftCompare.build/SwiftCompareApp.swift.o",
+    "swiftmodule": "/home/runner/work/petersREPO/petersREPO/SwiftCompare/.build/x86_64-unknown-linux-gnu/debug/SwiftCompare.build/SwiftCompareApp~partial.swiftmodule",
+    "swift-dependencies": "/home/runner/work/petersREPO/petersREPO/SwiftCompare/.build/x86_64-unknown-linux-gnu/debug/SwiftCompare.build/SwiftCompareApp.swiftdeps",
+    "diagnostics": "/home/runner/work/petersREPO/petersREPO/SwiftCompare/.build/x86_64-unknown-linux-gnu/debug/SwiftCompare.build/SwiftCompareApp.dia"
+  },
+  "/home/runner/work/petersREPO/petersREPO/SwiftCompare/Sources/SwiftCompare/Utils/Extensions.swift": {
+    "dependencies": "/home/runner/work/petersREPO/petersREPO/SwiftCompare/.build/x86_64-unknown-linux-gnu/debug/SwiftCompare.build/Extensions.d",
+    "object": "/home/runner/work/petersREPO/petersREPO/SwiftCompare/.build/x86_64-unknown-linux-gnu/debug/SwiftCompare.build/Extensions.swift.o",
+    "swiftmodule": "/home/runner/work/petersREPO/petersREPO/SwiftCompare/.build/x86_64-unknown-linux-gnu/debug/SwiftCompare.build/Extensions~partial.swiftmodule",
+    "swift-dependencies": "/home/runner/work/petersREPO/petersREPO/SwiftCompare/.build/x86_64-unknown-linux-gnu/debug/SwiftCompare.build/Extensions.swiftdeps",
+    "diagnostics": "/home/runner/work/petersREPO/petersREPO/SwiftCompare/.build/x86_64-unknown-linux-gnu/debug/SwiftCompare.build/Extensions.dia"
+  },
+  "/home/runner/work/petersREPO/petersREPO/SwiftCompare/Sources/SwiftCompare/Views/ComparisonView.swift": {
+    "dependencies": "/home/runner/work/petersREPO/petersREPO/SwiftCompare/.build/x86_64-unknown-linux-gnu/debug/SwiftCompare.build/ComparisonView.d",
+    "object": "/home/runner/work/petersREPO/petersREPO/SwiftCompare/.build/x86_64-unknown-linux-gnu/debug/SwiftCompare.build/ComparisonView.swift.o",
+    "swiftmodule": "/home/runner/work/petersREPO/petersREPO/SwiftCompare/.build/x86_64-unknown-linux-gnu/debug/SwiftCompare.build/ComparisonView~partial.swiftmodule",
+    "swift-dependencies": "/home/runner/work/petersREPO/petersREPO/SwiftCompare/.build/x86_64-unknown-linux-gnu/debug/SwiftCompare.build/ComparisonView.swiftdeps",
+    "diagnostics": "/home/runner/work/petersREPO/petersREPO/SwiftCompare/.build/x86_64-unknown-linux-gnu/debug/SwiftCompare.build/ComparisonView.dia"
+  },
+  "/home/runner/work/petersREPO/petersREPO/SwiftCompare/Sources/SwiftCompare/Views/ContentView.swift": {
+    "dependencies": "/home/runner/work/petersREPO/petersREPO/SwiftCompare/.build/x86_64-unknown-linux-gnu/debug/SwiftCompare.build/ContentView.d",
+    "object": "/home/runner/work/petersREPO/petersREPO/SwiftCompare/.build/x86_64-unknown-linux-gnu/debug/SwiftCompare.build/ContentView.swift.o",
+    "swiftmodule": "/home/runner/work/petersREPO/petersREPO/SwiftCompare/.build/x86_64-unknown-linux-gnu/debug/SwiftCompare.build/ContentView~partial.swiftmodule",
+    "swift-dependencies": "/home/runner/work/petersREPO/petersREPO/SwiftCompare/.build/x86_64-unknown-linux-gnu/debug/SwiftCompare.build/ContentView.swiftdeps",
+    "diagnostics": "/home/runner/work/petersREPO/petersREPO/SwiftCompare/.build/x86_64-unknown-linux-gnu/debug/SwiftCompare.build/ContentView.dia"
+  },
+  "/home/runner/work/petersREPO/petersREPO/SwiftCompare/Sources/SwiftCompare/Views/SettingsView.swift": {
+    "dependencies": "/home/runner/work/petersREPO/petersREPO/SwiftCompare/.build/x86_64-unknown-linux-gnu/debug/SwiftCompare.build/SettingsView.d",
+    "object": "/home/runner/work/petersREPO/petersREPO/SwiftCompare/.build/x86_64-unknown-linux-gnu/debug/SwiftCompare.build/SettingsView.swift.o",
+    "swiftmodule": "/home/runner/work/petersREPO/petersREPO/SwiftCompare/.build/x86_64-unknown-linux-gnu/debug/SwiftCompare.build/SettingsView~partial.swiftmodule",
+    "swift-dependencies": "/home/runner/work/petersREPO/petersREPO/SwiftCompare/.build/x86_64-unknown-linux-gnu/debug/SwiftCompare.build/SettingsView.swiftdeps",
+    "diagnostics": "/home/runner/work/petersREPO/petersREPO/SwiftCompare/.build/x86_64-unknown-linux-gnu/debug/SwiftCompare.build/SettingsView.dia"
+  }
+}

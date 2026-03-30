@@ -8,18 +8,32 @@ enum DiffChangeType: Equatable {
     case modified
 }
 
+/// Represents a character range with its change status for inline diff highlighting
+struct CharacterDiff: Equatable {
+    let range: Range<String.Index>
+    let isChanged: Bool
+    
+    init(range: Range<String.Index>, isChanged: Bool) {
+        self.range = range
+        self.isChanged = isChanged
+    }
+}
+
 /// Represents a single line in a diff result
 struct DiffLine: Identifiable, Equatable {
     let id: UUID
     let lineNumber: Int?
     let content: String
     let changeType: DiffChangeType
+    /// Character-level diffs for modified lines - shows which characters differ
+    let characterDiffs: [CharacterDiff]
     
-    init(lineNumber: Int?, content: String, changeType: DiffChangeType) {
+    init(lineNumber: Int?, content: String, changeType: DiffChangeType, characterDiffs: [CharacterDiff] = []) {
         self.id = UUID()
         self.lineNumber = lineNumber
         self.content = content
         self.changeType = changeType
+        self.characterDiffs = characterDiffs
     }
 }
 

@@ -9,6 +9,8 @@ struct SettingsView: View {
     @AppStorage("recursiveComparison") private var recursiveComparison = true
     @AppStorage("fontSizeOffset") private var fontSizeOffset = 0
     @AppStorage("selectedTheme") private var selectedTheme = "system"
+    @AppStorage("matchingCharColor") private var matchingCharColor = "blue"
+    @AppStorage("differentCharColor") private var differentCharColor = "red"
     
     var body: some View {
         TabView {
@@ -24,7 +26,9 @@ struct SettingsView: View {
             
             AppearanceSettingsView(
                 fontSizeOffset: $fontSizeOffset,
-                selectedTheme: $selectedTheme
+                selectedTheme: $selectedTheme,
+                matchingCharColor: $matchingCharColor,
+                differentCharColor: $differentCharColor
             )
             .tabItem {
                 Label("Appearance", systemImage: "paintbrush")
@@ -67,8 +71,11 @@ struct GeneralSettingsView: View {
 struct AppearanceSettingsView: View {
     @Binding var fontSizeOffset: Int
     @Binding var selectedTheme: String
+    @Binding var matchingCharColor: String
+    @Binding var differentCharColor: String
     
     private let themes = ["system", "light", "dark"]
+    private let colorOptions = ["blue", "red", "green", "orange", "purple", "yellow", "cyan", "magenta"]
     
     var body: some View {
         Form {
@@ -94,7 +101,54 @@ struct AppearanceSettingsView: View {
                     .foregroundColor(.secondary)
             }
             
-            Section("Colors") {
+            Section("Character-Level Diff Colors") {
+                HStack {
+                    Text("Matching characters:")
+                    Picker("", selection: $matchingCharColor) {
+                        ForEach(colorOptions, id: \.self) { color in
+                            HStack {
+                                Circle()
+                                    .fill(colorFromName(color))
+                                    .frame(width: 12, height: 12)
+                                Text(color.capitalized)
+                            }
+                            .tag(color)
+                        }
+                    }
+                    .frame(width: 120)
+                }
+                
+                HStack {
+                    Text("Different characters:")
+                    Picker("", selection: $differentCharColor) {
+                        ForEach(colorOptions, id: \.self) { color in
+                            HStack {
+                                Circle()
+                                    .fill(colorFromName(color))
+                                    .frame(width: 12, height: 12)
+                                Text(color.capitalized)
+                            }
+                            .tag(color)
+                        }
+                    }
+                    .frame(width: 120)
+                }
+                
+                // Preview of character-level diff
+                HStack(spacing: 0) {
+                    Text("Preview: ")
+                        .foregroundColor(.secondary)
+                    Text("matching")
+                        .foregroundColor(colorFromName(matchingCharColor))
+                    Text(" vs ")
+                        .foregroundColor(.secondary)
+                    Text("different")
+                        .foregroundColor(colorFromName(differentCharColor))
+                }
+                .font(.system(.body, design: .monospaced))
+            }
+            
+            Section("Line Colors") {
                 HStack {
                     ColorLegendItem(color: .green.opacity(0.15), label: "Added lines")
                     Spacer()
@@ -105,6 +159,20 @@ struct AppearanceSettingsView: View {
             }
         }
         .formStyle(.grouped)
+    }
+    
+    private func colorFromName(_ name: String) -> Color {
+        switch name {
+        case "blue": return .blue
+        case "red": return .red
+        case "green": return .green
+        case "orange": return .orange
+        case "purple": return .purple
+        case "yellow": return .yellow
+        case "cyan": return .cyan
+        case "magenta": return Color(red: 1, green: 0, blue: 1)
+        default: return .blue
+        }
     }
 }
 

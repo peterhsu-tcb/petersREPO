@@ -1,0 +1,12 @@
+{
+  "": {
+    "swift-dependencies": "/home/runner/work/petersREPO/petersREPO/SwiftCompare/.build/x86_64-unknown-linux-gnu/debug/SwiftCompareTests.build/master.swiftdeps"
+  },
+  "/home/runner/work/petersREPO/petersREPO/SwiftCompare/Tests/SwiftCompareTests/FileComparisonServiceTests.swift": {
+    "dependencies": "/home/runner/work/petersREPO/petersREPO/SwiftCompare/.build/x86_64-unknown-linux-gnu/debug/SwiftCompareTests.build/FileComparisonServiceTests.d",
+    "object": "/home/runner/work/petersREPO/petersREPO/SwiftCompare/.build/x86_64-unknown-linux-gnu/debug/SwiftCompareTests.build/FileComparisonServiceTests.swift.o",
+    "swiftmodule": "/home/runner/work/petersREPO/petersREPO/SwiftCompare/.build/x86_64-unknown-linux-gnu/debug/SwiftCompareTests.build/FileComparisonServiceTests~partial.swiftmodule",
+    "swift-dependencies": "/home/runner/work/petersREPO/petersREPO/SwiftCompare/.build/x86_64-unknown-linux-gnu/debug/SwiftCompareTests.build/FileComparisonServiceTests.swiftdeps",
+    "diagnostics": "/home/runner/work/petersREPO/petersREPO/SwiftCompare/.build/x86_64-unknown-linux-gnu/debug/SwiftCompareTests.build/FileComparisonServiceTests.dia"
+  }
+}

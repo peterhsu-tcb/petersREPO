@@ -154,7 +154,7 @@ final class PaneStateTests: XCTestCase {
     }
     
     func testNavigation() {
-        let pane = PaneState(side: .right, path: FileManager.default.homeDirectoryForCurrentUser)
+        let pane = PaneState(side: .right, initialPath: FileManager.default.homeDirectoryForCurrentUser)
         let newPath = FileManager.default.temporaryDirectory
         
         pane.navigateTo(newPath)
@@ -167,7 +167,7 @@ final class PaneStateTests: XCTestCase {
     func testGoBack() {
         let home = FileManager.default.homeDirectoryForCurrentUser
         let temp = FileManager.default.temporaryDirectory
-        let pane = PaneState(side: .left, path: home)
+        let pane = PaneState(side: .left, initialPath: home)
         
         pane.navigateTo(temp)
         pane.goBack()
@@ -180,7 +180,7 @@ final class PaneStateTests: XCTestCase {
     func testGoForward() {
         let home = FileManager.default.homeDirectoryForCurrentUser
         let temp = FileManager.default.temporaryDirectory
-        let pane = PaneState(side: .left, path: home)
+        let pane = PaneState(side: .left, initialPath: home)
         
         pane.navigateTo(temp)
         pane.goBack()

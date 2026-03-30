@@ -238,8 +238,8 @@ class AppState: ObservableObject {
     
     init() {
         let home = FileManager.default.homeDirectoryForCurrentUser
-        self.leftPane = PaneState(side: .left, path: home)
-        self.rightPane = PaneState(side: .right, path: home)
+        self.leftPane = PaneState(side: .left, initialPath: home)
+        self.rightPane = PaneState(side: .right, initialPath: home)
         
         setupQuickAccess()
     }

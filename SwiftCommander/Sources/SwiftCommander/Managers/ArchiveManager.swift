@@ -33,12 +33,28 @@ class ArchiveManager {
         from sources: [URL],
         to destination: URL
     ) async throws {
+        guard !sources.isEmpty else {
+            throw ArchiveError.creationFailed("No source files provided")
+        }
+        
+        // Verify all sources exist and determine common parent directory
+        let firstParent = sources.first!.deletingLastPathComponent()
+        for source in sources {
+            guard FileManager.default.fileExists(atPath: source.path) else {
+                throw ArchiveError.creationFailed("Source file not found: \(source.path)")
+            }
+            // Ensure all sources are in the same directory for relative paths in archive
+            if source.deletingLastPathComponent() != firstParent {
+                throw ArchiveError.creationFailed("All source files must be in the same directory for archive creation")
+            }
+        }
+        
         let process = Process()
         let pipe = Pipe()
         
         process.standardOutput = pipe
         process.standardError = pipe
-        process.currentDirectoryURL = sources.first?.deletingLastPathComponent()
+        process.currentDirectoryURL = firstParent
         
         let sourceNames = sources.map { $0.lastPathComponent }
         

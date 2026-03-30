@@ -291,7 +291,8 @@ struct PaneFooterView: View {
         HStack {
             // Selection info
             if pane.selectedItems.isEmpty {
-                Text("\(pane.items.count - 1) items")
+                let itemCount = pane.items.contains(where: { $0.name == ".." }) ? pane.items.count - 1 : pane.items.count
+                Text("\(max(0, itemCount)) items")
             } else {
                 let selectedItems = pane.selectedFileItems
                 let totalSize = selectedItems.reduce(0) { $0 + $1.size }

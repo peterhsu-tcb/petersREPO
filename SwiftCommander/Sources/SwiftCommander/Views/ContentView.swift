@@ -304,9 +304,15 @@ struct PreviewPanelView: View {
         .frame(maxHeight: .infinity)
     }
     
+    /// File extensions recognized as text files
+    private static let textFileExtensions: Set<String> = [
+        "txt", "md", "swift", "py", "js", "ts", "json", "xml", "html", "css", 
+        "sh", "c", "cpp", "h", "java", "go", "rs", "rb", "yml", "yaml", 
+        "toml", "ini", "cfg", "conf", "log"
+    ]
+    
     private func isTextFile(_ item: FileItem) -> Bool {
-        let textExtensions = ["txt", "md", "swift", "py", "js", "ts", "json", "xml", "html", "css", "sh", "c", "cpp", "h", "java", "go", "rs", "rb", "yml", "yaml", "toml", "ini", "cfg", "conf", "log"]
-        return textExtensions.contains(item.fileExtension)
+        Self.textFileExtensions.contains(item.fileExtension)
     }
 }
 
@@ -363,7 +369,7 @@ struct TextPreview: View {
         do {
             let data = try Data(contentsOf: url)
             if data.count > 10000 {
-                content = String(data: data.prefix(10000), encoding: .utf8) ?? "" + "\n... (truncated)"
+                content = (String(data: data.prefix(10000), encoding: .utf8) ?? "") + "\n... (truncated)"
             } else {
                 content = String(data: data, encoding: .utf8) ?? "Unable to read file"
             }

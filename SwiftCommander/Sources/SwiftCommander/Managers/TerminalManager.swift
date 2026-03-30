@@ -32,12 +32,20 @@ class TerminalManager {
         }
     }
     
+    /// Escape path for shell usage within AppleScript
+    private func escapePathForShell(_ path: String) -> String {
+        // For AppleScript embedded shell commands, we escape single quotes
+        // and wrap in single quotes. This prevents interpretation of special characters.
+        return path.replacingOccurrences(of: "'", with: "'\\''")
+    }
+    
     /// Open macOS Terminal.app at directory
     private func openMacOSTerminal(at directory: URL) {
+        let escapedPath = escapePathForShell(directory.path)
         let script = """
             tell application "Terminal"
                 activate
-                do script "cd '\(directory.path.replacingOccurrences(of: "'", with: "'\\''"))'"
+                do script "cd '\(escapedPath)'"
             end tell
             """
         
@@ -46,12 +54,13 @@ class TerminalManager {
     
     /// Open iTerm at directory
     private func openITerm(at directory: URL) {
+        let escapedPath = escapePathForShell(directory.path)
         let script = """
             tell application "iTerm"
                 activate
                 create window with default profile
                 tell current session of current window
-                    write text "cd '\(directory.path.replacingOccurrences(of: "'", with: "'\\''"))'"
+                    write text "cd '\(escapedPath)'"
                 end tell
             end tell
             """

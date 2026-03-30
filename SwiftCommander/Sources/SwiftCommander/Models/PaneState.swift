@@ -25,9 +25,9 @@ class PaneState: ObservableObject, Identifiable {
     @Published var historyBack: [URL] = []
     @Published var historyForward: [URL] = []
     
-    init(side: PaneSide, path: URL = FileManager.default.homeDirectoryForCurrentUser) {
+    init(side: PaneSide, initialPath: URL = FileManager.default.homeDirectoryForCurrentUser) {
         self.side = side
-        self.currentPath = path
+        self.currentPath = initialPath
     }
     
     /// Currently selected single item

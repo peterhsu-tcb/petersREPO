@@ -232,14 +232,18 @@ class SearchManager: ObservableObject {
     
     // MARK: - Helpers
     
+    /// File extensions recognized as binary files
+    private static let binaryFileExtensions: Set<String> = [
+        "exe", "dll", "so", "dylib", "bin", "dat", 
+        "jpg", "jpeg", "png", "gif", "bmp", "tiff",
+        "mp3", "wav", "mp4", "mov", "avi",
+        "pdf", "doc", "docx", "xls", "xlsx",
+        "zip", "tar", "gz", "rar", "7z",
+        "app", "dmg", "pkg"
+    ]
+    
     /// Basic binary file detection
     private func isBinaryFile(_ url: URL) -> Bool {
-        let binaryExtensions = ["exe", "dll", "so", "dylib", "bin", "dat", 
-                                "jpg", "jpeg", "png", "gif", "bmp", "tiff",
-                                "mp3", "wav", "mp4", "mov", "avi",
-                                "pdf", "doc", "docx", "xls", "xlsx",
-                                "zip", "tar", "gz", "rar", "7z",
-                                "app", "dmg", "pkg"]
-        return binaryExtensions.contains(url.pathExtension.lowercased())
+        Self.binaryFileExtensions.contains(url.pathExtension.lowercased())
     }
 }

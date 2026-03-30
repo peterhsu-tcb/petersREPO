@@ -164,7 +164,6 @@ struct AppearanceSettingsView: View {
     
     /// Convert color name to Color using native macOS NSColor for reliable rendering
     private func colorFromName(_ name: String) -> Color {
-        // Use NSColor (native macOS/C API) for reliable color rendering
         let nsColor: NSColor
         switch name {
         case "blue":
@@ -180,7 +179,7 @@ struct AppearanceSettingsView: View {
         case "yellow":
             nsColor = NSColor.systemYellow
         case "cyan":
-            nsColor = NSColor.systemTeal
+            nsColor = NSColor.cyan
         case "magenta":
             nsColor = NSColor(red: 1.0, green: 0.0, blue: 1.0, alpha: 1.0)
         default:

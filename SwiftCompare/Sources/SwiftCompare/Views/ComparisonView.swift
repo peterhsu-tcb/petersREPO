@@ -199,9 +199,9 @@ struct DiffPanelView: View {
         
         // If not found at same index, search in nearby lines for a changed line
         // This handles cases where placeholders are inserted between removed/added lines
+        guard pairedLines.count > 0 else { return nil }
         let searchRange = max(0, index - 3)...min(pairedLines.count - 1, index + 3)
         for nearbyIndex in searchRange {
-            guard nearbyIndex >= 0 && nearbyIndex < pairedLines.count else { continue }
             let nearbyLine = pairedLines[nearbyIndex]
             if nearbyLine.changeType != .unchanged && !nearbyLine.content.isEmpty {
                 return nearbyLine.content

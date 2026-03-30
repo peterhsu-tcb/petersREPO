@@ -347,7 +347,7 @@ struct ColumnHeaderView: View {
     @ViewBuilder
     private func sortIndicator(for orders: [SortOrder]) -> some View {
         if orders.contains(panelState.sortOrder) {
-            Image(systemName: panelState.sortOrder.rawValue.contains("Ascending") || panelState.sortOrder.rawValue.contains("A-Z") || panelState.sortOrder.rawValue.contains("Small") || panelState.sortOrder.rawValue.contains("Oldest") ? "chevron.up" : "chevron.down")
+            Image(systemName: panelState.sortOrder.isAscending ? "chevron.up" : "chevron.down")
                 .font(.caption2)
         }
     }

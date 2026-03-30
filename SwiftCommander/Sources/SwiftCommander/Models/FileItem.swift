@@ -227,6 +227,16 @@ enum SortOrder: String, CaseIterable {
     case typeAscending = "Type (A-Z)"
     case typeDescending = "Type (Z-A)"
     
+    /// Whether this sort order is ascending
+    var isAscending: Bool {
+        switch self {
+        case .nameAscending, .sizeAscending, .dateAscending, .typeAscending:
+            return true
+        case .nameDescending, .sizeDescending, .dateDescending, .typeDescending:
+            return false
+        }
+    }
+    
     /// Comparator function for sorting FileItems
     var comparator: (FileItem, FileItem) -> Bool {
         switch self {

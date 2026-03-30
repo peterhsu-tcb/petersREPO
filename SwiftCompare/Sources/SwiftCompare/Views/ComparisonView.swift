@@ -189,14 +189,26 @@ struct DiffPanelView: View {
         // Only compute character diffs for changed lines
         guard line.changeType != .unchanged else { return nil }
         
-        // Get the paired line at the same index if it exists and is also changed
-        guard index < pairedLines.count else { return nil }
-        let pairedLine = pairedLines[index]
+        // First, try to get the paired line at the same index
+        if index < pairedLines.count {
+            let pairedLine = pairedLines[index]
+            if pairedLine.changeType != .unchanged && !pairedLine.content.isEmpty {
+                return pairedLine.content
+            }
+        }
         
-        // Return paired content for character comparison
-        guard pairedLine.changeType != .unchanged && !pairedLine.content.isEmpty else { return nil }
+        // If not found at same index, search in nearby lines for a changed line
+        // This handles cases where placeholders are inserted between removed/added lines
+        let searchRange = max(0, index - 3)...min(pairedLines.count - 1, index + 3)
+        for nearbyIndex in searchRange {
+            guard nearbyIndex >= 0 && nearbyIndex < pairedLines.count else { continue }
+            let nearbyLine = pairedLines[nearbyIndex]
+            if nearbyLine.changeType != .unchanged && !nearbyLine.content.isEmpty {
+                return nearbyLine.content
+            }
+        }
         
-        return pairedLine.content
+        return nil
     }
 }
 

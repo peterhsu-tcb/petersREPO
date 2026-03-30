@@ -1,0 +1,19 @@
+{
+  "": {
+    "swift-dependencies": "/home/runner/work/petersREPO/petersREPO/SwiftCommander/.build/x86_64-unknown-linux-gnu/debug/SwiftCommanderPackageDiscoveredTests.build/master.swiftdeps"
+  },
+  "/home/runner/work/petersREPO/petersREPO/SwiftCommander/.build/x86_64-unknown-linux-gnu/debug/SwiftCommanderPackageDiscoveredTests.derived/SwiftCommanderTests.swift": {
+    "dependencies": "/home/runner/work/petersREPO/petersREPO/SwiftCommander/.build/x86_64-unknown-linux-gnu/debug/SwiftCommanderPackageDiscoveredTests.build/SwiftCommanderTests.d",
+    "object": "/home/runner/work/petersREPO/petersREPO/SwiftCommander/.build/x86_64-unknown-linux-gnu/debug/SwiftCommanderPackageDiscoveredTests.build/SwiftCommanderTests.swift.o",
+    "swiftmodule": "/home/runner/work/petersREPO/petersREPO/SwiftCommander/.build/x86_64-unknown-linux-gnu/debug/SwiftCommanderPackageDiscoveredTests.build/SwiftCommanderTests~partial.swiftmodule",
+    "swift-dependencies": "/home/runner/work/petersREPO/petersREPO/SwiftCommander/.build/x86_64-unknown-linux-gnu/debug/SwiftCommanderPackageDiscoveredTests.build/SwiftCommanderTests.swiftdeps",
+    "diagnostics": "/home/runner/work/petersREPO/petersREPO/SwiftCommander/.build/x86_64-unknown-linux-gnu/debug/SwiftCommanderPackageDiscoveredTests.build/SwiftCommanderTests.dia"
+  },
+  "/home/runner/work/petersREPO/petersREPO/SwiftCommander/.build/x86_64-unknown-linux-gnu/debug/SwiftCommanderPackageDiscoveredTests.derived/all-discovered-tests.swift": {
+    "dependencies": "/home/runner/work/petersREPO/petersREPO/SwiftCommander/.build/x86_64-unknown-linux-gnu/debug/SwiftCommanderPackageDiscoveredTests.build/all-discovered-tests.d",
+    "object": "/home/runner/work/petersREPO/petersREPO/SwiftCommander/.build/x86_64-unknown-linux-gnu/debug/SwiftCommanderPackageDiscoveredTests.build/all-discovered-tests.swift.o",
+    "swiftmodule": "/home/runner/work/petersREPO/petersREPO/SwiftCommander/.build/x86_64-unknown-linux-gnu/debug/SwiftCommanderPackageDiscoveredTests.build/all-discovered-tests~partial.swiftmodule",
+    "swift-dependencies": "/home/runner/work/petersREPO/petersREPO/SwiftCommander/.build/x86_64-unknown-linux-gnu/debug/SwiftCommanderPackageDiscoveredTests.build/all-discovered-tests.swiftdeps",
+    "diagnostics": "/home/runner/work/petersREPO/petersREPO/SwiftCommander/.build/x86_64-unknown-linux-gnu/debug/SwiftCommanderPackageDiscoveredTests.build/all-discovered-tests.dia"
+  }
+}

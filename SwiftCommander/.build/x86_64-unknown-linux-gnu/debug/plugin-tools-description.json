@@ -1,0 +1,982 @@
+{
+  "builtTestProducts" : [
+    {
+      "binaryPath" : "/home/runner/work/petersREPO/petersREPO/SwiftCommander/.build/x86_64-unknown-linux-gnu/debug/SwiftCommanderPackageTests.xctest",
+      "packagePath" : "/home/runner/work/petersREPO/petersREPO/SwiftCommander",
+      "productName" : "SwiftCommanderPackageTests"
+    }
+  ],
+  "copyCommands" : {
+
+  },
+  "explicitTargetDependencyImportCheckingMode" : {
+    "none" : {
+
+    }
+  },
+  "generatedSourceTargetSet" : [
+    "SwiftCommanderPackageDiscoveredTests"
+  ],
+  "pluginDescriptions" : [
+
+  ],
+  "swiftCommands" : {
+    "C.SwiftCommander-x86_64-unknown-linux-gnu-debug.module" : {
+      "executable" : "/usr/share/swift/usr/bin/swiftc",
+      "fileList" : "/home/runner/work/petersREPO/petersREPO/SwiftCommander/.build/x86_64-unknown-linux-gnu/debug/SwiftCommander.build/sources",
+      "importPath" : "/home/runner/work/petersREPO/petersREPO/SwiftCommander/.build/x86_64-unknown-linux-gnu/debug/Modules",
+      "inputs" : [
+        {
+          "kind" : "file",
+          "name" : "/home/runner/work/petersREPO/petersREPO/SwiftCommander/Sources/SwiftCommander/Managers/ArchiveManager.swift"
+        },
+        {
+          "kind" : "file",
+          "name" : "/home/runner/work/petersREPO/petersREPO/SwiftCommander/Sources/SwiftCommander/Managers/FileManagerService.swift"
+        },
+        {
+          "kind" : "file",
+          "name" : "/home/runner/work/petersREPO/petersREPO/SwiftCommander/Sources/SwiftCommander/Managers/SearchManager.swift"
+        },
+        {
+          "kind" : "file",
+          "name" : "/home/runner/work/petersREPO/petersREPO/SwiftCommander/Sources/SwiftCommander/Managers/TerminalManager.swift"
+        },
+        {
+          "kind" : "file",
+          "name" : "/home/runner/work/petersREPO/petersREPO/SwiftCommander/Sources/SwiftCommander/Models/FileItem.swift"
+        },
+        {
+          "kind" : "file",
+          "name" : "/home/runner/work/petersREPO/petersREPO/SwiftCommander/Sources/SwiftCommander/Models/FileOperation.swift"
+        },
+        {
+          "kind" : "file",
+          "name" : "/home/runner/work/petersREPO/petersREPO/SwiftCommander/Sources/SwiftCommander/Models/PaneState.swift"
+        },
+        {
+          "kind" : "file",
+          "name" : "/home/runner/work/petersREPO/petersREPO/SwiftCommander/Sources/SwiftCommander/SwiftCommanderApp.swift"
+        },
+        {
+          "kind" : "file",
+          "name" : "/home/runner/work/petersREPO/petersREPO/SwiftCommander/Sources/SwiftCommander/Views/ContentView.swift"
+        },
+        {
+          "kind" : "file",
+          "name" : "/home/runner/work/petersREPO/petersREPO/SwiftCommander/Sources/SwiftCommander/Views/Dialogs.swift"
+        },
+        {
+          "kind" : "file",
+          "name" : "/home/runner/work/petersREPO/petersREPO/SwiftCommander/Sources/SwiftCommander/Views/FilePaneView.swift"
+        },
+        {
+          "kind" : "file",
+          "name" : "/home/runner/work/petersREPO/petersREPO/SwiftCommander/Sources/SwiftCommander/Views/SettingsView.swift"
+        },
+        {
+          "kind" : "file",
+          "name" : "/home/runner/work/petersREPO/petersREPO/SwiftCommander/.build/x86_64-unknown-linux-gnu/debug/swift-version--1BFCD5C06E9F820A.txt"
+        },
+        {
+          "kind" : "file",
+          "name" : "/home/runner/work/petersREPO/petersREPO/SwiftCommander/.build/x86_64-unknown-linux-gnu/debug/SwiftCommander.build/sources"
+        }
+      ],
+      "isLibrary" : false,
+      "moduleName" : "SwiftCommander",
+      "moduleOutputPath" : "/home/runner/work/petersREPO/petersREPO/SwiftCommander/.build/x86_64-unknown-linux-gnu/debug/Modules/SwiftCommander.swiftmodule",
+      "objects" : [
+        "/home/runner/work/petersREPO/petersREPO/SwiftCommander/.build/x86_64-unknown-linux-gnu/debug/SwiftCommander.build/ArchiveManager.swift.o",
+        "/home/runner/work/petersREPO/petersREPO/SwiftCommander/.build/x86_64-unknown-linux-gnu/debug/SwiftCommander.build/FileManagerService.swift.o",
+        "/home/runner/work/petersREPO/petersREPO/SwiftCommander/.build/x86_64-unknown-linux-gnu/debug/SwiftCommander.build/SearchManager.swift.o",
+        "/home/runner/work/petersREPO/petersREPO/SwiftCommander/.build/x86_64-unknown-linux-gnu/debug/SwiftCommander.build/TerminalManager.swift.o",
+        "/home/runner/work/petersREPO/petersREPO/SwiftCommander/.build/x86_64-unknown-linux-gnu/debug/SwiftCommander.build/FileItem.swift.o",
+        "/home/runner/work/petersREPO/petersREPO/SwiftCommander/.build/x86_64-unknown-linux-gnu/debug/SwiftCommander.build/FileOperation.swift.o",
+        "/home/runner/work/petersREPO/petersREPO/SwiftCommander/.build/x86_64-unknown-linux-gnu/debug/SwiftCommander.build/PaneState.swift.o",
+        "/home/runner/work/petersREPO/petersREPO/SwiftCommander/.build/x86_64-unknown-linux-gnu/debug/SwiftCommander.build/SwiftCommanderApp.swift.o",
+        "/home/runner/work/petersREPO/petersREPO/SwiftCommander/.build/x86_64-unknown-linux-gnu/debug/SwiftCommander.build/ContentView.swift.o",
+        "/home/runner/work/petersREPO/petersREPO/SwiftCommander/.build/x86_64-unknown-linux-gnu/debug/SwiftCommander.build/Dialogs.swift.o",
+        "/home/runner/work/petersREPO/petersREPO/SwiftCommander/.build/x86_64-unknown-linux-gnu/debug/SwiftCommander.build/FilePaneView.swift.o",
+        "/home/runner/work/petersREPO/petersREPO/SwiftCommander/.build/x86_64-unknown-linux-gnu/debug/SwiftCommander.build/SettingsView.swift.o"
+      ],
+      "otherArguments" : [
+        "-target",
+        "x86_64-unknown-linux-gnu",
+        "-incremental",
+        "-enable-batch-mode",
+        "-serialize-diagnostics",
+        "-index-store-path",
+        "/home/runner/work/petersREPO/petersREPO/SwiftCommander/.build/x86_64-unknown-linux-gnu/debug/index/store",
+        "-Onone",
+        "-enable-testing",
+        "-j4",
+        "-DSWIFT_PACKAGE",
+        "-DDEBUG",
+        "-DSWIFT_MODULE_RESOURCE_BUNDLE_UNAVAILABLE",
+        "-module-cache-path",
+        "/home/runner/work/petersREPO/petersREPO/SwiftCommander/.build/x86_64-unknown-linux-gnu/debug/ModuleCache",
+        "-parseable-output",
+        "-Xfrontend",
+        "-entry-point-function-name",
+        "-Xfrontend",
+        "SwiftCommander_main",
+        "-swift-version",
+        "5",
+        "-g",
+        "-Xcc",
+        "-fPIC",
+        "-Xcc",
+        "-g",
+        "-package-name",
+        "swiftcommander",
+        "-Xcc",
+        "-fno-omit-frame-pointer"
+      ],
+      "outputFileMapPath" : "/home/runner/work/petersREPO/petersREPO/SwiftCommander/.build/x86_64-unknown-linux-gnu/debug/SwiftCommander.build/output-file-map.json",
+      "outputs" : [
+        {
+          "kind" : "file",
+          "name" : "/home/runner/work/petersREPO/petersREPO/SwiftCommander/.build/x86_64-unknown-linux-gnu/debug/SwiftCommander.build/ArchiveManager.swift.o"
+        },
+        {
+          "kind" : "file",
+          "name" : "/home/runner/work/petersREPO/petersREPO/SwiftCommander/.build/x86_64-unknown-linux-gnu/debug/SwiftCommander.build/FileManagerService.swift.o"
+        },
+        {
+          "kind" : "file",
+          "name" : "/home/runner/work/petersREPO/petersREPO/SwiftCommander/.build/x86_64-unknown-linux-gnu/debug/SwiftCommander.build/SearchManager.swift.o"
+        },
+        {
+          "kind" : "file",
+          "name" : "/home/runner/work/petersREPO/petersREPO/SwiftCommander/.build/x86_64-unknown-linux-gnu/debug/SwiftCommander.build/TerminalManager.swift.o"
+        },
+        {
+          "kind" : "file",
+          "name" : "/home/runner/work/petersREPO/petersREPO/SwiftCommander/.build/x86_64-unknown-linux-gnu/debug/SwiftCommander.build/FileItem.swift.o"
+        },
+        {
+          "kind" : "file",
+          "name" : "/home/runner/work/petersREPO/petersREPO/SwiftCommander/.build/x86_64-unknown-linux-gnu/debug/SwiftCommander.build/FileOperation.swift.o"
+        },
+        {
+          "kind" : "file",
+          "name" : "/home/runner/work/petersREPO/petersREPO/SwiftCommander/.build/x86_64-unknown-linux-gnu/debug/SwiftCommander.build/PaneState.swift.o"
+        },
+        {
+          "kind" : "file",
+          "name" : "/home/runner/work/petersREPO/petersREPO/SwiftCommander/.build/x86_64-unknown-linux-gnu/debug/SwiftCommander.build/SwiftCommanderApp.swift.o"
+        },
+        {
+          "kind" : "file",
+          "name" : "/home/runner/work/petersREPO/petersREPO/SwiftCommander/.build/x86_64-unknown-linux-gnu/debug/SwiftCommander.build/ContentView.swift.o"
+        },
+        {
+          "kind" : "file",
+          "name" : "/home/runner/work/petersREPO/petersREPO/SwiftCommander/.build/x86_64-unknown-linux-gnu/debug/SwiftCommander.build/Dialogs.swift.o"
+        },
+        {
+          "kind" : "file",
+          "name" : "/home/runner/work/petersREPO/petersREPO/SwiftCommander/.build/x86_64-unknown-linux-gnu/debug/SwiftCommander.build/FilePaneView.swift.o"
+        },
+        {
+          "kind" : "file",
+          "name" : "/home/runner/work/petersREPO/petersREPO/SwiftCommander/.build/x86_64-unknown-linux-gnu/debug/SwiftCommander.build/SettingsView.swift.o"
+        },
+        {
+          "kind" : "file",
+          "name" : "/home/runner/work/petersREPO/petersREPO/SwiftCommander/.build/x86_64-unknown-linux-gnu/debug/Modules/SwiftCommander.swiftmodule"
+        }
+      ],
+      "prepareForIndexing" : false,
+      "sources" : [
+        "/home/runner/work/petersREPO/petersREPO/SwiftCommander/Sources/SwiftCommander/Managers/ArchiveManager.swift",
+        "/home/runner/work/petersREPO/petersREPO/SwiftCommander/Sources/SwiftCommander/Managers/FileManagerService.swift",
+        "/home/runner/work/petersREPO/petersREPO/SwiftCommander/Sources/SwiftCommander/Managers/SearchManager.swift",
+        "/home/runner/work/petersREPO/petersREPO/SwiftCommander/Sources/SwiftCommander/Managers/TerminalManager.swift",
+        "/home/runner/work/petersREPO/petersREPO/SwiftCommander/Sources/SwiftCommander/Models/FileItem.swift",
+        "/home/runner/work/petersREPO/petersREPO/SwiftCommander/Sources/SwiftCommander/Models/FileOperation.swift",
+        "/home/runner/work/petersREPO/petersREPO/SwiftCommander/Sources/SwiftCommander/Models/PaneState.swift",
+        "/home/runner/work/petersREPO/petersREPO/SwiftCommander/Sources/SwiftCommander/SwiftCommanderApp.swift",
+        "/home/runner/work/petersREPO/petersREPO/SwiftCommander/Sources/SwiftCommander/Views/ContentView.swift",
+        "/home/runner/work/petersREPO/petersREPO/SwiftCommander/Sources/SwiftCommander/Views/Dialogs.swift",
+        "/home/runner/work/petersREPO/petersREPO/SwiftCommander/Sources/SwiftCommander/Views/FilePaneView.swift",
+        "/home/runner/work/petersREPO/petersREPO/SwiftCommander/Sources/SwiftCommander/Views/SettingsView.swift"
+      ],
+      "tempsPath" : "/home/runner/work/petersREPO/petersREPO/SwiftCommander/.build/x86_64-unknown-linux-gnu/debug/SwiftCommander.build",
+      "wholeModuleOptimization" : false
+    },
+    "C.SwiftCommanderPackageDiscoveredTests-x86_64-unknown-linux-gnu-debug.module" : {
+      "executable" : "/usr/share/swift/usr/bin/swiftc",
+      "fileList" : "/home/runner/work/petersREPO/petersREPO/SwiftCommander/.build/x86_64-unknown-linux-gnu/debug/SwiftCommanderPackageDiscoveredTests.build/sources",
+      "importPath" : "/home/runner/work/petersREPO/petersREPO/SwiftCommander/.build/x86_64-unknown-linux-gnu/debug/Modules",
+      "inputs" : [
+        {
+          "kind" : "file",
+          "name" : "/home/runner/work/petersREPO/petersREPO/SwiftCommander/.build/x86_64-unknown-linux-gnu/debug/SwiftCommanderPackageDiscoveredTests.derived/SwiftCommanderTests.swift"
+        },
+        {
+          "kind" : "file",
+          "name" : "/home/runner/work/petersREPO/petersREPO/SwiftCommander/.build/x86_64-unknown-linux-gnu/debug/SwiftCommanderPackageDiscoveredTests.derived/all-discovered-tests.swift"
+        },
+        {
+          "kind" : "file",
+          "name" : "/home/runner/work/petersREPO/petersREPO/SwiftCommander/.build/x86_64-unknown-linux-gnu/debug/swift-version--1BFCD5C06E9F820A.txt"
+        },
+        {
+          "kind" : "file",
+          "name" : "/home/runner/work/petersREPO/petersREPO/SwiftCommander/.build/x86_64-unknown-linux-gnu/debug/Modules/SwiftCommanderTests.swiftmodule"
+        },
+        {
+          "kind" : "file",
+          "name" : "/home/runner/work/petersREPO/petersREPO/SwiftCommander/.build/x86_64-unknown-linux-gnu/debug/SwiftCommanderPackageDiscoveredTests.build/sources"
+        }
+      ],
+      "isLibrary" : true,
+      "moduleName" : "SwiftCommanderPackageDiscoveredTests",
+      "moduleOutputPath" : "/home/runner/work/petersREPO/petersREPO/SwiftCommander/.build/x86_64-unknown-linux-gnu/debug/Modules/SwiftCommanderPackageDiscoveredTests.swiftmodule",
+      "objects" : [
+        "/home/runner/work/petersREPO/petersREPO/SwiftCommander/.build/x86_64-unknown-linux-gnu/debug/SwiftCommanderPackageDiscoveredTests.build/SwiftCommanderTests.swift.o",
+        "/home/runner/work/petersREPO/petersREPO/SwiftCommander/.build/x86_64-unknown-linux-gnu/debug/SwiftCommanderPackageDiscoveredTests.build/all-discovered-tests.swift.o"
+      ],
+      "otherArguments" : [
+        "-target",
+        "x86_64-unknown-linux-gnu",
+        "-incremental",
+        "-enable-batch-mode",
+        "-serialize-diagnostics",
+        "-index-store-path",
+        "/home/runner/work/petersREPO/petersREPO/SwiftCommander/.build/x86_64-unknown-linux-gnu/debug/index/store",
+        "-Onone",
+        "-enable-testing",
+        "-Xfrontend",
+        "-enable-cross-import-overlays",
+        "-j4",
+        "-DSWIFT_PACKAGE",
+        "-DDEBUG",
+        "-DSWIFT_MODULE_RESOURCE_BUNDLE_UNAVAILABLE",
+        "-module-cache-path",
+        "/home/runner/work/petersREPO/petersREPO/SwiftCommander/.build/x86_64-unknown-linux-gnu/debug/ModuleCache",
+        "-parseable-output",
+        "-parse-as-library",
+        "-emit-objc-header",
+        "-emit-objc-header-path",
+        "/home/runner/work/petersREPO/petersREPO/SwiftCommander/.build/x86_64-unknown-linux-gnu/debug/SwiftCommanderPackageDiscoveredTests.build/include/SwiftCommanderPackageDiscoveredTests-Swift.h",
+        "-g",
+        "-Xcc",
+        "-fPIC",
+        "-Xcc",
+        "-g",
+        "-package-name",
+        "swiftcommander",
+        "-Xcc",
+        "-fno-omit-frame-pointer"
+      ],
+      "outputFileMapPath" : "/home/runner/work/petersREPO/petersREPO/SwiftCommander/.build/x86_64-unknown-linux-gnu/debug/SwiftCommanderPackageDiscoveredTests.build/output-file-map.json",
+      "outputs" : [
+        {
+          "kind" : "file",
+          "name" : "/home/runner/work/petersREPO/petersREPO/SwiftCommander/.build/x86_64-unknown-linux-gnu/debug/SwiftCommanderPackageDiscoveredTests.build/SwiftCommanderTests.swift.o"
+        },
+        {
+          "kind" : "file",
+          "name" : "/home/runner/work/petersREPO/petersREPO/SwiftCommander/.build/x86_64-unknown-linux-gnu/debug/SwiftCommanderPackageDiscoveredTests.build/all-discovered-tests.swift.o"
+        },
+        {
+          "kind" : "file",
+          "name" : "/home/runner/work/petersREPO/petersREPO/SwiftCommander/.build/x86_64-unknown-linux-gnu/debug/Modules/SwiftCommanderPackageDiscoveredTests.swiftmodule"
+        }
+      ],
+      "prepareForIndexing" : false,
+      "sources" : [
+        "/home/runner/work/petersREPO/petersREPO/SwiftCommander/.build/x86_64-unknown-linux-gnu/debug/SwiftCommanderPackageDiscoveredTests.derived/SwiftCommanderTests.swift",
+        "/home/runner/work/petersREPO/petersREPO/SwiftCommander/.build/x86_64-unknown-linux-gnu/debug/SwiftCommanderPackageDiscoveredTests.derived/all-discovered-tests.swift"
+      ],
+      "tempsPath" : "/home/runner/work/petersREPO/petersREPO/SwiftCommander/.build/x86_64-unknown-linux-gnu/debug/SwiftCommanderPackageDiscoveredTests.build",
+      "wholeModuleOptimization" : false
+    },
+    "C.SwiftCommanderPackageTests-x86_64-unknown-linux-gnu-debug.module" : {
+      "executable" : "/usr/share/swift/usr/bin/swiftc",
+      "fileList" : "/home/runner/work/petersREPO/petersREPO/SwiftCommander/.build/x86_64-unknown-linux-gnu/debug/SwiftCommanderPackageTests.build/sources",
+      "importPath" : "/home/runner/work/petersREPO/petersREPO/SwiftCommander/.build/x86_64-unknown-linux-gnu/debug/Modules",
+      "inputs" : [
+        {
+          "kind" : "file",
+          "name" : "/home/runner/work/petersREPO/petersREPO/SwiftCommander/.build/x86_64-unknown-linux-gnu/debug/SwiftCommanderPackageTests.derived/runner.swift"
+        },
+        {
+          "kind" : "file",
+          "name" : "/home/runner/work/petersREPO/petersREPO/SwiftCommander/.build/x86_64-unknown-linux-gnu/debug/swift-version--1BFCD5C06E9F820A.txt"
+        },
+        {
+          "kind" : "file",
+          "name" : "/home/runner/work/petersREPO/petersREPO/SwiftCommander/.build/x86_64-unknown-linux-gnu/debug/Modules/SwiftCommanderTests.swiftmodule"
+        },
+        {
+          "kind" : "file",
+          "name" : "/home/runner/work/petersREPO/petersREPO/SwiftCommander/.build/x86_64-unknown-linux-gnu/debug/Modules/SwiftCommanderPackageDiscoveredTests.swiftmodule"
+        },
+        {
+          "kind" : "file",
+          "name" : "/home/runner/work/petersREPO/petersREPO/SwiftCommander/.build/x86_64-unknown-linux-gnu/debug/SwiftCommanderPackageTests.build/sources"
+        }
+      ],
+      "isLibrary" : true,
+      "moduleName" : "SwiftCommanderPackageTests",
+      "moduleOutputPath" : "/home/runner/work/petersREPO/petersREPO/SwiftCommander/.build/x86_64-unknown-linux-gnu/debug/Modules/SwiftCommanderPackageTests.swiftmodule",
+      "objects" : [
+        "/home/runner/work/petersREPO/petersREPO/SwiftCommander/.build/x86_64-unknown-linux-gnu/debug/SwiftCommanderPackageTests.build/runner.swift.o"
+      ],
+      "otherArguments" : [
+        "-target",
+        "x86_64-unknown-linux-gnu",
+        "-incremental",
+        "-enable-batch-mode",
+        "-serialize-diagnostics",
+        "-index-store-path",
+        "/home/runner/work/petersREPO/petersREPO/SwiftCommander/.build/x86_64-unknown-linux-gnu/debug/index/store",
+        "-Onone",
+        "-enable-testing",
+        "-Xfrontend",
+        "-enable-cross-import-overlays",
+        "-j4",
+        "-DSWIFT_PACKAGE",
+        "-DDEBUG",
+        "-DSWIFT_MODULE_RESOURCE_BUNDLE_UNAVAILABLE",
+        "-module-cache-path",
+        "/home/runner/work/petersREPO/petersREPO/SwiftCommander/.build/x86_64-unknown-linux-gnu/debug/ModuleCache",
+        "-parseable-output",
+        "-parse-as-library",
+        "-emit-objc-header",
+        "-emit-objc-header-path",
+        "/home/runner/work/petersREPO/petersREPO/SwiftCommander/.build/x86_64-unknown-linux-gnu/debug/SwiftCommanderPackageTests.build/include/SwiftCommanderPackageTests-Swift.h",
+        "-g",
+        "-Xcc",
+        "-fPIC",
+        "-Xcc",
+        "-g",
+        "-package-name",
+        "swiftcommander",
+        "-Xcc",
+        "-fno-omit-frame-pointer"
+      ],
+      "outputFileMapPath" : "/home/runner/work/petersREPO/petersREPO/SwiftCommander/.build/x86_64-unknown-linux-gnu/debug/SwiftCommanderPackageTests.build/output-file-map.json",
+      "outputs" : [
+        {
+          "kind" : "file",
+          "name" : "/home/runner/work/petersREPO/petersREPO/SwiftCommander/.build/x86_64-unknown-linux-gnu/debug/SwiftCommanderPackageTests.build/runner.swift.o"
+        },
+        {
+          "kind" : "file",
+          "name" : "/home/runner/work/petersREPO/petersREPO/SwiftCommander/.build/x86_64-unknown-linux-gnu/debug/Modules/SwiftCommanderPackageTests.swiftmodule"
+        }
+      ],
+      "prepareForIndexing" : false,
+      "sources" : [
+        "/home/runner/work/petersREPO/petersREPO/SwiftCommander/.build/x86_64-unknown-linux-gnu/debug/SwiftCommanderPackageTests.derived/runner.swift"
+      ],
+      "tempsPath" : "/home/runner/work/petersREPO/petersREPO/SwiftCommander/.build/x86_64-unknown-linux-gnu/debug/SwiftCommanderPackageTests.build",
+      "wholeModuleOptimization" : false
+    },
+    "C.SwiftCommanderTests-x86_64-unknown-linux-gnu-debug.module" : {
+      "executable" : "/usr/share/swift/usr/bin/swiftc",
+      "fileList" : "/home/runner/work/petersREPO/petersREPO/SwiftCommander/.build/x86_64-unknown-linux-gnu/debug/SwiftCommanderTests.build/sources",
+      "importPath" : "/home/runner/work/petersREPO/petersREPO/SwiftCommander/.build/x86_64-unknown-linux-gnu/debug/Modules",
+      "inputs" : [
+        {
+          "kind" : "file",
+          "name" : "/home/runner/work/petersREPO/petersREPO/SwiftCommander/Tests/SwiftCommanderTests/SwiftCommanderTests.swift"
+        },
+        {
+          "kind" : "file",
+          "name" : "/home/runner/work/petersREPO/petersREPO/SwiftCommander/.build/x86_64-unknown-linux-gnu/debug/swift-version--1BFCD5C06E9F820A.txt"
+        },
+        {
+          "kind" : "file",
+          "name" : "/home/runner/work/petersREPO/petersREPO/SwiftCommander/.build/x86_64-unknown-linux-gnu/debug/SwiftCommander"
+        },
+        {
+          "kind" : "file",
+          "name" : "/home/runner/work/petersREPO/petersREPO/SwiftCommander/.build/x86_64-unknown-linux-gnu/debug/SwiftCommanderTests.build/sources"
+        }
+      ],
+      "isLibrary" : true,
+      "moduleName" : "SwiftCommanderTests",
+      "moduleOutputPath" : "/home/runner/work/petersREPO/petersREPO/SwiftCommander/.build/x86_64-unknown-linux-gnu/debug/Modules/SwiftCommanderTests.swiftmodule",
+      "objects" : [
+        "/home/runner/work/petersREPO/petersREPO/SwiftCommander/.build/x86_64-unknown-linux-gnu/debug/SwiftCommanderTests.build/SwiftCommanderTests.swift.o"
+      ],
+      "otherArguments" : [
+        "-target",
+        "x86_64-unknown-linux-gnu",
+        "-incremental",
+        "-enable-batch-mode",
+        "-serialize-diagnostics",
+        "-index-store-path",
+        "/home/runner/work/petersREPO/petersREPO/SwiftCommander/.build/x86_64-unknown-linux-gnu/debug/index/store",
+        "-Onone",
+        "-enable-testing",
+        "-Xfrontend",
+        "-enable-cross-import-overlays",
+        "-j4",
+        "-DSWIFT_PACKAGE",
+        "-DDEBUG",
+        "-DSWIFT_MODULE_RESOURCE_BUNDLE_UNAVAILABLE",
+        "-module-cache-path",
+        "/home/runner/work/petersREPO/petersREPO/SwiftCommander/.build/x86_64-unknown-linux-gnu/debug/ModuleCache",
+        "-parseable-output",
+        "-parse-as-library",
+        "-swift-version",
+        "5",
+        "-g",
+        "-Xcc",
+        "-fPIC",
+        "-Xcc",
+        "-g",
+        "-package-name",
+        "swiftcommander",
+        "-Xcc",
+        "-fno-omit-frame-pointer"
+      ],
+      "outputFileMapPath" : "/home/runner/work/petersREPO/petersREPO/SwiftCommander/.build/x86_64-unknown-linux-gnu/debug/SwiftCommanderTests.build/output-file-map.json",
+      "outputs" : [
+        {
+          "kind" : "file",
+          "name" : "/home/runner/work/petersREPO/petersREPO/SwiftCommander/.build/x86_64-unknown-linux-gnu/debug/SwiftCommanderTests.build/SwiftCommanderTests.swift.o"
+        },
+        {
+          "kind" : "file",
+          "name" : "/home/runner/work/petersREPO/petersREPO/SwiftCommander/.build/x86_64-unknown-linux-gnu/debug/Modules/SwiftCommanderTests.swiftmodule"
+        }
+      ],
+      "prepareForIndexing" : false,
+      "sources" : [
+        "/home/runner/work/petersREPO/petersREPO/SwiftCommander/Tests/SwiftCommanderTests/SwiftCommanderTests.swift"
+      ],
+      "tempsPath" : "/home/runner/work/petersREPO/petersREPO/SwiftCommander/.build/x86_64-unknown-linux-gnu/debug/SwiftCommanderTests.build",
+      "wholeModuleOptimization" : false
+    }
+  },
+  "swiftFrontendCommands" : {
+
+  },
+  "swiftTargetScanArgs" : {
+    "SwiftCommander" : [
+      "/usr/share/swift/usr/bin/swiftc",
+      "-module-name",
+      "SwiftCommander",
+      "-package-name",
+      "swiftcommander",
+      "-c",
+      "/home/runner/work/petersREPO/petersREPO/SwiftCommander/Sources/SwiftCommander/Managers/ArchiveManager.swift",
+      "/home/runner/work/petersREPO/petersREPO/SwiftCommander/Sources/SwiftCommander/Managers/FileManagerService.swift",
+      "/home/runner/work/petersREPO/petersREPO/SwiftCommander/Sources/SwiftCommander/Managers/SearchManager.swift",
+      "/home/runner/work/petersREPO/petersREPO/SwiftCommander/Sources/SwiftCommander/Managers/TerminalManager.swift",
+      "/home/runner/work/petersREPO/petersREPO/SwiftCommander/Sources/SwiftCommander/Models/FileItem.swift",
+      "/home/runner/work/petersREPO/petersREPO/SwiftCommander/Sources/SwiftCommander/Models/FileOperation.swift",
+      "/home/runner/work/petersREPO/petersREPO/SwiftCommander/Sources/SwiftCommander/Models/PaneState.swift",
+      "/home/runner/work/petersREPO/petersREPO/SwiftCommander/Sources/SwiftCommander/SwiftCommanderApp.swift",
+      "/home/runner/work/petersREPO/petersREPO/SwiftCommander/Sources/SwiftCommander/Views/ContentView.swift",
+      "/home/runner/work/petersREPO/petersREPO/SwiftCommander/Sources/SwiftCommander/Views/Dialogs.swift",
+      "/home/runner/work/petersREPO/petersREPO/SwiftCommander/Sources/SwiftCommander/Views/FilePaneView.swift",
+      "/home/runner/work/petersREPO/petersREPO/SwiftCommander/Sources/SwiftCommander/Views/SettingsView.swift",
+      "-I",
+      "/home/runner/work/petersREPO/petersREPO/SwiftCommander/.build/x86_64-unknown-linux-gnu/debug/Modules",
+      "-target",
+      "x86_64-unknown-linux-gnu",
+      "-incremental",
+      "-enable-batch-mode",
+      "-serialize-diagnostics",
+      "-index-store-path",
+      "/home/runner/work/petersREPO/petersREPO/SwiftCommander/.build/x86_64-unknown-linux-gnu/debug/index/store",
+      "-Onone",
+      "-enable-testing",
+      "-j4",
+      "-DSWIFT_PACKAGE",
+      "-DDEBUG",
+      "-DSWIFT_MODULE_RESOURCE_BUNDLE_UNAVAILABLE",
+      "-module-cache-path",
+      "/home/runner/work/petersREPO/petersREPO/SwiftCommander/.build/x86_64-unknown-linux-gnu/debug/ModuleCache",
+      "-parseable-output",
+      "-Xfrontend",
+      "-entry-point-function-name",
+      "-Xfrontend",
+      "SwiftCommander_main",
+      "-swift-version",
+      "5",
+      "-g",
+      "-Xcc",
+      "-fPIC",
+      "-Xcc",
+      "-g",
+      "-package-name",
+      "swiftcommander",
+      "-Xcc",
+      "-fno-omit-frame-pointer",
+      "-driver-use-frontend-path",
+      "/usr/share/swift/usr/bin/swiftc"
+    ],
+    "SwiftCommanderPackageDiscoveredTests" : [
+      "/usr/share/swift/usr/bin/swiftc",
+      "-module-name",
+      "SwiftCommanderPackageDiscoveredTests",
+      "-package-name",
+      "swiftcommander",
+      "-c",
+      "/home/runner/work/petersREPO/petersREPO/SwiftCommander/.build/x86_64-unknown-linux-gnu/debug/SwiftCommanderPackageDiscoveredTests.derived/SwiftCommanderTests.swift",
+      "/home/runner/work/petersREPO/petersREPO/SwiftCommander/.build/x86_64-unknown-linux-gnu/debug/SwiftCommanderPackageDiscoveredTests.derived/all-discovered-tests.swift",
+      "-I",
+      "/home/runner/work/petersREPO/petersREPO/SwiftCommander/.build/x86_64-unknown-linux-gnu/debug/Modules",
+      "-target",
+      "x86_64-unknown-linux-gnu",
+      "-incremental",
+      "-enable-batch-mode",
+      "-serialize-diagnostics",
+      "-index-store-path",
+      "/home/runner/work/petersREPO/petersREPO/SwiftCommander/.build/x86_64-unknown-linux-gnu/debug/index/store",
+      "-Onone",
+      "-enable-testing",
+      "-Xfrontend",
+      "-enable-cross-import-overlays",
+      "-j4",
+      "-DSWIFT_PACKAGE",
+      "-DDEBUG",
+      "-DSWIFT_MODULE_RESOURCE_BUNDLE_UNAVAILABLE",
+      "-module-cache-path",
+      "/home/runner/work/petersREPO/petersREPO/SwiftCommander/.build/x86_64-unknown-linux-gnu/debug/ModuleCache",
+      "-parseable-output",
+      "-parse-as-library",
+      "-emit-objc-header",
+      "-emit-objc-header-path",
+      "/home/runner/work/petersREPO/petersREPO/SwiftCommander/.build/x86_64-unknown-linux-gnu/debug/SwiftCommanderPackageDiscoveredTests.build/include/SwiftCommanderPackageDiscoveredTests-Swift.h",
+      "-g",
+      "-Xcc",
+      "-fPIC",
+      "-Xcc",
+      "-g",
+      "-package-name",
+      "swiftcommander",
+      "-Xcc",
+      "-fno-omit-frame-pointer",
+      "-driver-use-frontend-path",
+      "/usr/share/swift/usr/bin/swiftc"
+    ],
+    "SwiftCommanderPackageTests" : [
+      "/usr/share/swift/usr/bin/swiftc",
+      "-module-name",
+      "SwiftCommanderPackageTests",
+      "-package-name",
+      "swiftcommander",
+      "-c",
+      "/home/runner/work/petersREPO/petersREPO/SwiftCommander/.build/x86_64-unknown-linux-gnu/debug/SwiftCommanderPackageTests.derived/runner.swift",
+      "-I",
+      "/home/runner/work/petersREPO/petersREPO/SwiftCommander/.build/x86_64-unknown-linux-gnu/debug/Modules",
+      "-target",
+      "x86_64-unknown-linux-gnu",
+      "-incremental",
+      "-enable-batch-mode",
+      "-serialize-diagnostics",
+      "-index-store-path",
+      "/home/runner/work/petersREPO/petersREPO/SwiftCommander/.build/x86_64-unknown-linux-gnu/debug/index/store",
+      "-Onone",
+      "-enable-testing",
+      "-Xfrontend",
+      "-enable-cross-import-overlays",
+      "-j4",
+      "-DSWIFT_PACKAGE",
+      "-DDEBUG",
+      "-DSWIFT_MODULE_RESOURCE_BUNDLE_UNAVAILABLE",
+      "-module-cache-path",
+      "/home/runner/work/petersREPO/petersREPO/SwiftCommander/.build/x86_64-unknown-linux-gnu/debug/ModuleCache",
+      "-parseable-output",
+      "-parse-as-library",
+      "-emit-objc-header",
+      "-emit-objc-header-path",
+      "/home/runner/work/petersREPO/petersREPO/SwiftCommander/.build/x86_64-unknown-linux-gnu/debug/SwiftCommanderPackageTests.build/include/SwiftCommanderPackageTests-Swift.h",
+      "-g",
+      "-Xcc",
+      "-fPIC",
+      "-Xcc",
+      "-g",
+      "-package-name",
+      "swiftcommander",
+      "-Xcc",
+      "-fno-omit-frame-pointer",
+      "-driver-use-frontend-path",
+      "/usr/share/swift/usr/bin/swiftc"
+    ],
+    "SwiftCommanderTests" : [
+      "/usr/share/swift/usr/bin/swiftc",
+      "-module-name",
+      "SwiftCommanderTests",
+      "-package-name",
+      "swiftcommander",
+      "-c",
+      "/home/runner/work/petersREPO/petersREPO/SwiftCommander/Tests/SwiftCommanderTests/SwiftCommanderTests.swift",
+      "-I",
+      "/home/runner/work/petersREPO/petersREPO/SwiftCommander/.build/x86_64-unknown-linux-gnu/debug/Modules",
+      "-target",
+      "x86_64-unknown-linux-gnu",
+      "-incremental",
+      "-enable-batch-mode",
+      "-serialize-diagnostics",
+      "-index-store-path",
+      "/home/runner/work/petersREPO/petersREPO/SwiftCommander/.build/x86_64-unknown-linux-gnu/debug/index/store",
+      "-Onone",
+      "-enable-testing",
+      "-Xfrontend",
+      "-enable-cross-import-overlays",
+      "-j4",
+      "-DSWIFT_PACKAGE",
+      "-DDEBUG",
+      "-DSWIFT_MODULE_RESOURCE_BUNDLE_UNAVAILABLE",
+      "-module-cache-path",
+      "/home/runner/work/petersREPO/petersREPO/SwiftCommander/.build/x86_64-unknown-linux-gnu/debug/ModuleCache",
+      "-parseable-output",
+      "-parse-as-library",
+      "-swift-version",
+      "5",
+      "-g",
+      "-Xcc",
+      "-fPIC",
+      "-Xcc",
+      "-g",
+      "-package-name",
+      "swiftcommander",
+      "-Xcc",
+      "-fno-omit-frame-pointer",
+      "-driver-use-frontend-path",
+      "/usr/share/swift/usr/bin/swiftc"
+    ]
+  },
+  "targetDependencyMap" : {
+    "SwiftCommander" : [
+
+    ],
+    "SwiftCommanderPackageDiscoveredTests" : [
+      "SwiftCommanderTests",
+      "SwiftCommander"
+    ],
+    "SwiftCommanderPackageTests" : [
+      "SwiftCommanderPackageDiscoveredTests",
+      "SwiftCommanderTests",
+      "SwiftCommander"
+    ],
+    "SwiftCommanderTests" : [
+      "SwiftCommander"
+    ]
+  },
+  "testDiscoveryCommands" : {
+    "/home/runner/work/petersREPO/petersREPO/SwiftCommander/.build/x86_64-unknown-linux-gnu/debug/SwiftCommanderPackageDiscoveredTests.derived/all-discovered-tests.swift" : {
+      "inputs" : [
+        {
+          "kind" : "file",
+          "name" : "/home/runner/work/petersREPO/petersREPO/SwiftCommander/.build/x86_64-unknown-linux-gnu/debug/SwiftCommanderTests.build/SwiftCommanderTests.swift.o"
+        }
+      ],
+      "outputs" : [
+        {
+          "kind" : "file",
+          "name" : "/home/runner/work/petersREPO/petersREPO/SwiftCommander/.build/x86_64-unknown-linux-gnu/debug/SwiftCommanderPackageDiscoveredTests.derived/SwiftCommanderTests.swift"
+        },
+        {
+          "kind" : "file",
+          "name" : "/home/runner/work/petersREPO/petersREPO/SwiftCommander/.build/x86_64-unknown-linux-gnu/debug/SwiftCommanderPackageDiscoveredTests.derived/all-discovered-tests.swift"
+        }
+      ]
+    }
+  },
+  "testEntryPointCommands" : {
+    "/home/runner/work/petersREPO/petersREPO/SwiftCommander/.build/x86_64-unknown-linux-gnu/debug/SwiftCommanderPackageTests.derived/runner.swift" : {
+      "inputs" : [
+        {
+          "kind" : "file",
+          "name" : "/home/runner/work/petersREPO/petersREPO/SwiftCommander/.build/x86_64-unknown-linux-gnu/debug/Modules/SwiftCommanderPackageDiscoveredTests.swiftmodule"
+        }
+      ],
+      "outputs" : [
+        {
+          "kind" : "file",
+          "name" : "/home/runner/work/petersREPO/petersREPO/SwiftCommander/.build/x86_64-unknown-linux-gnu/debug/SwiftCommanderPackageTests.derived/runner.swift"
+        }
+      ]
+    }
+  },
+  "traitConfiguration" : {
+    "default" : {
+
+    }
+  },
+  "writeCommands" : {
+    "/home/runner/work/petersREPO/petersREPO/SwiftCommander/.build/x86_64-unknown-linux-gnu/debug/SwiftCommander.build/sources" : {
+      "alwaysOutOfDate" : false,
+      "inputs" : [
+        {
+          "kind" : "virtual",
+          "name" : "<sources-file-list>"
+        },
+        {
+          "kind" : "file",
+          "name" : "/home/runner/work/petersREPO/petersREPO/SwiftCommander/Sources/SwiftCommander/Managers/ArchiveManager.swift"
+        },
+        {
+          "kind" : "file",
+          "name" : "/home/runner/work/petersREPO/petersREPO/SwiftCommander/Sources/SwiftCommander/Managers/FileManagerService.swift"
+        },
+        {
+          "kind" : "file",
+          "name" : "/home/runner/work/petersREPO/petersREPO/SwiftCommander/Sources/SwiftCommander/Managers/SearchManager.swift"
+        },
+        {
+          "kind" : "file",
+          "name" : "/home/runner/work/petersREPO/petersREPO/SwiftCommander/Sources/SwiftCommander/Managers/TerminalManager.swift"
+        },
+        {
+          "kind" : "file",
+          "name" : "/home/runner/work/petersREPO/petersREPO/SwiftCommander/Sources/SwiftCommander/Models/FileItem.swift"
+        },
+        {
+          "kind" : "file",
+          "name" : "/home/runner/work/petersREPO/petersREPO/SwiftCommander/Sources/SwiftCommander/Models/FileOperation.swift"
+        },
+        {
+          "kind" : "file",
+          "name" : "/home/runner/work/petersREPO/petersREPO/SwiftCommander/Sources/SwiftCommander/Models/PaneState.swift"
+        },
+        {
+          "kind" : "file",
+          "name" : "/home/runner/work/petersREPO/petersREPO/SwiftCommander/Sources/SwiftCommander/SwiftCommanderApp.swift"
+        },
+        {
+          "kind" : "file",
+          "name" : "/home/runner/work/petersREPO/petersREPO/SwiftCommander/Sources/SwiftCommander/Views/ContentView.swift"
+        },
+        {
+          "kind" : "file",
+          "name" : "/home/runner/work/petersREPO/petersREPO/SwiftCommander/Sources/SwiftCommander/Views/Dialogs.swift"
+        },
+        {
+          "kind" : "file",
+          "name" : "/home/runner/work/petersREPO/petersREPO/SwiftCommander/Sources/SwiftCommander/Views/FilePaneView.swift"
+        },
+        {
+          "kind" : "file",
+          "name" : "/home/runner/work/petersREPO/petersREPO/SwiftCommander/Sources/SwiftCommander/Views/SettingsView.swift"
+        }
+      ],
+      "outputFilePath" : "/home/runner/work/petersREPO/petersREPO/SwiftCommander/.build/x86_64-unknown-linux-gnu/debug/SwiftCommander.build/sources"
+    },
+    "/home/runner/work/petersREPO/petersREPO/SwiftCommander/.build/x86_64-unknown-linux-gnu/debug/SwiftCommander.product/Objects.LinkFileList" : {
+      "alwaysOutOfDate" : false,
+      "inputs" : [
+        {
+          "kind" : "virtual",
+          "name" : "<link-file-list>"
+        },
+        {
+          "kind" : "file",
+          "name" : "/home/runner/work/petersREPO/petersREPO/SwiftCommander/.build/x86_64-unknown-linux-gnu/debug/SwiftCommander.build/ArchiveManager.swift.o"
+        },
+        {
+          "kind" : "file",
+          "name" : "/home/runner/work/petersREPO/petersREPO/SwiftCommander/.build/x86_64-unknown-linux-gnu/debug/SwiftCommander.build/ContentView.swift.o"
+        },
+        {
+          "kind" : "file",
+          "name" : "/home/runner/work/petersREPO/petersREPO/SwiftCommander/.build/x86_64-unknown-linux-gnu/debug/SwiftCommander.build/Dialogs.swift.o"
+        },
+        {
+          "kind" : "file",
+          "name" : "/home/runner/work/petersREPO/petersREPO/SwiftCommander/.build/x86_64-unknown-linux-gnu/debug/SwiftCommander.build/FileItem.swift.o"
+        },
+        {
+          "kind" : "file",
+          "name" : "/home/runner/work/petersREPO/petersREPO/SwiftCommander/.build/x86_64-unknown-linux-gnu/debug/SwiftCommander.build/FileManagerService.swift.o"
+        },
+        {
+          "kind" : "file",
+          "name" : "/home/runner/work/petersREPO/petersREPO/SwiftCommander/.build/x86_64-unknown-linux-gnu/debug/SwiftCommander.build/FileOperation.swift.o"
+        },
+        {
+          "kind" : "file",
+          "name" : "/home/runner/work/petersREPO/petersREPO/SwiftCommander/.build/x86_64-unknown-linux-gnu/debug/SwiftCommander.build/FilePaneView.swift.o"
+        },
+        {
+          "kind" : "file",
+          "name" : "/home/runner/work/petersREPO/petersREPO/SwiftCommander/.build/x86_64-unknown-linux-gnu/debug/SwiftCommander.build/PaneState.swift.o"
+        },
+        {
+          "kind" : "file",
+          "name" : "/home/runner/work/petersREPO/petersREPO/SwiftCommander/.build/x86_64-unknown-linux-gnu/debug/SwiftCommander.build/SearchManager.swift.o"
+        },
+        {
+          "kind" : "file",
+          "name" : "/home/runner/work/petersREPO/petersREPO/SwiftCommander/.build/x86_64-unknown-linux-gnu/debug/SwiftCommander.build/SettingsView.swift.o"
+        },
+        {
+          "kind" : "file",
+          "name" : "/home/runner/work/petersREPO/petersREPO/SwiftCommander/.build/x86_64-unknown-linux-gnu/debug/SwiftCommander.build/SwiftCommander.swiftmodule.o"
+        },
+        {
+          "kind" : "file",
+          "name" : "/home/runner/work/petersREPO/petersREPO/SwiftCommander/.build/x86_64-unknown-linux-gnu/debug/SwiftCommander.build/SwiftCommanderApp.swift.o"
+        },
+        {
+          "kind" : "file",
+          "name" : "/home/runner/work/petersREPO/petersREPO/SwiftCommander/.build/x86_64-unknown-linux-gnu/debug/SwiftCommander.build/TerminalManager.swift.o"
+        }
+      ],
+      "outputFilePath" : "/home/runner/work/petersREPO/petersREPO/SwiftCommander/.build/x86_64-unknown-linux-gnu/debug/SwiftCommander.product/Objects.LinkFileList"
+    },
+    "/home/runner/work/petersREPO/petersREPO/SwiftCommander/.build/x86_64-unknown-linux-gnu/debug/SwiftCommanderPackageDiscoveredTests.build/sources" : {
+      "alwaysOutOfDate" : false,
+      "inputs" : [
+        {
+          "kind" : "virtual",
+          "name" : "<sources-file-list>"
+        },
+        {
+          "kind" : "file",
+          "name" : "/home/runner/work/petersREPO/petersREPO/SwiftCommander/.build/x86_64-unknown-linux-gnu/debug/SwiftCommanderPackageDiscoveredTests.derived/SwiftCommanderTests.swift"
+        },
+        {
+          "kind" : "file",
+          "name" : "/home/runner/work/petersREPO/petersREPO/SwiftCommander/.build/x86_64-unknown-linux-gnu/debug/SwiftCommanderPackageDiscoveredTests.derived/all-discovered-tests.swift"
+        }
+      ],
+      "outputFilePath" : "/home/runner/work/petersREPO/petersREPO/SwiftCommander/.build/x86_64-unknown-linux-gnu/debug/SwiftCommanderPackageDiscoveredTests.build/sources"
+    },
+    "/home/runner/work/petersREPO/petersREPO/SwiftCommander/.build/x86_64-unknown-linux-gnu/debug/SwiftCommanderPackageTests.build/sources" : {
+      "alwaysOutOfDate" : false,
+      "inputs" : [
+        {
+          "kind" : "virtual",
+          "name" : "<sources-file-list>"
+        },
+        {
+          "kind" : "file",
+          "name" : "/home/runner/work/petersREPO/petersREPO/SwiftCommander/.build/x86_64-unknown-linux-gnu/debug/SwiftCommanderPackageTests.derived/runner.swift"
+        }
+      ],
+      "outputFilePath" : "/home/runner/work/petersREPO/petersREPO/SwiftCommander/.build/x86_64-unknown-linux-gnu/debug/SwiftCommanderPackageTests.build/sources"
+    },
+    "/home/runner/work/petersREPO/petersREPO/SwiftCommander/.build/x86_64-unknown-linux-gnu/debug/SwiftCommanderPackageTests.product/Objects.LinkFileList" : {
+      "alwaysOutOfDate" : false,
+      "inputs" : [
+        {
+          "kind" : "virtual",
+          "name" : "<link-file-list>"
+        },
+        {
+          "kind" : "file",
+          "name" : "/home/runner/work/petersREPO/petersREPO/SwiftCommander/.build/x86_64-unknown-linux-gnu/debug/SwiftCommander.build/ArchiveManager.swift.o"
+        },
+        {
+          "kind" : "file",
+          "name" : "/home/runner/work/petersREPO/petersREPO/SwiftCommander/.build/x86_64-unknown-linux-gnu/debug/SwiftCommander.build/ContentView.swift.o"
+        },
+        {
+          "kind" : "file",
+          "name" : "/home/runner/work/petersREPO/petersREPO/SwiftCommander/.build/x86_64-unknown-linux-gnu/debug/SwiftCommander.build/Dialogs.swift.o"
+        },
+        {
+          "kind" : "file",
+          "name" : "/home/runner/work/petersREPO/petersREPO/SwiftCommander/.build/x86_64-unknown-linux-gnu/debug/SwiftCommander.build/FileItem.swift.o"
+        },
+        {
+          "kind" : "file",
+          "name" : "/home/runner/work/petersREPO/petersREPO/SwiftCommander/.build/x86_64-unknown-linux-gnu/debug/SwiftCommander.build/FileManagerService.swift.o"
+        },
+        {
+          "kind" : "file",
+          "name" : "/home/runner/work/petersREPO/petersREPO/SwiftCommander/.build/x86_64-unknown-linux-gnu/debug/SwiftCommander.build/FileOperation.swift.o"
+        },
+        {
+          "kind" : "file",
+          "name" : "/home/runner/work/petersREPO/petersREPO/SwiftCommander/.build/x86_64-unknown-linux-gnu/debug/SwiftCommander.build/FilePaneView.swift.o"
+        },
+        {
+          "kind" : "file",
+          "name" : "/home/runner/work/petersREPO/petersREPO/SwiftCommander/.build/x86_64-unknown-linux-gnu/debug/SwiftCommander.build/PaneState.swift.o"
+        },
+        {
+          "kind" : "file",
+          "name" : "/home/runner/work/petersREPO/petersREPO/SwiftCommander/.build/x86_64-unknown-linux-gnu/debug/SwiftCommander.build/SearchManager.swift.o"
+        },
+        {
+          "kind" : "file",
+          "name" : "/home/runner/work/petersREPO/petersREPO/SwiftCommander/.build/x86_64-unknown-linux-gnu/debug/SwiftCommander.build/SettingsView.swift.o"
+        },
+        {
+          "kind" : "file",
+          "name" : "/home/runner/work/petersREPO/petersREPO/SwiftCommander/.build/x86_64-unknown-linux-gnu/debug/SwiftCommander.build/SwiftCommander.swiftmodule.o"
+        },
+        {
+          "kind" : "file",
+          "name" : "/home/runner/work/petersREPO/petersREPO/SwiftCommander/.build/x86_64-unknown-linux-gnu/debug/SwiftCommander.build/SwiftCommanderApp.swift.o"
+        },
+        {
+          "kind" : "file",
+          "name" : "/home/runner/work/petersREPO/petersREPO/SwiftCommander/.build/x86_64-unknown-linux-gnu/debug/SwiftCommander.build/TerminalManager.swift.o"
+        },
+        {
+          "kind" : "file",
+          "name" : "/home/runner/work/petersREPO/petersREPO/SwiftCommander/.build/x86_64-unknown-linux-gnu/debug/SwiftCommanderPackageDiscoveredTests.build/SwiftCommanderPackageDiscoveredTests.swiftmodule.o"
+        },
+        {
+          "kind" : "file",
+          "name" : "/home/runner/work/petersREPO/petersREPO/SwiftCommander/.build/x86_64-unknown-linux-gnu/debug/SwiftCommanderPackageDiscoveredTests.build/SwiftCommanderTests.swift.o"
+        },
+        {
+          "kind" : "file",
+          "name" : "/home/runner/work/petersREPO/petersREPO/SwiftCommander/.build/x86_64-unknown-linux-gnu/debug/SwiftCommanderPackageDiscoveredTests.build/all-discovered-tests.swift.o"
+        },
+        {
+          "kind" : "file",
+          "name" : "/home/runner/work/petersREPO/petersREPO/SwiftCommander/.build/x86_64-unknown-linux-gnu/debug/SwiftCommanderPackageTests.build/SwiftCommanderPackageTests.swiftmodule.o"
+        },
+        {
+          "kind" : "file",
+          "name" : "/home/runner/work/petersREPO/petersREPO/SwiftCommander/.build/x86_64-unknown-linux-gnu/debug/SwiftCommanderPackageTests.build/runner.swift.o"
+        },
+        {
+          "kind" : "file",
+          "name" : "/home/runner/work/petersREPO/petersREPO/SwiftCommander/.build/x86_64-unknown-linux-gnu/debug/SwiftCommanderTests.build/SwiftCommanderTests.swift.o"
+        },
+        {
+          "kind" : "file",
+          "name" : "/home/runner/work/petersREPO/petersREPO/SwiftCommander/.build/x86_64-unknown-linux-gnu/debug/SwiftCommanderTests.build/SwiftCommanderTests.swiftmodule.o"
+        }
+      ],
+      "outputFilePath" : "/home/runner/work/petersREPO/petersREPO/SwiftCommander/.build/x86_64-unknown-linux-gnu/debug/SwiftCommanderPackageTests.product/Objects.LinkFileList"
+    },
+    "/home/runner/work/petersREPO/petersREPO/SwiftCommander/.build/x86_64-unknown-linux-gnu/debug/SwiftCommanderTests.build/sources" : {
+      "alwaysOutOfDate" : false,
+      "inputs" : [
+        {
+          "kind" : "virtual",
+          "name" : "<sources-file-list>"
+        },
+        {
+          "kind" : "file",
+          "name" : "/home/runner/work/petersREPO/petersREPO/SwiftCommander/Tests/SwiftCommanderTests/SwiftCommanderTests.swift"
+        }
+      ],
+      "outputFilePath" : "/home/runner/work/petersREPO/petersREPO/SwiftCommander/.build/x86_64-unknown-linux-gnu/debug/SwiftCommanderTests.build/sources"
+    },
+    "/home/runner/work/petersREPO/petersREPO/SwiftCommander/.build/x86_64-unknown-linux-gnu/debug/swift-version--1BFCD5C06E9F820A.txt" : {
+      "alwaysOutOfDate" : true,
+      "inputs" : [
+        {
+          "kind" : "virtual",
+          "name" : "<swift-get-version>"
+        },
+        {
+          "kind" : "file",
+          "name" : "/usr/share/swift/usr/bin/swiftc"
+        }
+      ],
+      "outputFilePath" : "/home/runner/work/petersREPO/petersREPO/SwiftCommander/.build/x86_64-unknown-linux-gnu/debug/swift-version--1BFCD5C06E9F820A.txt"
+    }
+  }
+}

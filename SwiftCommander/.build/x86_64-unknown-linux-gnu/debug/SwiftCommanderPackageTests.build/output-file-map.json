@@ -1,0 +1,12 @@
+{
+  "": {
+    "swift-dependencies": "/home/runner/work/petersREPO/petersREPO/SwiftCommander/.build/x86_64-unknown-linux-gnu/debug/SwiftCommanderPackageTests.build/master.swiftdeps"
+  },
+  "/home/runner/work/petersREPO/petersREPO/SwiftCommander/.build/x86_64-unknown-linux-gnu/debug/SwiftCommanderPackageTests.derived/runner.swift": {
+    "dependencies": "/home/runner/work/petersREPO/petersREPO/SwiftCommander/.build/x86_64-unknown-linux-gnu/debug/SwiftCommanderPackageTests.build/runner.d",
+    "object": "/home/runner/work/petersREPO/petersREPO/SwiftCommander/.build/x86_64-unknown-linux-gnu/debug/SwiftCommanderPackageTests.build/runner.swift.o",
+    "swiftmodule": "/home/runner/work/petersREPO/petersREPO/SwiftCommander/.build/x86_64-unknown-linux-gnu/debug/SwiftCommanderPackageTests.build/runner~partial.swiftmodule",
+    "swift-dependencies": "/home/runner/work/petersREPO/petersREPO/SwiftCommander/.build/x86_64-unknown-linux-gnu/debug/SwiftCommanderPackageTests.build/runner.swiftdeps",
+    "diagnostics": "/home/runner/work/petersREPO/petersREPO/SwiftCommander/.build/x86_64-unknown-linux-gnu/debug/SwiftCommanderPackageTests.build/runner.dia"
+  }
+}

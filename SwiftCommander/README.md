@@ -16,6 +16,14 @@ A powerful dual-pane file manager for macOS, inspired by Total Commander, writte
 - **Breadcrumb Path**: Click on any path component to navigate directly
 - **Hidden Files Toggle**: Show/hide hidden files and system files
 
+### File Comparison & Merge
+- **Side-by-Side Diff View**: Compare two text files with syntax highlighting
+- **Change Detection**: Added (green), removed (red), and modified (orange) lines
+- **Merge Operations**: Copy changes from left to right or right to left
+- **Chunk-level Merge**: Merge individual change chunks selectively
+- **Automatic Backup**: Creates backups before merge operations
+- **Diff Statistics**: Shows count of added, removed, modified, and unchanged lines
+
 ### Function Key Commands (Total Commander Style)
 - **F1**: Help
 - **F2**: Refresh panels
@@ -82,6 +90,7 @@ swift test
 | ⌘N | New folder |
 | ⌘R | Refresh panels |
 | ⌘F | Find files |
+| ⌘D | Compare files |
 | ⌘G | Go to directory |
 | ⌘H | Toggle hidden files |
 | ⌘1 | Focus left panel |
@@ -104,12 +113,16 @@ SwiftCommander/
 │   │   ├── FileItem.swift
 │   │   ├── PanelState.swift
 │   │   ├── CommandDefinition.swift
-│   │   └── BookmarkItem.swift
+│   │   ├── BookmarkItem.swift
+│   │   └── DiffResult.swift
 │   ├── Services/         # Business logic
 │   │   ├── FileOperationsService.swift
 │   │   ├── NavigationService.swift
 │   │   ├── SearchService.swift
-│   │   └── ArchiveService.swift
+│   │   ├── ArchiveService.swift
+│   │   ├── FileComparisonService.swift
+│   │   ├── MergeService.swift
+│   │   └── BackupService.swift
 │   ├── Views/            # SwiftUI components
 │   │   ├── ContentView.swift
 │   │   ├── FileListView.swift
@@ -117,6 +130,7 @@ SwiftCommander/
 │   │   ├── ToolbarView.swift
 │   │   ├── FunctionKeyBar.swift
 │   │   ├── QuickSearchView.swift
+│   │   ├── CompareView.swift
 │   │   └── SettingsView.swift
 │   ├── Utils/
 │   │   └── Extensions.swift

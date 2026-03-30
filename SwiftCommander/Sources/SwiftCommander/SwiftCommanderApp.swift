@@ -101,6 +101,13 @@ struct SwiftCommanderApp: App {
                 
                 Divider()
                 
+                Button("Compare Files...") {
+                    appState.openCompareView()
+                }
+                .keyboardShortcut("d", modifiers: .command)
+                
+                Divider()
+                
                 Button("Open Terminal Here") {
                     appState.openTerminal()
                 }
@@ -127,6 +134,8 @@ class AppState: ObservableObject {
     let navigationService = NavigationService()
     let searchService = SearchService()
     let archiveService = ArchiveService()
+    let fileComparisonService = FileComparisonService()
+    let mergeService = MergeService()
     
     // Bookmarks
     @Published var bookmarkManager = BookmarkManager()
@@ -141,6 +150,7 @@ class AppState: ObservableObject {
     @Published var showCopyDialog = false
     @Published var showMoveDialog = false
     @Published var showPropertiesDialog = false
+    @Published var showCompareView = false
     
     // Operation state
     @Published var isProcessing = false
@@ -151,6 +161,16 @@ class AppState: ObservableObject {
     // Clipboard
     @Published var clipboard: [URL] = []
     @Published var clipboardOperation: ClipboardOperation = .none
+    
+    // Compare and Merge state
+    @Published var compareLeftFile: URL?
+    @Published var compareRightFile: URL?
+    @Published var diffResult: DiffResult?
+    @Published var isComparing = false
+    @Published var compareErrorMessage: String?
+    @Published var showCompareError = false
+    @Published var mergeSuccessMessage: String?
+    @Published var showMergeSuccess = false
     
     init() {
         let homeDir = FileManager.default.homeDirectoryForCurrentUser
@@ -433,6 +453,8 @@ class AppState: ObservableObject {
             bookmarkManager.addBookmark(url: activePanelState.currentDirectory)
         case .terminal:
             openTerminal()
+        case .compare:
+            openCompareView()
         }
     }
     
@@ -497,6 +519,186 @@ class AppState: ObservableObject {
                 }
             }
         }
+    }
+    
+    // MARK: - Compare and Merge
+    
+    /// Set up files for comparison from current panel selections
+    func setupCompareFiles() {
+        // Get selected file from left panel
+        if let leftFile = leftPanel.selectedFileItems.first, !leftFile.isDirectory {
+            compareLeftFile = leftFile.url
+        }
+        
+        // Get selected file from right panel
+        if let rightFile = rightPanel.selectedFileItems.first, !rightFile.isDirectory {
+            compareRightFile = rightFile.url
+        }
+        
+        // If only one panel has selection, try to find matching file in other panel
+        if compareLeftFile != nil && compareRightFile == nil {
+            if let leftFile = compareLeftFile {
+                let matchingFile = rightPanel.currentDirectory.appendingPathComponent(leftFile.lastPathComponent)
+                if FileManager.default.fileExists(atPath: matchingFile.path) {
+                    compareRightFile = matchingFile
+                }
+            }
+        } else if compareRightFile != nil && compareLeftFile == nil {
+            if let rightFile = compareRightFile {
+                let matchingFile = leftPanel.currentDirectory.appendingPathComponent(rightFile.lastPathComponent)
+                if FileManager.default.fileExists(atPath: matchingFile.path) {
+                    compareLeftFile = matchingFile
+                }
+            }
+        }
+    }
+    
+    /// Compare selected files
+    func compareSelectedFiles() {
+        guard let leftURL = compareLeftFile, let rightURL = compareRightFile else {
+            compareErrorMessage = "Please select files to compare"
+            showCompareError = true
+            return
+        }
+        
+        // Check if files are binary
+        if fileComparisonService.isBinaryFile(leftURL) || fileComparisonService.isBinaryFile(rightURL) {
+            // For binary files, just check if they're identical
+            let identical = fileComparisonService.compareBinaryFiles(leftURL: leftURL, rightURL: rightURL)
+            diffResult = DiffResult(
+                leftFile: leftURL,
+                rightFile: rightURL,
+                chunks: [],
+                leftLines: [],
+                rightLines: [],
+                isIdentical: identical,
+                leftFileExists: true,
+                rightFileExists: true
+            )
+            return
+        }
+        
+        isComparing = true
+        
+        DispatchQueue.global(qos: .userInitiated).async { [weak self] in
+            guard let self = self else { return }
+            
+            let result = self.fileComparisonService.compareFiles(leftURL: leftURL, rightURL: rightURL)
+            
+            DispatchQueue.main.async {
+                self.diffResult = result
+                self.isComparing = false
+            }
+        }
+    }
+    
+    /// Open compare view with current selections
+    func openCompareView() {
+        setupCompareFiles()
+        showCompareView = true
+        
+        if compareLeftFile != nil && compareRightFile != nil {
+            compareSelectedFiles()
+        }
+    }
+    
+    /// Merge all changes from left file to right file
+    func mergeLeftToRight() {
+        guard let diffResult = diffResult else { return }
+        
+        isProcessing = true
+        processingMessage = "Merging files..."
+        
+        DispatchQueue.global(qos: .userInitiated).async { [weak self] in
+            guard let self = self else { return }
+            
+            do {
+                let result = try self.mergeService.mergeAllLeftToRight(diffResult: diffResult)
+                
+                DispatchQueue.main.async {
+                    self.isProcessing = false
+                    self.mergeSuccessMessage = result.message
+                    self.showMergeSuccess = true
+                    self.refreshPanels()
+                }
+            } catch {
+                DispatchQueue.main.async {
+                    self.isProcessing = false
+                    self.compareErrorMessage = error.localizedDescription
+                    self.showCompareError = true
+                }
+            }
+        }
+    }
+    
+    /// Merge all changes from right file to left file
+    func mergeRightToLeft() {
+        guard let diffResult = diffResult else { return }
+        
+        isProcessing = true
+        processingMessage = "Merging files..."
+        
+        DispatchQueue.global(qos: .userInitiated).async { [weak self] in
+            guard let self = self else { return }
+            
+            do {
+                let result = try self.mergeService.mergeAllRightToLeft(diffResult: diffResult)
+                
+                DispatchQueue.main.async {
+                    self.isProcessing = false
+                    self.mergeSuccessMessage = result.message
+                    self.showMergeSuccess = true
+                    self.refreshPanels()
+                }
+            } catch {
+                DispatchQueue.main.async {
+                    self.isProcessing = false
+                    self.compareErrorMessage = error.localizedDescription
+                    self.showCompareError = true
+                }
+            }
+        }
+    }
+    
+    /// Merge a specific chunk
+    func mergeChunk(at index: Int, direction: MergeDirection) {
+        guard let diffResult = diffResult else { return }
+        
+        isProcessing = true
+        processingMessage = "Merging chunk..."
+        
+        DispatchQueue.global(qos: .userInitiated).async { [weak self] in
+            guard let self = self else { return }
+            
+            do {
+                let result = try self.mergeService.mergeChunkAtIndex(
+                    chunkIndex: index,
+                    diffResult: diffResult,
+                    direction: direction
+                )
+                
+                DispatchQueue.main.async {
+                    self.isProcessing = false
+                    self.mergeSuccessMessage = result.message
+                    self.showMergeSuccess = true
+                    self.refreshPanels()
+                }
+            } catch {
+                DispatchQueue.main.async {
+                    self.isProcessing = false
+                    self.compareErrorMessage = error.localizedDescription
+                    self.showCompareError = true
+                }
+            }
+        }
+    }
+    
+    /// Clear comparison state
+    func clearComparison() {
+        compareLeftFile = nil
+        compareRightFile = nil
+        diffResult = nil
+        isComparing = false
     }
 }
 

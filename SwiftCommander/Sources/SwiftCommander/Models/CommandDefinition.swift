@@ -69,6 +69,7 @@ enum CommandAction: String {
     case properties
     case bookmark
     case terminal
+    case compare
 }
 
 /// Default function key commands (Total Commander style)

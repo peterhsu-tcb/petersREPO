@@ -63,6 +63,9 @@ struct ContentView: View {
         .sheet(isPresented: $appState.showDeleteConfirmation) {
             DeleteConfirmationView()
         }
+        .sheet(isPresented: $appState.showCompareView) {
+            CompareView()
+        }
         .overlay {
             if appState.isProcessing {
                 ProcessingOverlayView(message: appState.processingMessage)

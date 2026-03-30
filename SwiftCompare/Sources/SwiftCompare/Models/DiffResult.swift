@@ -1,0 +1,139 @@
+import Foundation
+
+/// Represents the type of change in a diff
+enum DiffChangeType: Equatable {
+    case unchanged
+    case added
+    case removed
+    case modified
+}
+
+/// Represents a single line in a diff result
+struct DiffLine: Identifiable, Equatable {
+    let id: UUID
+    let lineNumber: Int?
+    let content: String
+    let changeType: DiffChangeType
+    
+    init(lineNumber: Int?, content: String, changeType: DiffChangeType) {
+        self.id = UUID()
+        self.lineNumber = lineNumber
+        self.content = content
+        self.changeType = changeType
+    }
+}
+
+/// Represents a chunk of changes in a diff
+struct DiffChunk: Identifiable, Equatable {
+    let id: UUID
+    let leftStartLine: Int
+    let leftLineCount: Int
+    let rightStartLine: Int
+    let rightLineCount: Int
+    let leftLines: [DiffLine]
+    let rightLines: [DiffLine]
+    
+    init(
+        leftStartLine: Int,
+        leftLineCount: Int,
+        rightStartLine: Int,
+        rightLineCount: Int,
+        leftLines: [DiffLine],
+        rightLines: [DiffLine]
+    ) {
+        self.id = UUID()
+        self.leftStartLine = leftStartLine
+        self.leftLineCount = leftLineCount
+        self.rightStartLine = rightStartLine
+        self.rightLineCount = rightLineCount
+        self.leftLines = leftLines
+        self.rightLines = rightLines
+    }
+}
+
+/// Represents the result of comparing two files
+struct DiffResult: Identifiable, Equatable {
+    let id: UUID
+    let leftFile: URL?
+    let rightFile: URL?
+    let chunks: [DiffChunk]
+    let leftLines: [DiffLine]
+    let rightLines: [DiffLine]
+    let isIdentical: Bool
+    let leftFileExists: Bool
+    let rightFileExists: Bool
+    
+    init(
+        leftFile: URL?,
+        rightFile: URL?,
+        chunks: [DiffChunk],
+        leftLines: [DiffLine],
+        rightLines: [DiffLine],
+        isIdentical: Bool,
+        leftFileExists: Bool = true,
+        rightFileExists: Bool = true
+    ) {
+        self.id = UUID()
+        self.leftFile = leftFile
+        self.rightFile = rightFile
+        self.chunks = chunks
+        self.leftLines = leftLines
+        self.rightLines = rightLines
+        self.isIdentical = isIdentical
+        self.leftFileExists = leftFileExists
+        self.rightFileExists = rightFileExists
+    }
+    
+    /// Returns statistics about the diff
+    var statistics: DiffStatistics {
+        var added = 0
+        var removed = 0
+        var modified = 0
+        var unchanged = 0
+        
+        for line in leftLines {
+            switch line.changeType {
+            case .added: added += 1
+            case .removed: removed += 1
+            case .modified: modified += 1
+            case .unchanged: unchanged += 1
+            }
+        }
+        
+        for line in rightLines {
+            if line.changeType == .added {
+                added += 1
+            }
+        }
+        
+        return DiffStatistics(
+            added: added,
+            removed: removed,
+            modified: modified,
+            unchanged: unchanged
+        )
+    }
+}
+
+/// Statistics about a diff result
+struct DiffStatistics: Equatable {
+    let added: Int
+    let removed: Int
+    let modified: Int
+    let unchanged: Int
+    
+    var totalChanges: Int {
+        added + removed + modified
+    }
+    
+    var summary: String {
+        if totalChanges == 0 {
+            return "Files are identical"
+        }
+        var parts: [String] = []
+        if added > 0 { parts.append("+\(added)") }
+        if removed > 0 { parts.append("-\(removed)") }
+        if modified > 0 { parts.append("~\(modified)") }
+        return parts.joined(separator: " ")
+    }
+}

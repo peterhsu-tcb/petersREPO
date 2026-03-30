@@ -85,7 +85,9 @@ struct FileDiffView: View {
                     pairedLines: filteredLines(result.rightLines, isLeft: false),
                     title: result.leftFile?.lastPathComponent ?? "Left",
                     isLeft: true,
-                    width: geometry.size.width / 2
+                    width: geometry.size.width / 2,
+                    chunks: result.chunks,
+                    currentDifferenceIndex: appState.currentDifferenceIndex
                 )
                 
                 Divider()
@@ -96,7 +98,9 @@ struct FileDiffView: View {
                     pairedLines: filteredLines(result.leftLines, isLeft: true),
                     title: result.rightFile?.lastPathComponent ?? "Right",
                     isLeft: false,
-                    width: geometry.size.width / 2
+                    width: geometry.size.width / 2,
+                    chunks: result.chunks,
+                    currentDifferenceIndex: appState.currentDifferenceIndex
                 )
             }
         }
@@ -117,6 +121,8 @@ struct DiffPanelView: View {
     let title: String
     let isLeft: Bool
     let width: CGFloat
+    let chunks: [DiffChunk]
+    let currentDifferenceIndex: Int
     
     var body: some View {
         VStack(spacing: 0) {
@@ -135,17 +141,47 @@ struct DiffPanelView: View {
             
             Divider()
             
-            // Content
-            ScrollView {
-                LazyVStack(alignment: .leading, spacing: 0) {
-                    ForEach(Array(lines.enumerated()), id: \.element.id) { index, line in
-                        let pairedContent = getPairedContent(for: index, line: line)
-                        DiffLineView(line: line, pairedLineContent: pairedContent)
+            // Content with ScrollViewReader for navigation
+            ScrollViewReader { proxy in
+                ScrollView {
+                    LazyVStack(alignment: .leading, spacing: 0) {
+                        ForEach(Array(lines.enumerated()), id: \.element.id) { index, line in
+                            let pairedContent = getPairedContent(for: index, line: line)
+                            DiffLineView(line: line, pairedLineContent: pairedContent)
+                                .id(line.id)
+                        }
                     }
+                }
+                .onChange(of: currentDifferenceIndex) { _, newIndex in
+                    scrollToDifference(index: newIndex, using: proxy)
                 }
             }
         }
         .frame(width: width)
+    }
+    
+    /// Scroll to the line associated with the current difference chunk
+    private func scrollToDifference(index: Int, using proxy: ScrollViewProxy) {
+        guard index >= 0 && index < chunks.count else { return }
+        
+        let chunk = chunks[index]
+        // Find the first line that matches the chunk's start line
+        let targetLineNumber = isLeft ? chunk.leftStartLine : chunk.rightStartLine
+        
+        // Find the line with this line number
+        if let targetLine = lines.first(where: { $0.lineNumber == targetLineNumber }) {
+            scrollTo(lineId: targetLine.id, using: proxy)
+        } else if let firstChunkLine = (isLeft ? chunk.leftLines.first : chunk.rightLines.first) {
+            // Fallback: scroll to the first line of the chunk
+            scrollTo(lineId: firstChunkLine.id, using: proxy)
+        }
+    }
+    
+    /// Animate scroll to a specific line
+    private func scrollTo(lineId: UUID, using proxy: ScrollViewProxy) {
+        withAnimation(.easeInOut(duration: 0.3)) {
+            proxy.scrollTo(lineId, anchor: .center)
+        }
     }
     
     /// Get the paired line content for character-level diff comparison
@@ -172,19 +208,35 @@ struct DiffLineView: View {
     
     @AppStorage("matchingCharColor") private var matchingCharColor = "blue"
     @AppStorage("differentCharColor") private var differentCharColor = "red"
+    @AppStorage("fontSizeOffset") private var fontSizeOffset = 0
+    
+    /// Base font size for content display
+    private static let baseFontSize: CGFloat = 14
+    /// Base font size for line numbers (slightly smaller than content)
+    private static let baseLineNumberFontSize: CGFloat = 12
+    
+    /// Computed font for content based on user's font size preference
+    private var contentFont: Font {
+        .system(size: Self.baseFontSize + CGFloat(fontSizeOffset), design: .monospaced)
+    }
+    
+    /// Computed font for line numbers (slightly smaller than content)
+    private var lineNumberFont: Font {
+        .system(size: Self.baseLineNumberFontSize + CGFloat(fontSizeOffset), design: .monospaced)
+    }
     
     var body: some View {
         HStack(spacing: 0) {
             // Line number gutter
             Text(line.lineNumber.map { String($0) } ?? "")
-                .font(.system(.caption, design: .monospaced))
+                .font(lineNumberFont)
                 .foregroundColor(.secondary)
                 .frame(width: 50, alignment: .trailing)
                 .padding(.trailing, 8)
             
             // Change indicator
             Text(changeIndicator)
-                .font(.system(.body, design: .monospaced))
+                .font(contentFont)
                 .foregroundColor(indicatorColor)
                 .frame(width: 16)
             
@@ -195,7 +247,7 @@ struct DiffLineView: View {
                 characterDiffText
             } else {
                 Text(line.content)
-                    .font(.system(.body, design: .monospaced))
+                    .font(contentFont)
                     .lineLimit(1)
                     .truncationMode(.tail)
             }
@@ -212,7 +264,7 @@ struct DiffLineView: View {
         let diffs = computeCharacterDiffs()
         if diffs.isEmpty {
             Text(line.content)
-                .font(.system(.body, design: .monospaced))
+                .font(contentFont)
                 .foregroundColor(colorFromName(matchingCharColor))
                 .lineLimit(1)
                 .truncationMode(.tail)
@@ -220,7 +272,7 @@ struct DiffLineView: View {
             HStack(spacing: 0) {
                 ForEach(Array(diffs.enumerated()), id: \.offset) { _, diff in
                     Text(String(line.content[diff.range]))
-                        .font(.system(.body, design: .monospaced))
+                        .font(contentFont)
                         .foregroundColor(diff.isChanged ? colorFromName(differentCharColor) : colorFromName(matchingCharColor))
                 }
             }

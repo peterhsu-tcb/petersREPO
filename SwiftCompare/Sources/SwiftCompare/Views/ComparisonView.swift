@@ -1,4 +1,5 @@
 import SwiftUI
+import AppKit  // Using native macOS/C API (NSColor) for reliable color rendering
 
 /// View that displays comparison results based on mode
 struct ComparisonView: View {
@@ -243,18 +244,31 @@ struct DiffLineView: View {
         return line.changeType == .removed ? leftDiffs : rightDiffs
     }
     
+    /// Convert color name to Color using native macOS NSColor for reliable rendering
     private func colorFromName(_ name: String) -> Color {
+        // Use NSColor (native macOS/C API) for reliable color rendering
+        let nsColor: NSColor
         switch name {
-        case "blue": return .blue
-        case "red": return .red
-        case "green": return .green
-        case "orange": return .orange
-        case "purple": return .purple
-        case "yellow": return .yellow
-        case "cyan": return .cyan
-        case "magenta": return Color(red: 1, green: 0, blue: 1)
-        default: return .blue
+        case "blue":
+            nsColor = NSColor.systemBlue
+        case "red":
+            nsColor = NSColor.systemRed
+        case "green":
+            nsColor = NSColor.systemGreen
+        case "orange":
+            nsColor = NSColor.systemOrange
+        case "purple":
+            nsColor = NSColor.systemPurple
+        case "yellow":
+            nsColor = NSColor.systemYellow
+        case "cyan":
+            nsColor = NSColor.systemTeal
+        case "magenta":
+            nsColor = NSColor(red: 1.0, green: 0.0, blue: 1.0, alpha: 1.0)
+        default:
+            nsColor = NSColor.systemBlue
         }
+        return Color(nsColor: nsColor)
     }
     
     private var changeIndicator: String {

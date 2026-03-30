@@ -196,6 +196,104 @@ class FileComparisonService {
         return (leftResult, rightResult, chunks)
     }
     
+    /// Compute character-level diff between two strings
+    /// Returns an array of CharacterDiff indicating which parts match and which differ
+    static func computeCharacterDiffs(original: String, modified: String) -> (originalDiffs: [CharacterDiff], modifiedDiffs: [CharacterDiff]) {
+        let originalChars = Array(original)
+        let modifiedChars = Array(modified)
+        
+        // Use LCS on characters to find matching portions
+        let lcs = characterLCS(originalChars, modifiedChars)
+        
+        var originalDiffs: [CharacterDiff] = []
+        var modifiedDiffs: [CharacterDiff] = []
+        
+        // Build character diffs by tracing back through LCS
+        var i = originalChars.count
+        var j = modifiedChars.count
+        
+        var originalSegments: [(start: Int, end: Int, isChanged: Bool)] = []
+        var modifiedSegments: [(start: Int, end: Int, isChanged: Bool)] = []
+        
+        while i > 0 || j > 0 {
+            if i > 0 && j > 0 && originalChars[i - 1] == modifiedChars[j - 1] {
+                // Characters match
+                originalSegments.insert((i - 1, i, false), at: 0)
+                modifiedSegments.insert((j - 1, j, false), at: 0)
+                i -= 1
+                j -= 1
+            } else if j > 0 && (i == 0 || lcs[i][j - 1] >= lcs[i - 1][j]) {
+                // Character added in modified
+                modifiedSegments.insert((j - 1, j, true), at: 0)
+                j -= 1
+            } else if i > 0 {
+                // Character removed from original
+                originalSegments.insert((i - 1, i, true), at: 0)
+                i -= 1
+            }
+        }
+        
+        // Merge consecutive segments with same isChanged status
+        originalDiffs = mergeSegments(segments: originalSegments, string: original)
+        modifiedDiffs = mergeSegments(segments: modifiedSegments, string: modified)
+        
+        return (originalDiffs, modifiedDiffs)
+    }
+    
+    /// LCS for character arrays
+    private static func characterLCS(_ left: [Character], _ right: [Character]) -> [[Int]] {
+        let m = left.count
+        let n = right.count
+        
+        var dp = Array(repeating: Array(repeating: 0, count: n + 1), count: m + 1)
+        
+        for i in 1...max(1, m) {
+            for j in 1...max(1, n) {
+                if i <= m && j <= n && left[i - 1] == right[j - 1] {
+                    dp[i][j] = dp[i - 1][j - 1] + 1
+                } else if i <= m && j <= n {
+                    dp[i][j] = max(dp[i - 1][j], dp[i][j - 1])
+                }
+            }
+        }
+        
+        return dp
+    }
+    
+    /// Merge consecutive segments with the same isChanged status into CharacterDiff objects
+    private static func mergeSegments(segments: [(start: Int, end: Int, isChanged: Bool)], string: String) -> [CharacterDiff] {
+        guard !segments.isEmpty else { return [] }
+        
+        var result: [CharacterDiff] = []
+        var currentStart = segments[0].start
+        var currentEnd = segments[0].end
+        var currentIsChanged = segments[0].isChanged
+        
+        for i in 1..<segments.count {
+            let segment = segments[i]
+            if segment.isChanged == currentIsChanged && segment.start == currentEnd {
+                // Extend current segment
+                currentEnd = segment.end
+            } else {
+                // Save current segment and start new one
+                let startIndex = string.index(string.startIndex, offsetBy: currentStart)
+                let endIndex = string.index(string.startIndex, offsetBy: currentEnd)
+                result.append(CharacterDiff(range: startIndex..<endIndex, isChanged: currentIsChanged))
+                
+                currentStart = segment.start
+                currentEnd = segment.end
+                currentIsChanged = segment.isChanged
+            }
+        }
+        
+        // Don't forget the last segment
+        let startIndex = string.index(string.startIndex, offsetBy: currentStart)
+        let endIndex = string.index(string.startIndex, offsetBy: currentEnd)
+        result.append(CharacterDiff(range: startIndex..<endIndex, isChanged: currentIsChanged))
+        
+        return result
+    }
+    
     /// Check if two files are binary files
     func isBinaryFile(_ url: URL) -> Bool {
         guard let data = try? Data(contentsOf: url, options: .mappedIfSafe) else {

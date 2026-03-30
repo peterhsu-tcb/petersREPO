@@ -1,0 +1,944 @@
+{
+  "builtTestProducts" : [
+    {
+      "binaryPath" : "/home/runner/work/petersREPO/petersREPO/SwiftCompare/.build/x86_64-unknown-linux-gnu/debug/SwiftComparePackageTests.xctest",
+      "packagePath" : "/home/runner/work/petersREPO/petersREPO/SwiftCompare",
+      "productName" : "SwiftComparePackageTests"
+    }
+  ],
+  "copyCommands" : {
+
+  },
+  "explicitTargetDependencyImportCheckingMode" : {
+    "none" : {
+
+    }
+  },
+  "generatedSourceTargetSet" : [
+    "SwiftComparePackageDiscoveredTests"
+  ],
+  "pluginDescriptions" : [
+
+  ],
+  "swiftCommands" : {
+    "C.SwiftCompare-x86_64-unknown-linux-gnu-debug.module" : {
+      "executable" : "/usr/share/swift/usr/bin/swiftc",
+      "fileList" : "/home/runner/work/petersREPO/petersREPO/SwiftCompare/.build/x86_64-unknown-linux-gnu/debug/SwiftCompare.build/sources",
+      "importPath" : "/home/runner/work/petersREPO/petersREPO/SwiftCompare/.build/x86_64-unknown-linux-gnu/debug/Modules",
+      "inputs" : [
+        {
+          "kind" : "file",
+          "name" : "/home/runner/work/petersREPO/petersREPO/SwiftCompare/Sources/SwiftCompare/Models/ComparisonResult.swift"
+        },
+        {
+          "kind" : "file",
+          "name" : "/home/runner/work/petersREPO/petersREPO/SwiftCompare/Sources/SwiftCompare/Models/DiffResult.swift"
+        },
+        {
+          "kind" : "file",
+          "name" : "/home/runner/work/petersREPO/petersREPO/SwiftCompare/Sources/SwiftCompare/Models/FileItem.swift"
+        },
+        {
+          "kind" : "file",
+          "name" : "/home/runner/work/petersREPO/petersREPO/SwiftCompare/Sources/SwiftCompare/Services/FileComparisonService.swift"
+        },
+        {
+          "kind" : "file",
+          "name" : "/home/runner/work/petersREPO/petersREPO/SwiftCompare/Sources/SwiftCompare/Services/FolderComparisonService.swift"
+        },
+        {
+          "kind" : "file",
+          "name" : "/home/runner/work/petersREPO/petersREPO/SwiftCompare/Sources/SwiftCompare/SwiftCompareApp.swift"
+        },
+        {
+          "kind" : "file",
+          "name" : "/home/runner/work/petersREPO/petersREPO/SwiftCompare/Sources/SwiftCompare/Utils/Extensions.swift"
+        },
+        {
+          "kind" : "file",
+          "name" : "/home/runner/work/petersREPO/petersREPO/SwiftCompare/Sources/SwiftCompare/Views/ComparisonView.swift"
+        },
+        {
+          "kind" : "file",
+          "name" : "/home/runner/work/petersREPO/petersREPO/SwiftCompare/Sources/SwiftCompare/Views/ContentView.swift"
+        },
+        {
+          "kind" : "file",
+          "name" : "/home/runner/work/petersREPO/petersREPO/SwiftCompare/Sources/SwiftCompare/Views/SettingsView.swift"
+        },
+        {
+          "kind" : "file",
+          "name" : "/home/runner/work/petersREPO/petersREPO/SwiftCompare/.build/x86_64-unknown-linux-gnu/debug/swift-version--1BFCD5C06E9F820A.txt"
+        },
+        {
+          "kind" : "file",
+          "name" : "/home/runner/work/petersREPO/petersREPO/SwiftCompare/.build/x86_64-unknown-linux-gnu/debug/SwiftCompare.build/sources"
+        }
+      ],
+      "isLibrary" : false,
+      "moduleName" : "SwiftCompare",
+      "moduleOutputPath" : "/home/runner/work/petersREPO/petersREPO/SwiftCompare/.build/x86_64-unknown-linux-gnu/debug/Modules/SwiftCompare.swiftmodule",
+      "objects" : [
+        "/home/runner/work/petersREPO/petersREPO/SwiftCompare/.build/x86_64-unknown-linux-gnu/debug/SwiftCompare.build/ComparisonResult.swift.o",
+        "/home/runner/work/petersREPO/petersREPO/SwiftCompare/.build/x86_64-unknown-linux-gnu/debug/SwiftCompare.build/DiffResult.swift.o",
+        "/home/runner/work/petersREPO/petersREPO/SwiftCompare/.build/x86_64-unknown-linux-gnu/debug/SwiftCompare.build/FileItem.swift.o",
+        "/home/runner/work/petersREPO/petersREPO/SwiftCompare/.build/x86_64-unknown-linux-gnu/debug/SwiftCompare.build/FileComparisonService.swift.o",
+        "/home/runner/work/petersREPO/petersREPO/SwiftCompare/.build/x86_64-unknown-linux-gnu/debug/SwiftCompare.build/FolderComparisonService.swift.o",
+        "/home/runner/work/petersREPO/petersREPO/SwiftCompare/.build/x86_64-unknown-linux-gnu/debug/SwiftCompare.build/SwiftCompareApp.swift.o",
+        "/home/runner/work/petersREPO/petersREPO/SwiftCompare/.build/x86_64-unknown-linux-gnu/debug/SwiftCompare.build/Extensions.swift.o",
+        "/home/runner/work/petersREPO/petersREPO/SwiftCompare/.build/x86_64-unknown-linux-gnu/debug/SwiftCompare.build/ComparisonView.swift.o",
+        "/home/runner/work/petersREPO/petersREPO/SwiftCompare/.build/x86_64-unknown-linux-gnu/debug/SwiftCompare.build/ContentView.swift.o",
+        "/home/runner/work/petersREPO/petersREPO/SwiftCompare/.build/x86_64-unknown-linux-gnu/debug/SwiftCompare.build/SettingsView.swift.o"
+      ],
+      "otherArguments" : [
+        "-target",
+        "x86_64-unknown-linux-gnu",
+        "-incremental",
+        "-enable-batch-mode",
+        "-serialize-diagnostics",
+        "-index-store-path",
+        "/home/runner/work/petersREPO/petersREPO/SwiftCompare/.build/x86_64-unknown-linux-gnu/debug/index/store",
+        "-Onone",
+        "-enable-testing",
+        "-j4",
+        "-DSWIFT_PACKAGE",
+        "-DDEBUG",
+        "-DSWIFT_MODULE_RESOURCE_BUNDLE_UNAVAILABLE",
+        "-module-cache-path",
+        "/home/runner/work/petersREPO/petersREPO/SwiftCompare/.build/x86_64-unknown-linux-gnu/debug/ModuleCache",
+        "-parseable-output",
+        "-Xfrontend",
+        "-entry-point-function-name",
+        "-Xfrontend",
+        "SwiftCompare_main",
+        "-color-diagnostics",
+        "-swift-version",
+        "5",
+        "-g",
+        "-Xcc",
+        "-fPIC",
+        "-Xcc",
+        "-g",
+        "-package-name",
+        "swiftcompare",
+        "-Xcc",
+        "-fno-omit-frame-pointer"
+      ],
+      "outputFileMapPath" : "/home/runner/work/petersREPO/petersREPO/SwiftCompare/.build/x86_64-unknown-linux-gnu/debug/SwiftCompare.build/output-file-map.json",
+      "outputs" : [
+        {
+          "kind" : "file",
+          "name" : "/home/runner/work/petersREPO/petersREPO/SwiftCompare/.build/x86_64-unknown-linux-gnu/debug/SwiftCompare.build/ComparisonResult.swift.o"
+        },
+        {
+          "kind" : "file",
+          "name" : "/home/runner/work/petersREPO/petersREPO/SwiftCompare/.build/x86_64-unknown-linux-gnu/debug/SwiftCompare.build/DiffResult.swift.o"
+        },
+        {
+          "kind" : "file",
+          "name" : "/home/runner/work/petersREPO/petersREPO/SwiftCompare/.build/x86_64-unknown-linux-gnu/debug/SwiftCompare.build/FileItem.swift.o"
+        },
+        {
+          "kind" : "file",
+          "name" : "/home/runner/work/petersREPO/petersREPO/SwiftCompare/.build/x86_64-unknown-linux-gnu/debug/SwiftCompare.build/FileComparisonService.swift.o"
+        },
+        {
+          "kind" : "file",
+          "name" : "/home/runner/work/petersREPO/petersREPO/SwiftCompare/.build/x86_64-unknown-linux-gnu/debug/SwiftCompare.build/FolderComparisonService.swift.o"
+        },
+        {
+          "kind" : "file",
+          "name" : "/home/runner/work/petersREPO/petersREPO/SwiftCompare/.build/x86_64-unknown-linux-gnu/debug/SwiftCompare.build/SwiftCompareApp.swift.o"
+        },
+        {
+          "kind" : "file",
+          "name" : "/home/runner/work/petersREPO/petersREPO/SwiftCompare/.build/x86_64-unknown-linux-gnu/debug/SwiftCompare.build/Extensions.swift.o"
+        },
+        {
+          "kind" : "file",
+          "name" : "/home/runner/work/petersREPO/petersREPO/SwiftCompare/.build/x86_64-unknown-linux-gnu/debug/SwiftCompare.build/ComparisonView.swift.o"
+        },
+        {
+          "kind" : "file",
+          "name" : "/home/runner/work/petersREPO/petersREPO/SwiftCompare/.build/x86_64-unknown-linux-gnu/debug/SwiftCompare.build/ContentView.swift.o"
+        },
+        {
+          "kind" : "file",
+          "name" : "/home/runner/work/petersREPO/petersREPO/SwiftCompare/.build/x86_64-unknown-linux-gnu/debug/SwiftCompare.build/SettingsView.swift.o"
+        },
+        {
+          "kind" : "file",
+          "name" : "/home/runner/work/petersREPO/petersREPO/SwiftCompare/.build/x86_64-unknown-linux-gnu/debug/Modules/SwiftCompare.swiftmodule"
+        }
+      ],
+      "prepareForIndexing" : false,
+      "sources" : [
+        "/home/runner/work/petersREPO/petersREPO/SwiftCompare/Sources/SwiftCompare/Models/ComparisonResult.swift",
+        "/home/runner/work/petersREPO/petersREPO/SwiftCompare/Sources/SwiftCompare/Models/DiffResult.swift",
+        "/home/runner/work/petersREPO/petersREPO/SwiftCompare/Sources/SwiftCompare/Models/FileItem.swift",
+        "/home/runner/work/petersREPO/petersREPO/SwiftCompare/Sources/SwiftCompare/Services/FileComparisonService.swift",
+        "/home/runner/work/petersREPO/petersREPO/SwiftCompare/Sources/SwiftCompare/Services/FolderComparisonService.swift",
+        "/home/runner/work/petersREPO/petersREPO/SwiftCompare/Sources/SwiftCompare/SwiftCompareApp.swift",
+        "/home/runner/work/petersREPO/petersREPO/SwiftCompare/Sources/SwiftCompare/Utils/Extensions.swift",
+        "/home/runner/work/petersREPO/petersREPO/SwiftCompare/Sources/SwiftCompare/Views/ComparisonView.swift",
+        "/home/runner/work/petersREPO/petersREPO/SwiftCompare/Sources/SwiftCompare/Views/ContentView.swift",
+        "/home/runner/work/petersREPO/petersREPO/SwiftCompare/Sources/SwiftCompare/Views/SettingsView.swift"
+      ],
+      "tempsPath" : "/home/runner/work/petersREPO/petersREPO/SwiftCompare/.build/x86_64-unknown-linux-gnu/debug/SwiftCompare.build",
+      "wholeModuleOptimization" : false
+    },
+    "C.SwiftComparePackageDiscoveredTests-x86_64-unknown-linux-gnu-debug.module" : {
+      "executable" : "/usr/share/swift/usr/bin/swiftc",
+      "fileList" : "/home/runner/work/petersREPO/petersREPO/SwiftCompare/.build/x86_64-unknown-linux-gnu/debug/SwiftComparePackageDiscoveredTests.build/sources",
+      "importPath" : "/home/runner/work/petersREPO/petersREPO/SwiftCompare/.build/x86_64-unknown-linux-gnu/debug/Modules",
+      "inputs" : [
+        {
+          "kind" : "file",
+          "name" : "/home/runner/work/petersREPO/petersREPO/SwiftCompare/.build/x86_64-unknown-linux-gnu/debug/SwiftComparePackageDiscoveredTests.derived/SwiftCompareTests.swift"
+        },
+        {
+          "kind" : "file",
+          "name" : "/home/runner/work/petersREPO/petersREPO/SwiftCompare/.build/x86_64-unknown-linux-gnu/debug/SwiftComparePackageDiscoveredTests.derived/all-discovered-tests.swift"
+        },
+        {
+          "kind" : "file",
+          "name" : "/home/runner/work/petersREPO/petersREPO/SwiftCompare/.build/x86_64-unknown-linux-gnu/debug/swift-version--1BFCD5C06E9F820A.txt"
+        },
+        {
+          "kind" : "file",
+          "name" : "/home/runner/work/petersREPO/petersREPO/SwiftCompare/.build/x86_64-unknown-linux-gnu/debug/Modules/SwiftCompareTests.swiftmodule"
+        },
+        {
+          "kind" : "file",
+          "name" : "/home/runner/work/petersREPO/petersREPO/SwiftCompare/.build/x86_64-unknown-linux-gnu/debug/SwiftComparePackageDiscoveredTests.build/sources"
+        }
+      ],
+      "isLibrary" : true,
+      "moduleName" : "SwiftComparePackageDiscoveredTests",
+      "moduleOutputPath" : "/home/runner/work/petersREPO/petersREPO/SwiftCompare/.build/x86_64-unknown-linux-gnu/debug/Modules/SwiftComparePackageDiscoveredTests.swiftmodule",
+      "objects" : [
+        "/home/runner/work/petersREPO/petersREPO/SwiftCompare/.build/x86_64-unknown-linux-gnu/debug/SwiftComparePackageDiscoveredTests.build/SwiftCompareTests.swift.o",
+        "/home/runner/work/petersREPO/petersREPO/SwiftCompare/.build/x86_64-unknown-linux-gnu/debug/SwiftComparePackageDiscoveredTests.build/all-discovered-tests.swift.o"
+      ],
+      "otherArguments" : [
+        "-target",
+        "x86_64-unknown-linux-gnu",
+        "-incremental",
+        "-enable-batch-mode",
+        "-serialize-diagnostics",
+        "-index-store-path",
+        "/home/runner/work/petersREPO/petersREPO/SwiftCompare/.build/x86_64-unknown-linux-gnu/debug/index/store",
+        "-Onone",
+        "-enable-testing",
+        "-Xfrontend",
+        "-enable-cross-import-overlays",
+        "-j4",
+        "-DSWIFT_PACKAGE",
+        "-DDEBUG",
+        "-DSWIFT_MODULE_RESOURCE_BUNDLE_UNAVAILABLE",
+        "-module-cache-path",
+        "/home/runner/work/petersREPO/petersREPO/SwiftCompare/.build/x86_64-unknown-linux-gnu/debug/ModuleCache",
+        "-parseable-output",
+        "-parse-as-library",
+        "-emit-objc-header",
+        "-emit-objc-header-path",
+        "/home/runner/work/petersREPO/petersREPO/SwiftCompare/.build/x86_64-unknown-linux-gnu/debug/SwiftComparePackageDiscoveredTests.build/include/SwiftComparePackageDiscoveredTests-Swift.h",
+        "-color-diagnostics",
+        "-g",
+        "-Xcc",
+        "-fPIC",
+        "-Xcc",
+        "-g",
+        "-package-name",
+        "swiftcompare",
+        "-Xcc",
+        "-fno-omit-frame-pointer"
+      ],
+      "outputFileMapPath" : "/home/runner/work/petersREPO/petersREPO/SwiftCompare/.build/x86_64-unknown-linux-gnu/debug/SwiftComparePackageDiscoveredTests.build/output-file-map.json",
+      "outputs" : [
+        {
+          "kind" : "file",
+          "name" : "/home/runner/work/petersREPO/petersREPO/SwiftCompare/.build/x86_64-unknown-linux-gnu/debug/SwiftComparePackageDiscoveredTests.build/SwiftCompareTests.swift.o"
+        },
+        {
+          "kind" : "file",
+          "name" : "/home/runner/work/petersREPO/petersREPO/SwiftCompare/.build/x86_64-unknown-linux-gnu/debug/SwiftComparePackageDiscoveredTests.build/all-discovered-tests.swift.o"
+        },
+        {
+          "kind" : "file",
+          "name" : "/home/runner/work/petersREPO/petersREPO/SwiftCompare/.build/x86_64-unknown-linux-gnu/debug/Modules/SwiftComparePackageDiscoveredTests.swiftmodule"
+        }
+      ],
+      "prepareForIndexing" : false,
+      "sources" : [
+        "/home/runner/work/petersREPO/petersREPO/SwiftCompare/.build/x86_64-unknown-linux-gnu/debug/SwiftComparePackageDiscoveredTests.derived/SwiftCompareTests.swift",
+        "/home/runner/work/petersREPO/petersREPO/SwiftCompare/.build/x86_64-unknown-linux-gnu/debug/SwiftComparePackageDiscoveredTests.derived/all-discovered-tests.swift"
+      ],
+      "tempsPath" : "/home/runner/work/petersREPO/petersREPO/SwiftCompare/.build/x86_64-unknown-linux-gnu/debug/SwiftComparePackageDiscoveredTests.build",
+      "wholeModuleOptimization" : false
+    },
+    "C.SwiftComparePackageTests-x86_64-unknown-linux-gnu-debug.module" : {
+      "executable" : "/usr/share/swift/usr/bin/swiftc",
+      "fileList" : "/home/runner/work/petersREPO/petersREPO/SwiftCompare/.build/x86_64-unknown-linux-gnu/debug/SwiftComparePackageTests.build/sources",
+      "importPath" : "/home/runner/work/petersREPO/petersREPO/SwiftCompare/.build/x86_64-unknown-linux-gnu/debug/Modules",
+      "inputs" : [
+        {
+          "kind" : "file",
+          "name" : "/home/runner/work/petersREPO/petersREPO/SwiftCompare/.build/x86_64-unknown-linux-gnu/debug/SwiftComparePackageTests.derived/runner.swift"
+        },
+        {
+          "kind" : "file",
+          "name" : "/home/runner/work/petersREPO/petersREPO/SwiftCompare/.build/x86_64-unknown-linux-gnu/debug/swift-version--1BFCD5C06E9F820A.txt"
+        },
+        {
+          "kind" : "file",
+          "name" : "/home/runner/work/petersREPO/petersREPO/SwiftCompare/.build/x86_64-unknown-linux-gnu/debug/Modules/SwiftCompareTests.swiftmodule"
+        },
+        {
+          "kind" : "file",
+          "name" : "/home/runner/work/petersREPO/petersREPO/SwiftCompare/.build/x86_64-unknown-linux-gnu/debug/Modules/SwiftComparePackageDiscoveredTests.swiftmodule"
+        },
+        {
+          "kind" : "file",
+          "name" : "/home/runner/work/petersREPO/petersREPO/SwiftCompare/.build/x86_64-unknown-linux-gnu/debug/SwiftComparePackageTests.build/sources"
+        }
+      ],
+      "isLibrary" : true,
+      "moduleName" : "SwiftComparePackageTests",
+      "moduleOutputPath" : "/home/runner/work/petersREPO/petersREPO/SwiftCompare/.build/x86_64-unknown-linux-gnu/debug/Modules/SwiftComparePackageTests.swiftmodule",
+      "objects" : [
+        "/home/runner/work/petersREPO/petersREPO/SwiftCompare/.build/x86_64-unknown-linux-gnu/debug/SwiftComparePackageTests.build/runner.swift.o"
+      ],
+      "otherArguments" : [
+        "-target",
+        "x86_64-unknown-linux-gnu",
+        "-incremental",
+        "-enable-batch-mode",
+        "-serialize-diagnostics",
+        "-index-store-path",
+        "/home/runner/work/petersREPO/petersREPO/SwiftCompare/.build/x86_64-unknown-linux-gnu/debug/index/store",
+        "-Onone",
+        "-enable-testing",
+        "-Xfrontend",
+        "-enable-cross-import-overlays",
+        "-j4",
+        "-DSWIFT_PACKAGE",
+        "-DDEBUG",
+        "-DSWIFT_MODULE_RESOURCE_BUNDLE_UNAVAILABLE",
+        "-module-cache-path",
+        "/home/runner/work/petersREPO/petersREPO/SwiftCompare/.build/x86_64-unknown-linux-gnu/debug/ModuleCache",
+        "-parseable-output",
+        "-parse-as-library",
+        "-emit-objc-header",
+        "-emit-objc-header-path",
+        "/home/runner/work/petersREPO/petersREPO/SwiftCompare/.build/x86_64-unknown-linux-gnu/debug/SwiftComparePackageTests.build/include/SwiftComparePackageTests-Swift.h",
+        "-color-diagnostics",
+        "-g",
+        "-Xcc",
+        "-fPIC",
+        "-Xcc",
+        "-g",
+        "-package-name",
+        "swiftcompare",
+        "-Xcc",
+        "-fno-omit-frame-pointer"
+      ],
+      "outputFileMapPath" : "/home/runner/work/petersREPO/petersREPO/SwiftCompare/.build/x86_64-unknown-linux-gnu/debug/SwiftComparePackageTests.build/output-file-map.json",
+      "outputs" : [
+        {
+          "kind" : "file",
+          "name" : "/home/runner/work/petersREPO/petersREPO/SwiftCompare/.build/x86_64-unknown-linux-gnu/debug/SwiftComparePackageTests.build/runner.swift.o"
+        },
+        {
+          "kind" : "file",
+          "name" : "/home/runner/work/petersREPO/petersREPO/SwiftCompare/.build/x86_64-unknown-linux-gnu/debug/Modules/SwiftComparePackageTests.swiftmodule"
+        }
+      ],
+      "prepareForIndexing" : false,
+      "sources" : [
+        "/home/runner/work/petersREPO/petersREPO/SwiftCompare/.build/x86_64-unknown-linux-gnu/debug/SwiftComparePackageTests.derived/runner.swift"
+      ],
+      "tempsPath" : "/home/runner/work/petersREPO/petersREPO/SwiftCompare/.build/x86_64-unknown-linux-gnu/debug/SwiftComparePackageTests.build",
+      "wholeModuleOptimization" : false
+    },
+    "C.SwiftCompareTests-x86_64-unknown-linux-gnu-debug.module" : {
+      "executable" : "/usr/share/swift/usr/bin/swiftc",
+      "fileList" : "/home/runner/work/petersREPO/petersREPO/SwiftCompare/.build/x86_64-unknown-linux-gnu/debug/SwiftCompareTests.build/sources",
+      "importPath" : "/home/runner/work/petersREPO/petersREPO/SwiftCompare/.build/x86_64-unknown-linux-gnu/debug/Modules",
+      "inputs" : [
+        {
+          "kind" : "file",
+          "name" : "/home/runner/work/petersREPO/petersREPO/SwiftCompare/Tests/SwiftCompareTests/FileComparisonServiceTests.swift"
+        },
+        {
+          "kind" : "file",
+          "name" : "/home/runner/work/petersREPO/petersREPO/SwiftCompare/.build/x86_64-unknown-linux-gnu/debug/swift-version--1BFCD5C06E9F820A.txt"
+        },
+        {
+          "kind" : "file",
+          "name" : "/home/runner/work/petersREPO/petersREPO/SwiftCompare/.build/x86_64-unknown-linux-gnu/debug/SwiftCompare"
+        },
+        {
+          "kind" : "file",
+          "name" : "/home/runner/work/petersREPO/petersREPO/SwiftCompare/.build/x86_64-unknown-linux-gnu/debug/SwiftCompareTests.build/sources"
+        }
+      ],
+      "isLibrary" : true,
+      "moduleName" : "SwiftCompareTests",
+      "moduleOutputPath" : "/home/runner/work/petersREPO/petersREPO/SwiftCompare/.build/x86_64-unknown-linux-gnu/debug/Modules/SwiftCompareTests.swiftmodule",
+      "objects" : [
+        "/home/runner/work/petersREPO/petersREPO/SwiftCompare/.build/x86_64-unknown-linux-gnu/debug/SwiftCompareTests.build/FileComparisonServiceTests.swift.o"
+      ],
+      "otherArguments" : [
+        "-target",
+        "x86_64-unknown-linux-gnu",
+        "-incremental",
+        "-enable-batch-mode",
+        "-serialize-diagnostics",
+        "-index-store-path",
+        "/home/runner/work/petersREPO/petersREPO/SwiftCompare/.build/x86_64-unknown-linux-gnu/debug/index/store",
+        "-Onone",
+        "-enable-testing",
+        "-Xfrontend",
+        "-enable-cross-import-overlays",
+        "-j4",
+        "-DSWIFT_PACKAGE",
+        "-DDEBUG",
+        "-DSWIFT_MODULE_RESOURCE_BUNDLE_UNAVAILABLE",
+        "-module-cache-path",
+        "/home/runner/work/petersREPO/petersREPO/SwiftCompare/.build/x86_64-unknown-linux-gnu/debug/ModuleCache",
+        "-parseable-output",
+        "-parse-as-library",
+        "-color-diagnostics",
+        "-swift-version",
+        "5",
+        "-g",
+        "-Xcc",
+        "-fPIC",
+        "-Xcc",
+        "-g",
+        "-package-name",
+        "swiftcompare",
+        "-Xcc",
+        "-fno-omit-frame-pointer"
+      ],
+      "outputFileMapPath" : "/home/runner/work/petersREPO/petersREPO/SwiftCompare/.build/x86_64-unknown-linux-gnu/debug/SwiftCompareTests.build/output-file-map.json",
+      "outputs" : [
+        {
+          "kind" : "file",
+          "name" : "/home/runner/work/petersREPO/petersREPO/SwiftCompare/.build/x86_64-unknown-linux-gnu/debug/SwiftCompareTests.build/FileComparisonServiceTests.swift.o"
+        },
+        {
+          "kind" : "file",
+          "name" : "/home/runner/work/petersREPO/petersREPO/SwiftCompare/.build/x86_64-unknown-linux-gnu/debug/Modules/SwiftCompareTests.swiftmodule"
+        }
+      ],
+      "prepareForIndexing" : false,
+      "sources" : [
+        "/home/runner/work/petersREPO/petersREPO/SwiftCompare/Tests/SwiftCompareTests/FileComparisonServiceTests.swift"
+      ],
+      "tempsPath" : "/home/runner/work/petersREPO/petersREPO/SwiftCompare/.build/x86_64-unknown-linux-gnu/debug/SwiftCompareTests.build",
+      "wholeModuleOptimization" : false
+    }
+  },
+  "swiftFrontendCommands" : {
+
+  },
+  "swiftTargetScanArgs" : {
+    "SwiftCompare" : [
+      "/usr/share/swift/usr/bin/swiftc",
+      "-module-name",
+      "SwiftCompare",
+      "-package-name",
+      "swiftcompare",
+      "-c",
+      "/home/runner/work/petersREPO/petersREPO/SwiftCompare/Sources/SwiftCompare/Models/ComparisonResult.swift",
+      "/home/runner/work/petersREPO/petersREPO/SwiftCompare/Sources/SwiftCompare/Models/DiffResult.swift",
+      "/home/runner/work/petersREPO/petersREPO/SwiftCompare/Sources/SwiftCompare/Models/FileItem.swift",
+      "/home/runner/work/petersREPO/petersREPO/SwiftCompare/Sources/SwiftCompare/Services/FileComparisonService.swift",
+      "/home/runner/work/petersREPO/petersREPO/SwiftCompare/Sources/SwiftCompare/Services/FolderComparisonService.swift",
+      "/home/runner/work/petersREPO/petersREPO/SwiftCompare/Sources/SwiftCompare/SwiftCompareApp.swift",
+      "/home/runner/work/petersREPO/petersREPO/SwiftCompare/Sources/SwiftCompare/Utils/Extensions.swift",
+      "/home/runner/work/petersREPO/petersREPO/SwiftCompare/Sources/SwiftCompare/Views/ComparisonView.swift",
+      "/home/runner/work/petersREPO/petersREPO/SwiftCompare/Sources/SwiftCompare/Views/ContentView.swift",
+      "/home/runner/work/petersREPO/petersREPO/SwiftCompare/Sources/SwiftCompare/Views/SettingsView.swift",
+      "-I",
+      "/home/runner/work/petersREPO/petersREPO/SwiftCompare/.build/x86_64-unknown-linux-gnu/debug/Modules",
+      "-target",
+      "x86_64-unknown-linux-gnu",
+      "-incremental",
+      "-enable-batch-mode",
+      "-serialize-diagnostics",
+      "-index-store-path",
+      "/home/runner/work/petersREPO/petersREPO/SwiftCompare/.build/x86_64-unknown-linux-gnu/debug/index/store",
+      "-Onone",
+      "-enable-testing",
+      "-j4",
+      "-DSWIFT_PACKAGE",
+      "-DDEBUG",
+      "-DSWIFT_MODULE_RESOURCE_BUNDLE_UNAVAILABLE",
+      "-module-cache-path",
+      "/home/runner/work/petersREPO/petersREPO/SwiftCompare/.build/x86_64-unknown-linux-gnu/debug/ModuleCache",
+      "-parseable-output",
+      "-Xfrontend",
+      "-entry-point-function-name",
+      "-Xfrontend",
+      "SwiftCompare_main",
+      "-color-diagnostics",
+      "-swift-version",
+      "5",
+      "-g",
+      "-Xcc",
+      "-fPIC",
+      "-Xcc",
+      "-g",
+      "-package-name",
+      "swiftcompare",
+      "-Xcc",
+      "-fno-omit-frame-pointer",
+      "-driver-use-frontend-path",
+      "/usr/share/swift/usr/bin/swiftc"
+    ],
+    "SwiftComparePackageDiscoveredTests" : [
+      "/usr/share/swift/usr/bin/swiftc",
+      "-module-name",
+      "SwiftComparePackageDiscoveredTests",
+      "-package-name",
+      "swiftcompare",
+      "-c",
+      "/home/runner/work/petersREPO/petersREPO/SwiftCompare/.build/x86_64-unknown-linux-gnu/debug/SwiftComparePackageDiscoveredTests.derived/SwiftCompareTests.swift",
+      "/home/runner/work/petersREPO/petersREPO/SwiftCompare/.build/x86_64-unknown-linux-gnu/debug/SwiftComparePackageDiscoveredTests.derived/all-discovered-tests.swift",
+      "-I",
+      "/home/runner/work/petersREPO/petersREPO/SwiftCompare/.build/x86_64-unknown-linux-gnu/debug/Modules",
+      "-target",
+      "x86_64-unknown-linux-gnu",
+      "-incremental",
+      "-enable-batch-mode",
+      "-serialize-diagnostics",
+      "-index-store-path",
+      "/home/runner/work/petersREPO/petersREPO/SwiftCompare/.build/x86_64-unknown-linux-gnu/debug/index/store",
+      "-Onone",
+      "-enable-testing",
+      "-Xfrontend",
+      "-enable-cross-import-overlays",
+      "-j4",
+      "-DSWIFT_PACKAGE",
+      "-DDEBUG",
+      "-DSWIFT_MODULE_RESOURCE_BUNDLE_UNAVAILABLE",
+      "-module-cache-path",
+      "/home/runner/work/petersREPO/petersREPO/SwiftCompare/.build/x86_64-unknown-linux-gnu/debug/ModuleCache",
+      "-parseable-output",
+      "-parse-as-library",
+      "-emit-objc-header",
+      "-emit-objc-header-path",
+      "/home/runner/work/petersREPO/petersREPO/SwiftCompare/.build/x86_64-unknown-linux-gnu/debug/SwiftComparePackageDiscoveredTests.build/include/SwiftComparePackageDiscoveredTests-Swift.h",
+      "-color-diagnostics",
+      "-g",
+      "-Xcc",
+      "-fPIC",
+      "-Xcc",
+      "-g",
+      "-package-name",
+      "swiftcompare",
+      "-Xcc",
+      "-fno-omit-frame-pointer",
+      "-driver-use-frontend-path",
+      "/usr/share/swift/usr/bin/swiftc"
+    ],
+    "SwiftComparePackageTests" : [
+      "/usr/share/swift/usr/bin/swiftc",
+      "-module-name",
+      "SwiftComparePackageTests",
+      "-package-name",
+      "swiftcompare",
+      "-c",
+      "/home/runner/work/petersREPO/petersREPO/SwiftCompare/.build/x86_64-unknown-linux-gnu/debug/SwiftComparePackageTests.derived/runner.swift",
+      "-I",
+      "/home/runner/work/petersREPO/petersREPO/SwiftCompare/.build/x86_64-unknown-linux-gnu/debug/Modules",
+      "-target",
+      "x86_64-unknown-linux-gnu",
+      "-incremental",
+      "-enable-batch-mode",
+      "-serialize-diagnostics",
+      "-index-store-path",
+      "/home/runner/work/petersREPO/petersREPO/SwiftCompare/.build/x86_64-unknown-linux-gnu/debug/index/store",
+      "-Onone",
+      "-enable-testing",
+      "-Xfrontend",
+      "-enable-cross-import-overlays",
+      "-j4",
+      "-DSWIFT_PACKAGE",
+      "-DDEBUG",
+      "-DSWIFT_MODULE_RESOURCE_BUNDLE_UNAVAILABLE",
+      "-module-cache-path",
+      "/home/runner/work/petersREPO/petersREPO/SwiftCompare/.build/x86_64-unknown-linux-gnu/debug/ModuleCache",
+      "-parseable-output",
+      "-parse-as-library",
+      "-emit-objc-header",
+      "-emit-objc-header-path",
+      "/home/runner/work/petersREPO/petersREPO/SwiftCompare/.build/x86_64-unknown-linux-gnu/debug/SwiftComparePackageTests.build/include/SwiftComparePackageTests-Swift.h",
+      "-color-diagnostics",
+      "-g",
+      "-Xcc",
+      "-fPIC",
+      "-Xcc",
+      "-g",
+      "-package-name",
+      "swiftcompare",
+      "-Xcc",
+      "-fno-omit-frame-pointer",
+      "-driver-use-frontend-path",
+      "/usr/share/swift/usr/bin/swiftc"
+    ],
+    "SwiftCompareTests" : [
+      "/usr/share/swift/usr/bin/swiftc",
+      "-module-name",
+      "SwiftCompareTests",
+      "-package-name",
+      "swiftcompare",
+      "-c",
+      "/home/runner/work/petersREPO/petersREPO/SwiftCompare/Tests/SwiftCompareTests/FileComparisonServiceTests.swift",
+      "-I",
+      "/home/runner/work/petersREPO/petersREPO/SwiftCompare/.build/x86_64-unknown-linux-gnu/debug/Modules",
+      "-target",
+      "x86_64-unknown-linux-gnu",
+      "-incremental",
+      "-enable-batch-mode",
+      "-serialize-diagnostics",
+      "-index-store-path",
+      "/home/runner/work/petersREPO/petersREPO/SwiftCompare/.build/x86_64-unknown-linux-gnu/debug/index/store",
+      "-Onone",
+      "-enable-testing",
+      "-Xfrontend",
+      "-enable-cross-import-overlays",
+      "-j4",
+      "-DSWIFT_PACKAGE",
+      "-DDEBUG",
+      "-DSWIFT_MODULE_RESOURCE_BUNDLE_UNAVAILABLE",
+      "-module-cache-path",
+      "/home/runner/work/petersREPO/petersREPO/SwiftCompare/.build/x86_64-unknown-linux-gnu/debug/ModuleCache",
+      "-parseable-output",
+      "-parse-as-library",
+      "-color-diagnostics",
+      "-swift-version",
+      "5",
+      "-g",
+      "-Xcc",
+      "-fPIC",
+      "-Xcc",
+      "-g",
+      "-package-name",
+      "swiftcompare",
+      "-Xcc",
+      "-fno-omit-frame-pointer",
+      "-driver-use-frontend-path",
+      "/usr/share/swift/usr/bin/swiftc"
+    ]
+  },
+  "targetDependencyMap" : {
+    "SwiftCompare" : [
+
+    ],
+    "SwiftComparePackageDiscoveredTests" : [
+      "SwiftCompareTests",
+      "SwiftCompare"
+    ],
+    "SwiftComparePackageTests" : [
+      "SwiftComparePackageDiscoveredTests",
+      "SwiftCompareTests",
+      "SwiftCompare"
+    ],
+    "SwiftCompareTests" : [
+      "SwiftCompare"
+    ]
+  },
+  "testDiscoveryCommands" : {
+    "/home/runner/work/petersREPO/petersREPO/SwiftCompare/.build/x86_64-unknown-linux-gnu/debug/SwiftComparePackageDiscoveredTests.derived/all-discovered-tests.swift" : {
+      "inputs" : [
+        {
+          "kind" : "file",
+          "name" : "/home/runner/work/petersREPO/petersREPO/SwiftCompare/.build/x86_64-unknown-linux-gnu/debug/SwiftCompareTests.build/FileComparisonServiceTests.swift.o"
+        }
+      ],
+      "outputs" : [
+        {
+          "kind" : "file",
+          "name" : "/home/runner/work/petersREPO/petersREPO/SwiftCompare/.build/x86_64-unknown-linux-gnu/debug/SwiftComparePackageDiscoveredTests.derived/SwiftCompareTests.swift"
+        },
+        {
+          "kind" : "file",
+          "name" : "/home/runner/work/petersREPO/petersREPO/SwiftCompare/.build/x86_64-unknown-linux-gnu/debug/SwiftComparePackageDiscoveredTests.derived/all-discovered-tests.swift"
+        }
+      ]
+    }
+  },
+  "testEntryPointCommands" : {
+    "/home/runner/work/petersREPO/petersREPO/SwiftCompare/.build/x86_64-unknown-linux-gnu/debug/SwiftComparePackageTests.derived/runner.swift" : {
+      "inputs" : [
+        {
+          "kind" : "file",
+          "name" : "/home/runner/work/petersREPO/petersREPO/SwiftCompare/.build/x86_64-unknown-linux-gnu/debug/Modules/SwiftComparePackageDiscoveredTests.swiftmodule"
+        }
+      ],
+      "outputs" : [
+        {
+          "kind" : "file",
+          "name" : "/home/runner/work/petersREPO/petersREPO/SwiftCompare/.build/x86_64-unknown-linux-gnu/debug/SwiftComparePackageTests.derived/runner.swift"
+        }
+      ]
+    }
+  },
+  "traitConfiguration" : {
+    "default" : {
+
+    }
+  },
+  "writeCommands" : {
+    "/home/runner/work/petersREPO/petersREPO/SwiftCompare/.build/x86_64-unknown-linux-gnu/debug/SwiftCompare.build/sources" : {
+      "alwaysOutOfDate" : false,
+      "inputs" : [
+        {
+          "kind" : "virtual",
+          "name" : "<sources-file-list>"
+        },
+        {
+          "kind" : "file",
+          "name" : "/home/runner/work/petersREPO/petersREPO/SwiftCompare/Sources/SwiftCompare/Models/ComparisonResult.swift"
+        },
+        {
+          "kind" : "file",
+          "name" : "/home/runner/work/petersREPO/petersREPO/SwiftCompare/Sources/SwiftCompare/Models/DiffResult.swift"
+        },
+        {
+          "kind" : "file",
+          "name" : "/home/runner/work/petersREPO/petersREPO/SwiftCompare/Sources/SwiftCompare/Models/FileItem.swift"
+        },
+        {
+          "kind" : "file",
+          "name" : "/home/runner/work/petersREPO/petersREPO/SwiftCompare/Sources/SwiftCompare/Services/FileComparisonService.swift"
+        },
+        {
+          "kind" : "file",
+          "name" : "/home/runner/work/petersREPO/petersREPO/SwiftCompare/Sources/SwiftCompare/Services/FolderComparisonService.swift"
+        },
+        {
+          "kind" : "file",
+          "name" : "/home/runner/work/petersREPO/petersREPO/SwiftCompare/Sources/SwiftCompare/SwiftCompareApp.swift"
+        },
+        {
+          "kind" : "file",
+          "name" : "/home/runner/work/petersREPO/petersREPO/SwiftCompare/Sources/SwiftCompare/Utils/Extensions.swift"
+        },
+        {
+          "kind" : "file",
+          "name" : "/home/runner/work/petersREPO/petersREPO/SwiftCompare/Sources/SwiftCompare/Views/ComparisonView.swift"
+        },
+        {
+          "kind" : "file",
+          "name" : "/home/runner/work/petersREPO/petersREPO/SwiftCompare/Sources/SwiftCompare/Views/ContentView.swift"
+        },
+        {
+          "kind" : "file",
+          "name" : "/home/runner/work/petersREPO/petersREPO/SwiftCompare/Sources/SwiftCompare/Views/SettingsView.swift"
+        }
+      ],
+      "outputFilePath" : "/home/runner/work/petersREPO/petersREPO/SwiftCompare/.build/x86_64-unknown-linux-gnu/debug/SwiftCompare.build/sources"
+    },
+    "/home/runner/work/petersREPO/petersREPO/SwiftCompare/.build/x86_64-unknown-linux-gnu/debug/SwiftCompare.product/Objects.LinkFileList" : {
+      "alwaysOutOfDate" : false,
+      "inputs" : [
+        {
+          "kind" : "virtual",
+          "name" : "<link-file-list>"
+        },
+        {
+          "kind" : "file",
+          "name" : "/home/runner/work/petersREPO/petersREPO/SwiftCompare/.build/x86_64-unknown-linux-gnu/debug/SwiftCompare.build/ComparisonResult.swift.o"
+        },
+        {
+          "kind" : "file",
+          "name" : "/home/runner/work/petersREPO/petersREPO/SwiftCompare/.build/x86_64-unknown-linux-gnu/debug/SwiftCompare.build/ComparisonView.swift.o"
+        },
+        {
+          "kind" : "file",
+          "name" : "/home/runner/work/petersREPO/petersREPO/SwiftCompare/.build/x86_64-unknown-linux-gnu/debug/SwiftCompare.build/ContentView.swift.o"
+        },
+        {
+          "kind" : "file",
+          "name" : "/home/runner/work/petersREPO/petersREPO/SwiftCompare/.build/x86_64-unknown-linux-gnu/debug/SwiftCompare.build/DiffResult.swift.o"
+        },
+        {
+          "kind" : "file",
+          "name" : "/home/runner/work/petersREPO/petersREPO/SwiftCompare/.build/x86_64-unknown-linux-gnu/debug/SwiftCompare.build/Extensions.swift.o"
+        },
+        {
+          "kind" : "file",
+          "name" : "/home/runner/work/petersREPO/petersREPO/SwiftCompare/.build/x86_64-unknown-linux-gnu/debug/SwiftCompare.build/FileComparisonService.swift.o"
+        },
+        {
+          "kind" : "file",
+          "name" : "/home/runner/work/petersREPO/petersREPO/SwiftCompare/.build/x86_64-unknown-linux-gnu/debug/SwiftCompare.build/FileItem.swift.o"
+        },
+        {
+          "kind" : "file",
+          "name" : "/home/runner/work/petersREPO/petersREPO/SwiftCompare/.build/x86_64-unknown-linux-gnu/debug/SwiftCompare.build/FolderComparisonService.swift.o"
+        },
+        {
+          "kind" : "file",
+          "name" : "/home/runner/work/petersREPO/petersREPO/SwiftCompare/.build/x86_64-unknown-linux-gnu/debug/SwiftCompare.build/SettingsView.swift.o"
+        },
+        {
+          "kind" : "file",
+          "name" : "/home/runner/work/petersREPO/petersREPO/SwiftCompare/.build/x86_64-unknown-linux-gnu/debug/SwiftCompare.build/SwiftCompare.swiftmodule.o"
+        },
+        {
+          "kind" : "file",
+          "name" : "/home/runner/work/petersREPO/petersREPO/SwiftCompare/.build/x86_64-unknown-linux-gnu/debug/SwiftCompare.build/SwiftCompareApp.swift.o"
+        }
+      ],
+      "outputFilePath" : "/home/runner/work/petersREPO/petersREPO/SwiftCompare/.build/x86_64-unknown-linux-gnu/debug/SwiftCompare.product/Objects.LinkFileList"
+    },
+    "/home/runner/work/petersREPO/petersREPO/SwiftCompare/.build/x86_64-unknown-linux-gnu/debug/SwiftComparePackageDiscoveredTests.build/sources" : {
+      "alwaysOutOfDate" : false,
+      "inputs" : [
+        {
+          "kind" : "virtual",
+          "name" : "<sources-file-list>"
+        },
+        {
+          "kind" : "file",
+          "name" : "/home/runner/work/petersREPO/petersREPO/SwiftCompare/.build/x86_64-unknown-linux-gnu/debug/SwiftComparePackageDiscoveredTests.derived/SwiftCompareTests.swift"
+        },
+        {
+          "kind" : "file",
+          "name" : "/home/runner/work/petersREPO/petersREPO/SwiftCompare/.build/x86_64-unknown-linux-gnu/debug/SwiftComparePackageDiscoveredTests.derived/all-discovered-tests.swift"
+        }
+      ],
+      "outputFilePath" : "/home/runner/work/petersREPO/petersREPO/SwiftCompare/.build/x86_64-unknown-linux-gnu/debug/SwiftComparePackageDiscoveredTests.build/sources"
+    },
+    "/home/runner/work/petersREPO/petersREPO/SwiftCompare/.build/x86_64-unknown-linux-gnu/debug/SwiftComparePackageTests.build/sources" : {
+      "alwaysOutOfDate" : false,
+      "inputs" : [
+        {
+          "kind" : "virtual",
+          "name" : "<sources-file-list>"
+        },
+        {
+          "kind" : "file",
+          "name" : "/home/runner/work/petersREPO/petersREPO/SwiftCompare/.build/x86_64-unknown-linux-gnu/debug/SwiftComparePackageTests.derived/runner.swift"
+        }
+      ],
+      "outputFilePath" : "/home/runner/work/petersREPO/petersREPO/SwiftCompare/.build/x86_64-unknown-linux-gnu/debug/SwiftComparePackageTests.build/sources"
+    },
+    "/home/runner/work/petersREPO/petersREPO/SwiftCompare/.build/x86_64-unknown-linux-gnu/debug/SwiftComparePackageTests.product/Objects.LinkFileList" : {
+      "alwaysOutOfDate" : false,
+      "inputs" : [
+        {
+          "kind" : "virtual",
+          "name" : "<link-file-list>"
+        },
+        {
+          "kind" : "file",
+          "name" : "/home/runner/work/petersREPO/petersREPO/SwiftCompare/.build/x86_64-unknown-linux-gnu/debug/SwiftCompare.build/ComparisonResult.swift.o"
+        },
+        {
+          "kind" : "file",
+          "name" : "/home/runner/work/petersREPO/petersREPO/SwiftCompare/.build/x86_64-unknown-linux-gnu/debug/SwiftCompare.build/ComparisonView.swift.o"
+        },
+        {
+          "kind" : "file",
+          "name" : "/home/runner/work/petersREPO/petersREPO/SwiftCompare/.build/x86_64-unknown-linux-gnu/debug/SwiftCompare.build/ContentView.swift.o"
+        },
+        {
+          "kind" : "file",
+          "name" : "/home/runner/work/petersREPO/petersREPO/SwiftCompare/.build/x86_64-unknown-linux-gnu/debug/SwiftCompare.build/DiffResult.swift.o"
+        },
+        {
+          "kind" : "file",
+          "name" : "/home/runner/work/petersREPO/petersREPO/SwiftCompare/.build/x86_64-unknown-linux-gnu/debug/SwiftCompare.build/Extensions.swift.o"
+        },
+        {
+          "kind" : "file",
+          "name" : "/home/runner/work/petersREPO/petersREPO/SwiftCompare/.build/x86_64-unknown-linux-gnu/debug/SwiftCompare.build/FileComparisonService.swift.o"
+        },
+        {
+          "kind" : "file",
+          "name" : "/home/runner/work/petersREPO/petersREPO/SwiftCompare/.build/x86_64-unknown-linux-gnu/debug/SwiftCompare.build/FileItem.swift.o"
+        },
+        {
+          "kind" : "file",
+          "name" : "/home/runner/work/petersREPO/petersREPO/SwiftCompare/.build/x86_64-unknown-linux-gnu/debug/SwiftCompare.build/FolderComparisonService.swift.o"
+        },
+        {
+          "kind" : "file",
+          "name" : "/home/runner/work/petersREPO/petersREPO/SwiftCompare/.build/x86_64-unknown-linux-gnu/debug/SwiftCompare.build/SettingsView.swift.o"
+        },
+        {
+          "kind" : "file",
+          "name" : "/home/runner/work/petersREPO/petersREPO/SwiftCompare/.build/x86_64-unknown-linux-gnu/debug/SwiftCompare.build/SwiftCompare.swiftmodule.o"
+        },
+        {
+          "kind" : "file",
+          "name" : "/home/runner/work/petersREPO/petersREPO/SwiftCompare/.build/x86_64-unknown-linux-gnu/debug/SwiftCompare.build/SwiftCompareApp.swift.o"
+        },
+        {
+          "kind" : "file",
+          "name" : "/home/runner/work/petersREPO/petersREPO/SwiftCompare/.build/x86_64-unknown-linux-gnu/debug/SwiftComparePackageDiscoveredTests.build/SwiftComparePackageDiscoveredTests.swiftmodule.o"
+        },
+        {
+          "kind" : "file",
+          "name" : "/home/runner/work/petersREPO/petersREPO/SwiftCompare/.build/x86_64-unknown-linux-gnu/debug/SwiftComparePackageDiscoveredTests.build/SwiftCompareTests.swift.o"
+        },
+        {
+          "kind" : "file",
+          "name" : "/home/runner/work/petersREPO/petersREPO/SwiftCompare/.build/x86_64-unknown-linux-gnu/debug/SwiftComparePackageDiscoveredTests.build/all-discovered-tests.swift.o"
+        },
+        {
+          "kind" : "file",
+          "name" : "/home/runner/work/petersREPO/petersREPO/SwiftCompare/.build/x86_64-unknown-linux-gnu/debug/SwiftComparePackageTests.build/SwiftComparePackageTests.swiftmodule.o"
+        },
+        {
+          "kind" : "file",
+          "name" : "/home/runner/work/petersREPO/petersREPO/SwiftCompare/.build/x86_64-unknown-linux-gnu/debug/SwiftComparePackageTests.build/runner.swift.o"
+        },
+        {
+          "kind" : "file",
+          "name" : "/home/runner/work/petersREPO/petersREPO/SwiftCompare/.build/x86_64-unknown-linux-gnu/debug/SwiftCompareTests.build/FileComparisonServiceTests.swift.o"
+        },
+        {
+          "kind" : "file",
+          "name" : "/home/runner/work/petersREPO/petersREPO/SwiftCompare/.build/x86_64-unknown-linux-gnu/debug/SwiftCompareTests.build/SwiftCompareTests.swiftmodule.o"
+        }
+      ],
+      "outputFilePath" : "/home/runner/work/petersREPO/petersREPO/SwiftCompare/.build/x86_64-unknown-linux-gnu/debug/SwiftComparePackageTests.product/Objects.LinkFileList"
+    },
+    "/home/runner/work/petersREPO/petersREPO/SwiftCompare/.build/x86_64-unknown-linux-gnu/debug/SwiftCompareTests.build/sources" : {
+      "alwaysOutOfDate" : false,
+      "inputs" : [
+        {
+          "kind" : "virtual",
+          "name" : "<sources-file-list>"
+        },
+        {
+          "kind" : "file",
+          "name" : "/home/runner/work/petersREPO/petersREPO/SwiftCompare/Tests/SwiftCompareTests/FileComparisonServiceTests.swift"
+        }
+      ],
+      "outputFilePath" : "/home/runner/work/petersREPO/petersREPO/SwiftCompare/.build/x86_64-unknown-linux-gnu/debug/SwiftCompareTests.build/sources"
+    },
+    "/home/runner/work/petersREPO/petersREPO/SwiftCompare/.build/x86_64-unknown-linux-gnu/debug/swift-version--1BFCD5C06E9F820A.txt" : {
+      "alwaysOutOfDate" : true,
+      "inputs" : [
+        {
+          "kind" : "virtual",
+          "name" : "<swift-get-version>"
+        },
+        {
+          "kind" : "file",
+          "name" : "/usr/share/swift/usr/bin/swiftc"
+        }
+      ],
+      "outputFilePath" : "/home/runner/work/petersREPO/petersREPO/SwiftCompare/.build/x86_64-unknown-linux-gnu/debug/swift-version--1BFCD5C06E9F820A.txt"
+    }
+  }
+}

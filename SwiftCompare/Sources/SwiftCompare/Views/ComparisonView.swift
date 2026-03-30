@@ -81,6 +81,7 @@ struct FileDiffView: View {
                 // Left file panel
                 DiffPanelView(
                     lines: filteredLines(result.leftLines, isLeft: true),
+                    pairedLines: filteredLines(result.rightLines, isLeft: false),
                     title: result.leftFile?.lastPathComponent ?? "Left",
                     isLeft: true,
                     width: geometry.size.width / 2
@@ -91,6 +92,7 @@ struct FileDiffView: View {
                 // Right file panel
                 DiffPanelView(
                     lines: filteredLines(result.rightLines, isLeft: false),
+                    pairedLines: filteredLines(result.leftLines, isLeft: true),
                     title: result.rightFile?.lastPathComponent ?? "Right",
                     isLeft: false,
                     width: geometry.size.width / 2
@@ -110,6 +112,7 @@ struct FileDiffView: View {
 /// Individual diff panel showing file content
 struct DiffPanelView: View {
     let lines: [DiffLine]
+    let pairedLines: [DiffLine]
     let title: String
     let isLeft: Bool
     let width: CGFloat
@@ -134,19 +137,40 @@ struct DiffPanelView: View {
             // Content
             ScrollView {
                 LazyVStack(alignment: .leading, spacing: 0) {
-                    ForEach(lines) { line in
-                        DiffLineView(line: line)
+                    ForEach(Array(lines.enumerated()), id: \.element.id) { index, line in
+                        let pairedContent = getPairedContent(for: index, line: line)
+                        DiffLineView(line: line, pairedLineContent: pairedContent)
                     }
                 }
             }
         }
         .frame(width: width)
     }
+    
+    /// Get the paired line content for character-level diff comparison
+    private func getPairedContent(for index: Int, line: DiffLine) -> String? {
+        // Only compute character diffs for changed lines
+        guard line.changeType != .unchanged else { return nil }
+        
+        // Get the paired line at the same index if it exists and is also changed
+        guard index < pairedLines.count else { return nil }
+        let pairedLine = pairedLines[index]
+        
+        // Return paired content for character comparison
+        guard pairedLine.changeType != .unchanged && !pairedLine.content.isEmpty else { return nil }
+        
+        return pairedLine.content
+    }
 }
 
 /// Single line in the diff view
 struct DiffLineView: View {
     let line: DiffLine
+    /// Optional paired line content for computing character diffs on modified lines
+    var pairedLineContent: String? = nil
+    
+    @AppStorage("matchingCharColor") private var matchingCharColor = "blue"
+    @AppStorage("differentCharColor") private var differentCharColor = "red"
     
     var body: some View {
         HStack(spacing: 0) {
@@ -163,17 +187,74 @@ struct DiffLineView: View {
                 .foregroundColor(indicatorColor)
                 .frame(width: 16)
             
-            // Line content
-            Text(line.content)
-                .font(.system(.body, design: .monospaced))
-                .lineLimit(1)
-                .truncationMode(.tail)
+            // Line content - with character-level highlighting for modified lines
+            if line.changeType == .modified || line.changeType == .added || line.changeType == .removed,
+               let paired = pairedLineContent,
+               !line.content.isEmpty {
+                characterDiffText
+            } else {
+                Text(line.content)
+                    .font(.system(.body, design: .monospaced))
+                    .lineLimit(1)
+                    .truncationMode(.tail)
+            }
             
             Spacer()
         }
         .padding(.horizontal, 8)
         .padding(.vertical, 2)
         .background(backgroundColor)
+    }
+    
+    @ViewBuilder
+    private var characterDiffText: some View {
+        let diffs = computeCharacterDiffs()
+        if diffs.isEmpty {
+            Text(line.content)
+                .font(.system(.body, design: .monospaced))
+                .foregroundColor(colorFromName(matchingCharColor))
+                .lineLimit(1)
+                .truncationMode(.tail)
+        } else {
+            HStack(spacing: 0) {
+                ForEach(Array(diffs.enumerated()), id: \.offset) { _, diff in
+                    Text(String(line.content[diff.range]))
+                        .font(.system(.body, design: .monospaced))
+                        .foregroundColor(diff.isChanged ? colorFromName(differentCharColor) : colorFromName(matchingCharColor))
+                }
+            }
+            .lineLimit(1)
+            .truncationMode(.tail)
+        }
+    }
+    
+    private func computeCharacterDiffs() -> [CharacterDiff] {
+        guard let paired = pairedLineContent else {
+            return []
+        }
+        
+        // Compute character-level diff between this line and its paired line
+        let (leftDiffs, rightDiffs) = FileComparisonService.computeCharacterDiffs(
+            original: line.changeType == .removed ? line.content : paired,
+            modified: line.changeType == .removed ? paired : line.content
+        )
+        
+        // Return the appropriate diffs based on line type
+        return line.changeType == .removed ? leftDiffs : rightDiffs
+    }
+    
+    private func colorFromName(_ name: String) -> Color {
+        switch name {
+        case "blue": return .blue
+        case "red": return .red
+        case "green": return .green
+        case "orange": return .orange
+        case "purple": return .purple
+        case "yellow": return .yellow
+        case "cyan": return .cyan
+        case "magenta": return Color(red: 1, green: 0, blue: 1)
+        default: return .blue
+        }
     }
     
     private var changeIndicator: String {

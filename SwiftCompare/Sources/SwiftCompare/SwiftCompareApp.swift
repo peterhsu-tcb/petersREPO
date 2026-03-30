@@ -74,13 +74,13 @@ struct SwiftCompareApp: App {
                 Button("Merge All Left to Right") {
                     appState.mergeAllLeftToRight()
                 }
-                .keyboardShortcut("m", modifiers: [.command, .option])
+                .keyboardShortcut("l", modifiers: [.command, .option])
                 .disabled(appState.diffResult == nil || appState.diffResult?.isIdentical == true)
                 
                 Button("Merge All Right to Left") {
                     appState.mergeAllRightToLeft()
                 }
-                .keyboardShortcut("m", modifiers: [.command, .option, .shift])
+                .keyboardShortcut("r", modifiers: [.command, .option])
                 .disabled(appState.diffResult == nil || appState.diffResult?.isIdentical == true)
                 
                 Divider()

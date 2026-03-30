@@ -41,13 +41,11 @@ class MergeService {
     /// Merge a specific chunk from source to destination
     /// - Parameters:
     ///   - chunk: The diff chunk to merge
-    ///   - sourceLines: Lines from the source file
     ///   - destinationLines: Lines from the destination file
     ///   - direction: The merge direction (.leftToRight or .rightToLeft)
     /// - Returns: The merged lines array
     func mergeChunk(
         chunk: DiffChunk,
-        sourceLines: [String],
         destinationLines: [String],
         direction: MergeDirection
     ) -> [String] {
@@ -136,10 +134,9 @@ class MergeService {
         
         let destinationLines = destinationContent.components(separatedBy: .newlines)
         
-        // For source, we use the chunk's lines directly
+        // Merge the chunk into the destination
         let mergedLines = mergeChunk(
             chunk: chunk,
-            sourceLines: [], // Not needed as chunk contains the lines
             destinationLines: destinationLines,
             direction: direction
         )
@@ -291,7 +288,6 @@ class MergeService {
             let chunk = diffResult.chunks[chunkIndex]
             mergedLines = mergeChunk(
                 chunk: chunk,
-                sourceLines: [],
                 destinationLines: mergedLines,
                 direction: direction
             )
@@ -358,7 +354,6 @@ class MergeService {
         
         let mergedLines = mergeChunk(
             chunk: chunk,
-            sourceLines: [],
             destinationLines: destinationLines,
             direction: direction
         )

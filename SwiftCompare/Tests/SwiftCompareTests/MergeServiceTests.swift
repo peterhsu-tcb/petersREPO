@@ -264,4 +264,129 @@ final class MergeServiceTests: XCTestCase {
         XCTAssertEqual(MergeDirection.leftToRight.description, "Left → Right")
         XCTAssertEqual(MergeDirection.rightToLeft.description, "Right → Left")
     }
+    
+    // MARK: - Backup Tests
+    
+    func testMergeCreatesBackup() throws {
+        // Create test files
+        let leftContent = "Line 1\nLine 2\nLine 3"
+        let rightContent = "Line 1\nLine 2 Modified\nLine 3"
+        
+        let leftFile = createTestFile(named: "left.txt", content: leftContent)
+        let rightFile = createTestFile(named: "right.txt", content: rightContent)
+        
+        // Get diff result
+        let diffResult = fileComparisonService.compareFiles(leftURL: leftFile, rightURL: rightFile)
+        
+        // Perform merge
+        let result = try mergeService.mergeAllLeftToRight(diffResult: diffResult)
+        
+        // Verify backup was created
+        XCTAssertNotNil(result.backupURL)
+        if let backupURL = result.backupURL {
+            XCTAssertTrue(FileManager.default.fileExists(atPath: backupURL.path))
+            
+            // Verify backup contains original content
+            let backupContent = try String(contentsOf: backupURL, encoding: .utf8)
+            XCTAssertEqual(backupContent, rightContent)
+        }
+    }
+    
+    func testMergeWithoutBackup() throws {
+        // Create test files
+        let leftContent = "Line 1\nLine 2\nLine 3"
+        let rightContent = "Line 1\nLine 2 Modified\nLine 3"
+        
+        let leftFile = createTestFile(named: "left.txt", content: leftContent)
+        let rightFile = createTestFile(named: "right.txt", content: rightContent)
+        
+        // Get diff result
+        let diffResult = fileComparisonService.compareFiles(leftURL: leftFile, rightURL: rightFile)
+        
+        // Perform merge without backup
+        let result = try mergeService.mergeAllLeftToRight(diffResult: diffResult, createBackup: false)
+        
+        // Verify no backup was created
+        XCTAssertNil(result.backupURL)
+    }
+    
+    func testRestoreFromBackup() throws {
+        // Create test files
+        let leftContent = "Line 1\nLine 2\nLine 3"
+        let rightContent = "Line 1\nLine 2 Modified\nLine 3"
+        
+        let leftFile = createTestFile(named: "left.txt", content: leftContent)
+        let rightFile = createTestFile(named: "right.txt", content: rightContent)
+        
+        // Get diff result
+        let diffResult = fileComparisonService.compareFiles(leftURL: leftFile, rightURL: rightFile)
+        
+        // Perform merge (creates backup)
+        let result = try mergeService.mergeAllLeftToRight(diffResult: diffResult)
+        
+        // Verify merge happened
+        XCTAssertEqual(readFile(at: rightFile), leftContent)
+        
+        // Restore from backup
+        guard let backupURL = result.backupURL else {
+            XCTFail("Expected backup URL")
+            return
+        }
+        
+        try mergeService.restoreFromBackup(backupURL: backupURL, to: rightFile)
+        
+        // Verify file was restored
+        XCTAssertEqual(readFile(at: rightFile), rightContent)
+    }
+    
+    func testChunkMergeCreatesBackup() throws {
+        // Create test files
+        let leftContent = "Line 1\nLeft Line 2\nLine 3"
+        let rightContent = "Line 1\nRight Line 2\nLine 3"
+        
+        let leftFile = createTestFile(named: "left.txt", content: leftContent)
+        let rightFile = createTestFile(named: "right.txt", content: rightContent)
+        
+        // Get diff result
+        let diffResult = fileComparisonService.compareFiles(leftURL: leftFile, rightURL: rightFile)
+        
+        guard diffResult.chunks.count > 0 else {
+            XCTFail("Expected at least one chunk")
+            return
+        }
+        
+        // Merge chunk
+        let result = try mergeService.mergeChunkAtIndex(
+            chunkIndex: 0,
+            diffResult: diffResult,
+            direction: .leftToRight
+        )
+        
+        // Verify backup was created
+        XCTAssertNotNil(result.backupURL)
+        if let backupURL = result.backupURL {
+            XCTAssertTrue(FileManager.default.fileExists(atPath: backupURL.path))
+        }
+    }
+    
+    func testListBackups() throws {
+        // Create test files
+        let leftContent = "Line 1\nLine 2\nLine 3"
+        let rightContent = "Line 1\nLine 2 Modified\nLine 3"
+        
+        let leftFile = createTestFile(named: "left.txt", content: leftContent)
+        let rightFile = createTestFile(named: "right.txt", content: rightContent)
+        
+        // Get diff result
+        let diffResult = fileComparisonService.compareFiles(leftURL: leftFile, rightURL: rightFile)
+        
+        // Perform merge (creates backup)
+        _ = try mergeService.mergeAllLeftToRight(diffResult: diffResult)
+        
+        // List backups
+        let backups = mergeService.listBackups(for: rightFile)
+        
+        // Verify backup is listed
+        XCTAssertGreaterThan(backups.count, 0)
+    }
 }

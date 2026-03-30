@@ -3,6 +3,7 @@ import Foundation
 /// Service for merging differences between files
 class MergeService {
     private let fileManager = FileManager.default
+    private let backupService = BackupService()
     
     /// Errors that can occur during merge operations
     enum MergeError: Error, LocalizedError {
@@ -11,6 +12,7 @@ class MergeService {
         case writeError(String)
         case invalidChunkIndex
         case mergeConflict(String)
+        case backupError(String)
         
         var errorDescription: String? {
             switch self {
@@ -24,6 +26,8 @@ class MergeService {
                 return "Invalid chunk index specified"
             case .mergeConflict(let message):
                 return "Merge conflict: \(message)"
+            case .backupError(let message):
+                return "Backup failed: \(message)"
             }
         }
     }
@@ -34,6 +38,16 @@ class MergeService {
         let mergedContent: String
         let changesApplied: Int
         let message: String
+        /// URL of the backup file created before merge (nil if backup was disabled)
+        let backupURL: URL?
+        
+        init(success: Bool, mergedContent: String, changesApplied: Int, message: String, backupURL: URL? = nil) {
+            self.success = success
+            self.mergedContent = mergedContent
+            self.changesApplied = changesApplied
+            self.message = message
+            self.backupURL = backupURL
+        }
     }
     
     // MARK: - Chunk-level Merge Operations
@@ -97,11 +111,13 @@ class MergeService {
     ///   - chunkIndex: Index of the chunk in the diff result
     ///   - diffResult: The full diff result containing all chunks
     ///   - direction: The merge direction
+    ///   - createBackup: Whether to create a backup before merging (default: true)
     /// - Returns: MergeResult indicating success/failure and details
     func mergeChunkAtIndex(
         chunkIndex: Int,
         diffResult: DiffResult,
-        direction: MergeDirection
+        direction: MergeDirection,
+        createBackup: Bool = true
     ) throws -> MergeResult {
         guard chunkIndex >= 0 && chunkIndex < diffResult.chunks.count else {
             throw MergeError.invalidChunkIndex
@@ -122,6 +138,17 @@ class MergeService {
         
         guard let destURL = destinationURL else {
             throw MergeError.fileNotFound("Destination file not specified")
+        }
+        
+        // Create backup before merge if requested
+        var backupURL: URL? = nil
+        if createBackup {
+            do {
+                let backupInfo = try backupService.createBackup(of: destURL)
+                backupURL = backupInfo.backupURL
+            } catch {
+                throw MergeError.backupError(error.localizedDescription)
+            }
         }
         
         // Read destination file
@@ -154,22 +181,36 @@ class MergeService {
             success: true,
             mergedContent: mergedContent,
             changesApplied: 1,
-            message: "Successfully merged chunk \(chunkIndex + 1)"
+            message: "Successfully merged chunk \(chunkIndex + 1)",
+            backupURL: backupURL
         )
     }
     
     // MARK: - Full File Merge Operations
     
     /// Merge all differences from left to right
-    /// - Parameter diffResult: The diff result containing all differences
+    /// - Parameters:
+    ///   - diffResult: The diff result containing all differences
+    ///   - createBackup: Whether to create a backup before merging (default: true)
     /// - Returns: MergeResult indicating success/failure and details
-    func mergeAllLeftToRight(diffResult: DiffResult) throws -> MergeResult {
+    func mergeAllLeftToRight(diffResult: DiffResult, createBackup: Bool = true) throws -> MergeResult {
         guard let destinationURL = diffResult.rightFile else {
             throw MergeError.fileNotFound("Right file not specified")
         }
         
         guard let sourceURL = diffResult.leftFile else {
             throw MergeError.fileNotFound("Left file not specified")
+        }
+        
+        // Create backup before merge if requested
+        var backupURL: URL? = nil
+        if createBackup && fileManager.fileExists(atPath: destinationURL.path) {
+            do {
+                let backupInfo = try backupService.createBackup(of: destinationURL)
+                backupURL = backupInfo.backupURL
+            } catch {
+                throw MergeError.backupError(error.localizedDescription)
+            }
         }
         
         // Simply copy the entire left file to right
@@ -190,20 +231,34 @@ class MergeService {
             success: true,
             mergedContent: sourceContent,
             changesApplied: diffResult.chunks.count,
-            message: "Successfully merged all \(diffResult.chunks.count) chunks from left to right"
+            message: "Successfully merged all \(diffResult.chunks.count) chunks from left to right",
+            backupURL: backupURL
         )
     }
     
     /// Merge all differences from right to left
-    /// - Parameter diffResult: The diff result containing all differences
+    /// - Parameters:
+    ///   - diffResult: The diff result containing all differences
+    ///   - createBackup: Whether to create a backup before merging (default: true)
     /// - Returns: MergeResult indicating success/failure and details
-    func mergeAllRightToLeft(diffResult: DiffResult) throws -> MergeResult {
+    func mergeAllRightToLeft(diffResult: DiffResult, createBackup: Bool = true) throws -> MergeResult {
         guard let destinationURL = diffResult.leftFile else {
             throw MergeError.fileNotFound("Left file not specified")
         }
         
         guard let sourceURL = diffResult.rightFile else {
             throw MergeError.fileNotFound("Right file not specified")
+        }
+        
+        // Create backup before merge if requested
+        var backupURL: URL? = nil
+        if createBackup && fileManager.fileExists(atPath: destinationURL.path) {
+            do {
+                let backupInfo = try backupService.createBackup(of: destinationURL)
+                backupURL = backupInfo.backupURL
+            } catch {
+                throw MergeError.backupError(error.localizedDescription)
+            }
         }
         
         // Simply copy the entire right file to left
@@ -224,7 +279,8 @@ class MergeService {
             success: true,
             mergedContent: sourceContent,
             changesApplied: diffResult.chunks.count,
-            message: "Successfully merged all \(diffResult.chunks.count) chunks from right to left"
+            message: "Successfully merged all \(diffResult.chunks.count) chunks from right to left",
+            backupURL: backupURL
         )
     }
     
@@ -235,11 +291,13 @@ class MergeService {
     ///   - chunkIndices: Array of chunk indices to merge (sorted in ascending order)
     ///   - diffResult: The diff result containing all chunks
     ///   - direction: The merge direction
+    ///   - createBackup: Whether to create a backup before merging (default: true)
     /// - Returns: MergeResult indicating success/failure and details
     func mergeSelectedChunks(
         chunkIndices: [Int],
         diffResult: DiffResult,
-        direction: MergeDirection
+        direction: MergeDirection,
+        createBackup: Bool = true
     ) throws -> MergeResult {
         guard !chunkIndices.isEmpty else {
             return MergeResult(
@@ -268,6 +326,17 @@ class MergeService {
         
         guard let destURL = destinationURL else {
             throw MergeError.fileNotFound("Destination file not specified")
+        }
+        
+        // Create backup before merge if requested
+        var backupURL: URL? = nil
+        if createBackup {
+            do {
+                let backupInfo = try backupService.createBackup(of: destURL)
+                backupURL = backupInfo.backupURL
+            } catch {
+                throw MergeError.backupError(error.localizedDescription)
+            }
         }
         
         // Read destination file
@@ -306,7 +375,8 @@ class MergeService {
             success: true,
             mergedContent: mergedContent,
             changesApplied: chunkIndices.count,
-            message: "Successfully merged \(chunkIndices.count) selected chunks"
+            message: "Successfully merged \(chunkIndices.count) selected chunks",
+            backupURL: backupURL
         )
     }
     
@@ -359,6 +429,46 @@ class MergeService {
         )
         
         return mergedLines.joined(separator: "\n")
+    }
+    
+    // MARK: - Backup Restore Operations
+    
+    /// Restore a file from a backup
+    /// - Parameters:
+    ///   - backupURL: URL of the backup file
+    ///   - originalURL: URL of the file to restore
+    func restoreFromBackup(backupURL: URL, to originalURL: URL) throws {
+        do {
+            try backupService.restore(from: backupURL, to: originalURL)
+        } catch {
+            throw MergeError.backupError("Restore failed: \(error.localizedDescription)")
+        }
+    }
+    
+    /// Get the most recent backup for a file
+    /// - Parameter fileURL: URL of the file
+    /// - Returns: URL of the most recent backup, or nil if none exists
+    func mostRecentBackup(for fileURL: URL) -> URL? {
+        return backupService.mostRecentBackup(for: fileURL)
+    }
+    
+    /// List all backups for a file
+    /// - Parameter fileURL: URL of the file
+    /// - Returns: Array of backup URLs sorted by date (newest first)
+    func listBackups(for fileURL: URL) -> [URL] {
+        return backupService.listBackups(for: fileURL)
+    }
+    
+    /// Clean up old backups, keeping only the specified number of most recent backups
+    /// - Parameters:
+    ///   - fileURL: URL of the file
+    ///   - keepCount: Number of backups to keep (default: 5)
+    func cleanupOldBackups(for fileURL: URL, keepCount: Int = 5) throws {
+        do {
+            try backupService.cleanupOldBackups(for: fileURL, keepCount: keepCount)
+        } catch {
+            throw MergeError.backupError("Cleanup failed: \(error.localizedDescription)")
+        }
     }
 }
 

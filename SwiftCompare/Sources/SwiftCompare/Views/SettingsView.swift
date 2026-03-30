@@ -198,8 +198,8 @@ struct AppearanceSettingsView: View {
 
 /// File types settings tab
 struct FileTypesSettingsView: View {
-    @AppStorage("textExtensions") private var textExtensions = "txt,md,swift,py,js,ts,html,css,json,xml,yaml,yml"
-    @AppStorage("binaryExtensions") private var binaryExtensions = "png,jpg,jpeg,gif,pdf,zip,tar,gz,exe,app,dmg"
+    @AppStorage("textExtensions") private var textExtensions = "txt,md,swift,py,js,ts,html,css,json,xml,yaml,yml,pdf,docx"
+    @AppStorage("binaryExtensions") private var binaryExtensions = "png,jpg,jpeg,gif,zip,tar,gz,exe,app,dmg"
     
     var body: some View {
         Form {
@@ -219,8 +219,8 @@ struct FileTypesSettingsView: View {
             
             Section {
                 Button("Reset to Defaults") {
-                    textExtensions = "txt,md,swift,py,js,ts,html,css,json,xml,yaml,yml"
-                    binaryExtensions = "png,jpg,jpeg,gif,pdf,zip,tar,gz,exe,app,dmg"
+                    textExtensions = "txt,md,swift,py,js,ts,html,css,json,xml,yaml,yml,pdf,docx"
+                    binaryExtensions = "png,jpg,jpeg,gif,zip,tar,gz,exe,app,dmg"
                 }
             }
         }

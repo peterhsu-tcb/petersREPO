@@ -85,12 +85,14 @@ struct FileDiffView: View {
                     pairedLines: filteredLines(result.rightLines, isLeft: false),
                     title: result.leftFile?.lastPathComponent ?? "Left",
                     isLeft: true,
-                    width: geometry.size.width / 2,
+                    width: (geometry.size.width - 60) / 2, // Account for merge buttons column
                     chunks: result.chunks,
                     currentDifferenceIndex: appState.currentDifferenceIndex
                 )
                 
-                Divider()
+                // Center merge buttons column
+                MergeButtonsView(chunks: result.chunks)
+                    .frame(width: 60)
                 
                 // Right file panel
                 DiffPanelView(
@@ -98,7 +100,7 @@ struct FileDiffView: View {
                     pairedLines: filteredLines(result.leftLines, isLeft: true),
                     title: result.rightFile?.lastPathComponent ?? "Right",
                     isLeft: false,
-                    width: geometry.size.width / 2,
+                    width: (geometry.size.width - 60) / 2, // Account for merge buttons column
                     chunks: result.chunks,
                     currentDifferenceIndex: appState.currentDifferenceIndex
                 )
@@ -111,6 +113,87 @@ struct FileDiffView: View {
             return lines.filter { $0.changeType != .unchanged }
         }
         return lines
+    }
+}
+
+/// View showing merge buttons between the two diff panels
+struct MergeButtonsView: View {
+    let chunks: [DiffChunk]
+    @EnvironmentObject var appState: AppState
+    
+    var body: some View {
+        VStack(spacing: 0) {
+            // Header matching panel headers
+            HStack {
+                Text("Merge")
+                    .fontWeight(.medium)
+                    .font(.caption)
+            }
+            .frame(maxWidth: .infinity)
+            .padding(.vertical, 8)
+            .background(Color(NSColor.controlBackgroundColor))
+            
+            Divider()
+            
+            // Merge buttons for each chunk
+            ScrollView {
+                LazyVStack(spacing: 4) {
+                    ForEach(Array(chunks.enumerated()), id: \.element.id) { index, chunk in
+                        ChunkMergeButtonsView(chunkIndex: index, chunk: chunk)
+                    }
+                }
+                .padding(.vertical, 4)
+            }
+        }
+        .background(Color(NSColor.controlBackgroundColor).opacity(0.5))
+    }
+}
+
+/// Merge buttons for a single chunk
+struct ChunkMergeButtonsView: View {
+    let chunkIndex: Int
+    let chunk: DiffChunk
+    @EnvironmentObject var appState: AppState
+    @State private var isHovered = false
+    
+    var body: some View {
+        HStack(spacing: 2) {
+            // Merge left to right button
+            Button(action: {
+                appState.mergeChunkLeftToRight(chunkIndex: chunkIndex)
+            }) {
+                Image(systemName: "arrow.right")
+                    .font(.caption)
+            }
+            .buttonStyle(.borderless)
+            .help("Merge chunk \(chunkIndex + 1) from left to right")
+            .disabled(chunk.leftLines.isEmpty)
+            
+            // Merge right to left button
+            Button(action: {
+                appState.mergeChunkRightToLeft(chunkIndex: chunkIndex)
+            }) {
+                Image(systemName: "arrow.left")
+                    .font(.caption)
+            }
+            .buttonStyle(.borderless)
+            .help("Merge chunk \(chunkIndex + 1) from right to left")
+            .disabled(chunk.rightLines.isEmpty)
+        }
+        .padding(.horizontal, 4)
+        .padding(.vertical, 2)
+        .background(
+            RoundedRectangle(cornerRadius: 4)
+                .fill(appState.currentDifferenceIndex == chunkIndex 
+                    ? Color.accentColor.opacity(0.3) 
+                    : (isHovered ? Color.secondary.opacity(0.1) : Color.clear))
+        )
+        .onHover { hovering in
+            isHovered = hovering
+        }
+        .onTapGesture {
+            appState.currentDifferenceIndex = chunkIndex
+        }
     }
 }
 

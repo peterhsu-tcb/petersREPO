@@ -3,6 +3,9 @@ import Foundation
 /// Service for comparing text files using Myers' diff algorithm
 class FileComparisonService {
     
+    /// Document text extractor for PDF/DOCX files
+    private let documentExtractor = DocumentTextExtractor()
+    
     /// Compare two text files and return a diff result
     func compareFiles(leftURL: URL?, rightURL: URL?) -> DiffResult {
         let leftContent: String?
@@ -11,14 +14,14 @@ class FileComparisonService {
         var rightExists = false
         
         if let left = leftURL {
-            leftContent = try? String(contentsOf: left, encoding: .utf8)
+            leftContent = readFileContent(from: left)
             leftExists = FileManager.default.fileExists(atPath: left.path)
         } else {
             leftContent = nil
         }
         
         if let right = rightURL {
-            rightContent = try? String(contentsOf: right, encoding: .utf8)
+            rightContent = readFileContent(from: right)
             rightExists = FileManager.default.fileExists(atPath: right.path)
         } else {
             rightContent = nil
@@ -32,6 +35,17 @@ class FileComparisonService {
             leftExists: leftExists,
             rightExists: rightExists
         )
+    }
+    
+    /// Read file content, handling both text files and document files (PDF, DOCX)
+    private func readFileContent(from url: URL) -> String? {
+        // Check if this is a document file that needs text extraction
+        if DocumentTextExtractor.isSupported(url: url) {
+            return try? documentExtractor.extractText(from: url)
+        }
+        
+        // Otherwise, read as plain text
+        return try? String(contentsOf: url, encoding: .utf8)
     }
     
     /// Compare two strings and return a diff result
@@ -296,6 +310,12 @@ class FileComparisonService {
     
     /// Check if two files are binary files
     func isBinaryFile(_ url: URL) -> Bool {
+        // Document files (PDF, DOCX) should be treated as text for comparison
+        // since we can extract text from them
+        if DocumentTextExtractor.isSupported(url: url) {
+            return false
+        }
+        
         guard let data = try? Data(contentsOf: url, options: .mappedIfSafe) else {
             return false
         }
@@ -318,5 +338,10 @@ class FileComparisonService {
             return false
         }
         return leftData == rightData
+    }
+    
+    /// Check if a file is a document that supports text extraction (PDF, DOCX)
+    func isDocumentFile(_ url: URL) -> Bool {
+        return DocumentTextExtractor.isSupported(url: url)
     }
 }

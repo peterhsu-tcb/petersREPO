@@ -68,6 +68,34 @@ struct SwiftCompareApp: App {
                 }
                 .keyboardShortcut(.rightArrow, modifiers: [.command, .option])
                 .disabled(appState.selectedComparisonItem == nil)
+                
+                Divider()
+                
+                Button("Merge All Left to Right") {
+                    appState.mergeAllLeftToRight()
+                }
+                .keyboardShortcut("m", modifiers: [.command, .option])
+                .disabled(appState.diffResult == nil || appState.diffResult?.isIdentical == true)
+                
+                Button("Merge All Right to Left") {
+                    appState.mergeAllRightToLeft()
+                }
+                .keyboardShortcut("m", modifiers: [.command, .option, .shift])
+                .disabled(appState.diffResult == nil || appState.diffResult?.isIdentical == true)
+                
+                Divider()
+                
+                Button("Merge Current Chunk Left → Right") {
+                    appState.mergeChunkLeftToRight(chunkIndex: appState.currentDifferenceIndex)
+                }
+                .keyboardShortcut("l", modifiers: [.command, .shift])
+                .disabled(appState.diffResult == nil || appState.diffResult?.chunks.isEmpty == true)
+                
+                Button("Merge Current Chunk Right → Left") {
+                    appState.mergeChunkRightToLeft(chunkIndex: appState.currentDifferenceIndex)
+                }
+                .keyboardShortcut("r", modifiers: [.command, .shift])
+                .disabled(appState.diffResult == nil || appState.diffResult?.chunks.isEmpty == true)
             }
         }
         
@@ -101,6 +129,7 @@ class AppState: ObservableObject {
     
     private let fileComparisonService = FileComparisonService()
     private let folderComparisonService = FolderComparisonService()
+    private let mergeService = MergeService()
     
     func resetComparison() {
         leftPath = nil
@@ -185,6 +214,115 @@ class AppState: ObservableObject {
             refresh()
         } catch {
             errorMessage = "Failed to copy: \(error.localizedDescription)"
+        }
+    }
+    
+    // MARK: - File Content Merge Operations
+    
+    /// Merge a specific diff chunk from left to right
+    func mergeChunkLeftToRight(chunkIndex: Int) {
+        guard let result = diffResult else {
+            errorMessage = "No diff result available"
+            return
+        }
+        
+        do {
+            let mergeResult = try mergeService.mergeChunkAtIndex(
+                chunkIndex: chunkIndex,
+                diffResult: result,
+                direction: .leftToRight
+            )
+            if mergeResult.success {
+                refresh()
+            } else {
+                errorMessage = mergeResult.message
+            }
+        } catch {
+            errorMessage = "Merge failed: \(error.localizedDescription)"
+        }
+    }
+    
+    /// Merge a specific diff chunk from right to left
+    func mergeChunkRightToLeft(chunkIndex: Int) {
+        guard let result = diffResult else {
+            errorMessage = "No diff result available"
+            return
+        }
+        
+        do {
+            let mergeResult = try mergeService.mergeChunkAtIndex(
+                chunkIndex: chunkIndex,
+                diffResult: result,
+                direction: .rightToLeft
+            )
+            if mergeResult.success {
+                refresh()
+            } else {
+                errorMessage = mergeResult.message
+            }
+        } catch {
+            errorMessage = "Merge failed: \(error.localizedDescription)"
+        }
+    }
+    
+    /// Merge all differences from left to right
+    func mergeAllLeftToRight() {
+        guard let result = diffResult else {
+            errorMessage = "No diff result available"
+            return
+        }
+        
+        do {
+            let mergeResult = try mergeService.mergeAllLeftToRight(diffResult: result)
+            if mergeResult.success {
+                refresh()
+            } else {
+                errorMessage = mergeResult.message
+            }
+        } catch {
+            errorMessage = "Merge failed: \(error.localizedDescription)"
+        }
+    }
+    
+    /// Merge all differences from right to left
+    func mergeAllRightToLeft() {
+        guard let result = diffResult else {
+            errorMessage = "No diff result available"
+            return
+        }
+        
+        do {
+            let mergeResult = try mergeService.mergeAllRightToLeft(diffResult: result)
+            if mergeResult.success {
+                refresh()
+            } else {
+                errorMessage = mergeResult.message
+            }
+        } catch {
+            errorMessage = "Merge failed: \(error.localizedDescription)"
+        }
+    }
+    
+    /// Merge selected chunks in a specific direction
+    func mergeSelectedChunks(indices: [Int], direction: MergeDirection) {
+        guard let result = diffResult else {
+            errorMessage = "No diff result available"
+            return
+        }
+        
+        do {
+            let mergeResult = try mergeService.mergeSelectedChunks(
+                chunkIndices: indices,
+                diffResult: result,
+                direction: direction
+            )
+            if mergeResult.success {
+                refresh()
+            } else {
+                errorMessage = mergeResult.message
+            }
+        } catch {
+            errorMessage = "Merge failed: \(error.localizedDescription)"
         }
     }
 }

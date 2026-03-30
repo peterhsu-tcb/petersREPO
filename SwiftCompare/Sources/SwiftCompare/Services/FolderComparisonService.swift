@@ -131,9 +131,15 @@ class FolderComparisonService {
         }
         
         // Text file comparison
-        guard let leftContent = try? String(contentsOf: leftURL, encoding: .utf8),
-              let rightContent = try? String(contentsOf: rightURL, encoding: .utf8) else {
-            return .error("Unable to read file contents")
+        let leftContent = try? String(contentsOf: leftURL, encoding: .utf8)
+        let rightContent = try? String(contentsOf: rightURL, encoding: .utf8)
+        
+        if leftContent == nil && rightContent == nil {
+            return .error("Unable to read both files: \(leftURL.lastPathComponent) and \(rightURL.lastPathComponent)")
+        } else if leftContent == nil {
+            return .error("Unable to read left file: \(leftURL.lastPathComponent)")
+        } else if rightContent == nil {
+            return .error("Unable to read right file: \(rightURL.lastPathComponent)")
         }
         
         return leftContent == rightContent ? .identical : .different

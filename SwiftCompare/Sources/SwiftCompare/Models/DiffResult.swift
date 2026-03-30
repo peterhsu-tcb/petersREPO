@@ -91,7 +91,9 @@ struct DiffResult: Identifiable, Equatable {
         var modified = 0
         var unchanged = 0
         
-        for line in leftLines {
+        // Count from rightLines only to avoid double-counting
+        // Added lines only appear in rightLines, removed only in leftLines
+        for line in rightLines {
             switch line.changeType {
             case .added: added += 1
             case .removed: removed += 1
@@ -100,9 +102,10 @@ struct DiffResult: Identifiable, Equatable {
             }
         }
         
-        for line in rightLines {
-            if line.changeType == .added {
-                added += 1
+        // Count removed lines from leftLines (they don't appear in rightLines)
+        for line in leftLines {
+            if line.changeType == .removed {
+                removed += 1
             }
         }
         

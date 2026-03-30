@@ -200,7 +200,7 @@ struct PathSelector: View {
     }
     
     private func selectPath() {
-        let panel = isFolder ? NSOpenPanel() : NSOpenPanel()
+        let panel = NSOpenPanel()
         panel.canChooseFiles = !isFolder
         panel.canChooseDirectories = isFolder
         panel.allowsMultipleSelection = false

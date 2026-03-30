@@ -170,14 +170,17 @@ struct DiffPanelView: View {
         
         // Find the line with this line number
         if let targetLine = lines.first(where: { $0.lineNumber == targetLineNumber }) {
-            withAnimation(.easeInOut(duration: 0.3)) {
-                proxy.scrollTo(targetLine.id, anchor: .center)
-            }
+            scrollTo(lineId: targetLine.id, using: proxy)
         } else if let firstChunkLine = (isLeft ? chunk.leftLines.first : chunk.rightLines.first) {
             // Fallback: scroll to the first line of the chunk
-            withAnimation(.easeInOut(duration: 0.3)) {
-                proxy.scrollTo(firstChunkLine.id, anchor: .center)
-            }
+            scrollTo(lineId: firstChunkLine.id, using: proxy)
+        }
+    }
+    
+    /// Animate scroll to a specific line
+    private func scrollTo(lineId: UUID, using proxy: ScrollViewProxy) {
+        withAnimation(.easeInOut(duration: 0.3)) {
+            proxy.scrollTo(lineId, anchor: .center)
         }
     }
     
@@ -207,14 +210,19 @@ struct DiffLineView: View {
     @AppStorage("differentCharColor") private var differentCharColor = "red"
     @AppStorage("fontSizeOffset") private var fontSizeOffset = 0
     
+    /// Base font size for content display
+    private static let baseFontSize: CGFloat = 14
+    /// Base font size for line numbers (slightly smaller than content)
+    private static let baseLineNumberFontSize: CGFloat = 12
+    
     /// Computed font for content based on user's font size preference
     private var contentFont: Font {
-        .system(size: CGFloat(14 + fontSizeOffset), design: .monospaced)
+        .system(size: Self.baseFontSize + CGFloat(fontSizeOffset), design: .monospaced)
     }
     
     /// Computed font for line numbers (slightly smaller than content)
     private var lineNumberFont: Font {
-        .system(size: CGFloat(12 + fontSizeOffset), design: .monospaced)
+        .system(size: Self.baseLineNumberFontSize + CGFloat(fontSizeOffset), design: .monospaced)
     }
     
     var body: some View {

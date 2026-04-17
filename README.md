@@ -48,3 +48,31 @@ swift run SwiftCompare
 - Merge and sync capabilities
 - Native macOS SwiftUI interface
 - Keyboard shortcuts for power users
+
+---
+
+## WEditor
+
+A powerful text editor for macOS with column edit mode and comprehensive syntax highlighting, inspired by UltraEdit and Context editor. Written in Swift and SwiftUI.
+
+See [WEditor/README.md](WEditor/README.md) for full documentation.
+
+### Quick Start
+
+```bash
+cd WEditor
+swift build
+swift run WEditor
+```
+
+### Features
+- Column (block) edit mode with rectangular selection
+- Syntax highlighting for 30+ languages (Swift, Python, JavaScript, C++, Rust, Go, HTML, CSS, SQL, and more)
+- Multiple color themes (Dark, Light, Monokai, Solarized)
+- Find and replace with regex support
+- Multi-tab document editing
+- Line number gutter and mini map
+- Configurable fonts, tab width, and line spacing
+- Multiple encoding and line ending support
+- Native macOS SwiftUI interface
+- Comprehensive keyboard shortcuts

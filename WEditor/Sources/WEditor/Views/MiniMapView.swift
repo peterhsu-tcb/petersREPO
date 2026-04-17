@@ -21,7 +21,7 @@ struct MiniMapView: View {
                         .frame(height: miniMapFontSize * 1.5)
                         .background(
                             index == document.cursorPosition.line ?
-                                theme.currentLineHighlight.opacity(2.0) : Color.clear
+                                theme.currentLineHighlight.opacity(0.8) : Color.clear
                         )
                 }
             }

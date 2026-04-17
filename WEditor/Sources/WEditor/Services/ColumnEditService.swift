@@ -112,17 +112,15 @@ class ColumnEditService {
         let columnText = extractColumnText(from: lines, selection: selection)
         deleteColumn(in: &lines, selection: selection)
         
-        selection.startLine -= 1
-        selection.endLine -= 1
-        
-        let newSelection = ColumnSelection(
-            startLine: selection.startLine,
+        let movedSelection = ColumnSelection(
+            startLine: selection.startLine - 1,
             startColumn: selection.startColumn,
-            endLine: selection.endLine,
+            endLine: selection.endLine - 1,
             endColumn: selection.endColumn
         )
         
-        pasteColumn(in: &lines, pasteLines: columnText, startLine: newSelection.topLine, startColumn: newSelection.leftColumn)
+        pasteColumn(in: &lines, pasteLines: columnText, startLine: movedSelection.topLine, startColumn: movedSelection.leftColumn)
+        selection = movedSelection
     }
     
     /// Move column selection down
@@ -132,17 +130,15 @@ class ColumnEditService {
         let columnText = extractColumnText(from: lines, selection: selection)
         deleteColumn(in: &lines, selection: selection)
         
-        selection.startLine += 1
-        selection.endLine += 1
-        
-        let newSelection = ColumnSelection(
-            startLine: selection.startLine,
+        let movedSelection = ColumnSelection(
+            startLine: selection.startLine + 1,
             startColumn: selection.startColumn,
-            endLine: selection.endLine,
+            endLine: selection.endLine + 1,
             endColumn: selection.endColumn
         )
         
-        pasteColumn(in: &lines, pasteLines: columnText, startLine: newSelection.topLine, startColumn: newSelection.leftColumn)
+        pasteColumn(in: &lines, pasteLines: columnText, startLine: movedSelection.topLine, startColumn: movedSelection.leftColumn)
+        selection = movedSelection
     }
     
     /// Fill column selection with a character

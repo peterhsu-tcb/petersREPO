@@ -1,5 +1,4 @@
 import Foundation
-import SwiftUI
 
 /// Supported syntax highlighting languages
 enum SyntaxLanguage: String, CaseIterable, Identifiable {

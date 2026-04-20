@@ -1,17 +1,19 @@
 import Foundation
 
+/// Known monospaced font names for column alignment
+let knownMonospacedFonts: Set<String> = [
+    "Menlo", "Monaco", "SF Mono", "Courier New", "Courier",
+    "Andale Mono", "Consolas", "Source Code Pro", "Fira Code",
+    "JetBrains Mono", "IBM Plex Mono", "Inconsolata"
+]
+
 /// Editor settings and preferences
 class EditorSettings: ObservableObject {
     @Published var fontSize: CGFloat = 14
     @Published var fontName: String = "Menlo" {
         didSet {
             // Ensure only monospaced fonts are used for proper column alignment
-            let allowedFonts: Set<String> = [
-                "Menlo", "Monaco", "SF Mono", "Courier New", "Courier",
-                "Andale Mono", "Consolas", "Source Code Pro", "Fira Code",
-                "JetBrains Mono", "IBM Plex Mono", "Inconsolata"
-            ]
-            if !allowedFonts.contains(fontName) {
+            if fontName != oldValue && !knownMonospacedFonts.contains(fontName) {
                 fontName = "Menlo"
             }
         }

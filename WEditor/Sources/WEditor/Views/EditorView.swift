@@ -73,19 +73,6 @@ struct EditorTextView: View {
     
     private let highlightingService = SyntaxHighlightingService()
     
-    /// Resolved monospaced font name (ensures fixed-width characters for column alignment)
-    private var monospacedFontName: String {
-        let knownMonospaced: Set<String> = [
-            "Menlo", "Monaco", "SF Mono", "Courier New", "Courier",
-            "Andale Mono", "Consolas", "Source Code Pro", "Fira Code",
-            "JetBrains Mono", "IBM Plex Mono", "Inconsolata"
-        ]
-        if knownMonospaced.contains(settings.fontName) {
-            return settings.fontName
-        }
-        return "Menlo" // Fallback to Menlo if non-monospaced font is selected
-    }
-    
     var body: some View {
         ScrollView([.horizontal, .vertical]) {
             VStack(alignment: .leading, spacing: 0) {

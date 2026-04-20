@@ -15,12 +15,18 @@ class Document: ObservableObject, Identifiable {
     @Published var language: SyntaxLanguage
     @Published var undoStack: [EditAction] = []
     @Published var redoStack: [EditAction] = []
+    @Published var htmlEditMode: HTMLEditMode = .source
     
     /// Lines cache for efficient line-based operations
     @Published var lines: [String] = []
     
     var name: String {
         url?.lastPathComponent ?? "Untitled"
+    }
+    
+    /// Whether this document is an HTML file
+    var isHTML: Bool {
+        language == .html
     }
     
     var displayName: String {
@@ -200,6 +206,13 @@ struct ColumnSelection: Equatable {
     
     /// Width of the column selection
     var width: Int { rightColumn - leftColumn }
+}
+
+/// HTML editing mode for HTML documents
+enum HTMLEditMode: String, CaseIterable {
+    case source = "Source"
+    case visual = "Visual"
+    case split = "Split"
 }
 
 /// Line ending types

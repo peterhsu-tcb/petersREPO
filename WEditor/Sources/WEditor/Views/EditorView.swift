@@ -7,6 +7,35 @@ struct EditorContainerView: View {
     @EnvironmentObject var appState: AppState
     
     var body: some View {
+        Group {
+            if document.isHTML && document.htmlEditMode == .visual {
+                // Full visual/WYSIWYG editor
+                #if canImport(WebKit)
+                HTMLVisualEditorView(document: document)
+                #else
+                sourceEditorView
+                #endif
+            } else if document.isHTML && document.htmlEditMode == .split {
+                // Split view: source on left, preview on right
+                #if canImport(WebKit)
+                HSplitView {
+                    sourceEditorView
+                        .frame(minWidth: 300)
+                    HTMLVisualEditorView(document: document)
+                        .frame(minWidth: 300)
+                }
+                #else
+                sourceEditorView
+                #endif
+            } else {
+                // Source code editor (default for non-HTML or source mode)
+                sourceEditorView
+            }
+        }
+    }
+    
+    @ViewBuilder
+    private var sourceEditorView: some View {
         HStack(spacing: 0) {
             // Gutter (line numbers)
             if settings.showLineNumbers {

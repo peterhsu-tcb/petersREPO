@@ -261,6 +261,35 @@ struct WEditorApp: App {
                 }
                 .disabled(!appState.isColumnEditMode || appState.activeDocument?.columnSelection == nil)
             }
+            
+            // HTML editing menu
+            CommandMenu("HTML") {
+                Button("Source View") {
+                    appState.activeDocument?.htmlEditMode = .source
+                }
+                .keyboardShortcut("1", modifiers: [.command, .option])
+                .disabled(appState.activeDocument?.isHTML != true)
+                
+                Button("Visual Editor") {
+                    appState.activeDocument?.htmlEditMode = .visual
+                }
+                .keyboardShortcut("2", modifiers: [.command, .option])
+                .disabled(appState.activeDocument?.isHTML != true)
+                
+                Button("Split View") {
+                    appState.activeDocument?.htmlEditMode = .split
+                }
+                .keyboardShortcut("3", modifiers: [.command, .option])
+                .disabled(appState.activeDocument?.isHTML != true)
+                
+                Divider()
+                
+                Button("Toggle Visual/Source") {
+                    appState.toggleHTMLEditMode()
+                }
+                .keyboardShortcut("p", modifiers: [.command, .shift])
+                .disabled(appState.activeDocument?.isHTML != true)
+            }
         }
         
         Settings {
@@ -528,6 +557,22 @@ class AppState: ObservableObject {
         ) {
             doc.cursorPosition = CursorPosition(line: prev.line, column: prev.column)
             currentSearchMatch = prev
+        }
+    }
+    
+    // MARK: - HTML Edit Mode
+    
+    /// Toggle between source and visual HTML editing modes
+    func toggleHTMLEditMode() {
+        guard let doc = activeDocument, doc.isHTML else { return }
+        
+        switch doc.htmlEditMode {
+        case .source:
+            doc.htmlEditMode = .visual
+        case .visual:
+            doc.htmlEditMode = .source
+        case .split:
+            doc.htmlEditMode = .source
         }
     }
     

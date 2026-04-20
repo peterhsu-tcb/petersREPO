@@ -71,6 +71,29 @@ struct StatusBarView: View {
                     
                     Divider().frame(height: 14)
                 }
+                
+                // HTML edit mode indicator
+                if doc.isHTML {
+                    Menu {
+                        ForEach(HTMLEditMode.allCases, id: \.self) { mode in
+                            Button(mode.rawValue) {
+                                doc.htmlEditMode = mode
+                            }
+                        }
+                    } label: {
+                        HStack(spacing: 4) {
+                            Image(systemName: doc.htmlEditMode == .source ? "chevron.left.forwardslash.chevron.right" : "globe")
+                                .font(.system(size: 10))
+                            Text("HTML: \(doc.htmlEditMode.rawValue)")
+                                .font(.system(size: 11))
+                        }
+                        .foregroundColor(.accentColor)
+                    }
+                    .menuStyle(.borderlessButton)
+                    .frame(width: 120)
+                    
+                    Divider().frame(height: 14)
+                }
             }
             
             Spacer()

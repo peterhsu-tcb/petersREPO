@@ -3,7 +3,19 @@ import Foundation
 /// Editor settings and preferences
 class EditorSettings: ObservableObject {
     @Published var fontSize: CGFloat = 14
-    @Published var fontName: String = "Menlo"
+    @Published var fontName: String = "Menlo" {
+        didSet {
+            // Ensure only monospaced fonts are used for proper column alignment
+            let allowedFonts: Set<String> = [
+                "Menlo", "Monaco", "SF Mono", "Courier New", "Courier",
+                "Andale Mono", "Consolas", "Source Code Pro", "Fira Code",
+                "JetBrains Mono", "IBM Plex Mono", "Inconsolata"
+            ]
+            if !allowedFonts.contains(fontName) {
+                fontName = "Menlo"
+            }
+        }
+    }
     @Published var tabWidth: Int = 4
     @Published var useSpacesForTabs: Bool = true
     @Published var showLineNumbers: Bool = true

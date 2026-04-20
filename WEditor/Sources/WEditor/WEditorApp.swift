@@ -91,14 +91,14 @@ struct WEditorApp: App {
                 Button("Toggle Column Edit Mode") {
                     appState.isColumnEditMode.toggle()
                 }
-                .keyboardShortcut("b", modifiers: [.command, .shift])
+                .keyboardShortcut("l", modifiers: .command)
                 
                 Divider()
                 
                 Button("Select Line") {
                     appState.selectCurrentLine()
                 }
-                .keyboardShortcut("l", modifiers: .command)
+                .keyboardShortcut("l", modifiers: [.command, .shift])
                 
                 Button("Select Word") {
                     appState.selectCurrentWord()
@@ -140,7 +140,7 @@ struct WEditorApp: App {
                     appState.showFindReplace = true
                     appState.showReplace = true
                 }
-                .keyboardShortcut("h", modifiers: [.command, .option])
+                .keyboardShortcut("f", modifiers: [.command, .option])
                 
                 Divider()
                 
@@ -209,7 +209,33 @@ struct WEditorApp: App {
                 Button("Toggle Column Edit Mode") {
                     appState.isColumnEditMode.toggle()
                 }
-                .keyboardShortcut("b", modifiers: [.command, .shift])
+                .keyboardShortcut("l", modifiers: .command)
+                
+                Divider()
+                
+                Button("Expand Column Selection Up") {
+                    appState.expandColumnSelectionUp()
+                }
+                .keyboardShortcut(.upArrow, modifiers: [.command, .option])
+                .disabled(!appState.isColumnEditMode)
+                
+                Button("Expand Column Selection Down") {
+                    appState.expandColumnSelectionDown()
+                }
+                .keyboardShortcut(.downArrow, modifiers: [.command, .option])
+                .disabled(!appState.isColumnEditMode)
+                
+                Button("Expand Column Selection Left") {
+                    appState.expandColumnSelectionLeft()
+                }
+                .keyboardShortcut(.leftArrow, modifiers: [.command, .option])
+                .disabled(!appState.isColumnEditMode)
+                
+                Button("Expand Column Selection Right") {
+                    appState.expandColumnSelectionRight()
+                }
+                .keyboardShortcut(.rightArrow, modifiers: [.command, .option])
+                .disabled(!appState.isColumnEditMode)
                 
                 Divider()
                 
@@ -547,5 +573,162 @@ class AppState: ObservableObject {
         var lines = doc.lines
         columnEditService.fillColumn(in: &lines, selection: selection, character: " ")
         doc.updateContent(lines.joined(separator: "\n"))
+    }
+    
+    /// Replace text within column selection
+    func columnReplaceText(searchText: String, replacement: String, options: SearchOptions) {
+        guard let doc = activeDocument,
+              let colSel = doc.columnSelection else { return }
+        
+        var lines = doc.lines
+        // Extract column text, perform search/replace within it, then put it back
+        let columnTexts = columnEditService.extractColumnText(from: lines, selection: colSel)
+        var modified = false
+        
+        for (offset, colText) in columnTexts.enumerated() {
+            let lineIndex = colSel.topLine + offset
+            guard lineIndex < lines.count else { continue }
+            
+            let replacedText: String
+            if options.caseSensitive {
+                replacedText = colText.replacingOccurrences(of: searchText, with: replacement)
+            } else {
+                replacedText = colText.replacingOccurrences(of: searchText, with: replacement, options: .caseInsensitive)
+            }
+            
+            if replacedText != colText {
+                modified = true
+                // Reconstruct the line with the replaced column text
+                let line = lines[lineIndex]
+                let lineLength = line.count
+                let leftCol = colSel.leftColumn
+                let rightCol = min(colSel.rightColumn, lineLength)
+                
+                if leftCol < lineLength {
+                    let before = String(line.prefix(leftCol))
+                    let after = rightCol < lineLength ? String(line.suffix(lineLength - rightCol)) : ""
+                    lines[lineIndex] = before + replacedText + after
+                }
+            }
+        }
+        
+        if modified {
+            doc.updateContent(lines.joined(separator: "\n"))
+        }
+    }
+    
+    // MARK: - Column Selection Navigation
+    
+    /// Initialize column selection at cursor if not already present
+    private func ensureColumnSelection() -> ColumnSelection? {
+        guard let doc = activeDocument else { return nil }
+        
+        if let existing = doc.columnSelection {
+            return existing
+        }
+        
+        // Create a new column selection starting at cursor position
+        let sel = ColumnSelection(
+            startLine: doc.cursorPosition.line,
+            startColumn: doc.cursorPosition.column,
+            endLine: doc.cursorPosition.line,
+            endColumn: doc.cursorPosition.column
+        )
+        doc.columnSelection = sel
+        return sel
+    }
+    
+    /// Expand column selection upward by one line
+    func expandColumnSelectionUp() {
+        guard let doc = activeDocument,
+              var sel = ensureColumnSelection() else { return }
+        
+        if sel.endLine > 0 {
+            sel.endLine -= 1
+            doc.columnSelection = sel
+            doc.cursorPosition.line = sel.endLine
+        }
+    }
+    
+    /// Expand column selection downward by one line
+    func expandColumnSelectionDown() {
+        guard let doc = activeDocument,
+              var sel = ensureColumnSelection() else { return }
+        
+        if sel.endLine < doc.lineCount - 1 {
+            sel.endLine += 1
+            doc.columnSelection = sel
+            doc.cursorPosition.line = sel.endLine
+        }
+    }
+    
+    /// Expand column selection left by one column
+    func expandColumnSelectionLeft() {
+        guard let doc = activeDocument,
+              var sel = ensureColumnSelection() else { return }
+        
+        if sel.endColumn > 0 {
+            sel.endColumn -= 1
+            doc.columnSelection = sel
+            doc.cursorPosition.column = sel.endColumn
+        }
+    }
+    
+    /// Expand column selection right by one column
+    func expandColumnSelectionRight() {
+        guard let doc = activeDocument,
+              var sel = ensureColumnSelection() else { return }
+        
+        sel.endColumn += 1
+        doc.columnSelection = sel
+        doc.cursorPosition.column = sel.endColumn
+    }
+    
+    /// Insert typed text at column selection (for each line in the selection)
+    func columnTypeText(_ text: String) {
+        guard let doc = activeDocument,
+              let selection = doc.columnSelection else { return }
+        
+        var lines = doc.lines
+        columnEditService.insertColumn(in: &lines, text: text, selection: selection)
+        doc.updateContent(lines.joined(separator: "\n"))
+        
+        // Move the column selection right by the inserted text length
+        doc.columnSelection = ColumnSelection(
+            startLine: selection.startLine,
+            startColumn: selection.startColumn + text.count,
+            endLine: selection.endLine,
+            endColumn: selection.endColumn + text.count
+        )
+    }
+    
+    /// Delete one character before the column selection (backspace in column mode)
+    func columnBackspace() {
+        guard let doc = activeDocument,
+              let selection = doc.columnSelection else { return }
+        
+        if selection.width > 0 {
+            // Delete the selected column content
+            columnDeleteSelection()
+        } else if selection.leftColumn > 0 {
+            // Delete one character before the cursor column on each line
+            let deleteSel = ColumnSelection(
+                startLine: selection.startLine,
+                startColumn: selection.startColumn - 1,
+                endLine: selection.endLine,
+                endColumn: selection.endColumn
+            )
+            var lines = doc.lines
+            columnEditService.deleteColumn(in: &lines, selection: deleteSel)
+            doc.updateContent(lines.joined(separator: "\n"))
+            
+            // Move selection left
+            doc.columnSelection = ColumnSelection(
+                startLine: selection.startLine,
+                startColumn: selection.startColumn - 1,
+                endLine: selection.endLine,
+                endColumn: selection.endColumn - 1
+            )
+        }
     }
 }

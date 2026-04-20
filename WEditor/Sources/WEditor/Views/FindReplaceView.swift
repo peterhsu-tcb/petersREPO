@@ -110,7 +110,7 @@ struct FindReplaceView: View {
                         replaceAll()
                     }
                     .buttonStyle(.plain)
-                    .help("Replace All (⌘⌥Enter)")
+                    .help("Replace All (⌘⌥⏎)")
                     
                     Spacer()
                 }
@@ -183,6 +183,18 @@ struct FindReplaceView: View {
     
     private func replaceAll() {
         guard let doc = appState.activeDocument else { return }
+        
+        // If in column edit mode with active column selection, replace within column only
+        if appState.isColumnEditMode && doc.columnSelection != nil {
+            appState.columnReplaceText(
+                searchText: searchText,
+                replacement: replaceText,
+                options: searchOptions
+            )
+            updateMatchCount()
+            appState.statusMessage = "Replaced in column selection"
+            return
+        }
         
         var lines = doc.lines
         let count = searchService.replaceAll(in: &lines, searchText: searchText, replacement: replaceText, options: searchOptions)

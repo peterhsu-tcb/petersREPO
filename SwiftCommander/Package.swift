@@ -19,7 +19,15 @@ let package = Package(
         .executableTarget(
             name: "SwiftCommander",
             dependencies: [],
-            path: "Sources/SwiftCommander"
+            path: "Sources/SwiftCommander",
+            linkerSettings: [
+                .unsafeFlags([
+                    "-Xlinker", "-sectcreate",
+                    "-Xlinker", "__TEXT",
+                    "-Xlinker", "__info_plist",
+                    "-Xlinker", "Info.plist"
+                ])
+            ]
         ),
         .testTarget(
             name: "SwiftCommanderTests",

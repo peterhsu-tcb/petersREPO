@@ -19,7 +19,15 @@ let package = Package(
         .executableTarget(
             name: "SwiftCompare",
             dependencies: [],
-            path: "Sources/SwiftCompare"
+            path: "Sources/SwiftCompare",
+            linkerSettings: [
+                .unsafeFlags([
+                    "-Xlinker", "-sectcreate",
+                    "-Xlinker", "__TEXT",
+                    "-Xlinker", "__info_plist",
+                    "-Xlinker", "Info.plist"
+                ])
+            ]
         ),
         .testTarget(
             name: "SwiftCompareTests",

@@ -194,6 +194,22 @@ struct HTMLPreviewView: NSViewRepresentable {
             function insertLink() {
                 var url = prompt('Enter URL:', 'https://');
                 if (url) {
+                    // Validate URL uses a safe protocol
+                    try {
+                        var parsed = new URL(url);
+                        if (parsed.protocol !== 'http:' && parsed.protocol !== 'https:' && parsed.protocol !== 'mailto:') {
+                            alert('Only http, https, and mailto URLs are allowed.');
+                            return;
+                        }
+                    } catch (e) {
+                        // If URL parsing fails, prepend https:// and retry
+                        if (!url.match(/^[a-zA-Z]+:/)) {
+                            url = 'https://' + url;
+                        } else {
+                            alert('Invalid URL.');
+                            return;
+                        }
+                    }
                     document.execCommand('createLink', false, url);
                     notifyChange();
                 }
@@ -210,7 +226,7 @@ struct HTMLPreviewView: NSViewRepresentable {
                 changeTimeout = setTimeout(function() {
                     var content = document.getElementById('editor').innerHTML;
                     window.webkit.messageHandlers.contentChanged.postMessage(content);
-                }, 300);
+                }, 150);
             }
 
             var editor = document.getElementById('editor');
@@ -226,12 +242,15 @@ struct HTMLPreviewView: NSViewRepresentable {
         webView.loadHTMLString(wrappedHTML, baseURL: document.url?.deletingLastPathComponent())
     }
 
-    /// Escape content for safe embedding in JavaScript/HTML template
+    /// Escape content for safe embedding in the wrapper HTML template.
+    /// Note: The user's HTML content is intentionally rendered — this is a WYSIWYG editor
+    /// for local files. We only need to prevent the content from breaking the wrapper template
+    /// (e.g., closing our script/body tags prematurely).
     private func escapeForJS(_ string: String) -> String {
-        // The content is user HTML to be rendered, so we embed it directly
-        // We only need to escape the closing script tag to prevent breaking our wrapper
         return string
-            .replacingOccurrences(of: "</script>", with: "<\\/script>")
+            .replacingOccurrences(of: "</script>", with: "</scr\\ipt>", options: .caseInsensitive)
+            .replacingOccurrences(of: "</body>", with: "</bo\\dy>", options: .caseInsensitive)
+            .replacingOccurrences(of: "</html>", with: "</ht\\ml>", options: .caseInsensitive)
     }
 
     // MARK: - Coordinator

@@ -4,6 +4,10 @@ import SwiftUI
 struct SwiftCommanderApp: App {
     @StateObject private var appState = AppState()
     
+    init() {
+        _ = NSApp.setActivationPolicy(.regular)
+    }
+    
     var body: some Scene {
         WindowGroup {
             ContentView()

@@ -6,6 +6,10 @@ struct WEditorApp: App {
     @StateObject private var appState = AppState()
     @StateObject private var settings = EditorSettings()
     
+    init() {
+        _ = NSApp.setActivationPolicy(.regular)
+    }
+    
     var body: some Scene {
         WindowGroup {
             ContentView()

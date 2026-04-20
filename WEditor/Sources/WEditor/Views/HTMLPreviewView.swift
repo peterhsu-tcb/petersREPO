@@ -202,9 +202,19 @@ struct HTMLPreviewView: NSViewRepresentable {
                             return;
                         }
                     } catch (e) {
-                        // If URL parsing fails, prepend https:// and retry
+                        // If URL parsing fails, prepend https:// and re-validate
                         if (!url.match(/^[a-zA-Z]+:/)) {
                             url = 'https://' + url;
+                            try {
+                                var reparsed = new URL(url);
+                                if (reparsed.protocol !== 'http:' && reparsed.protocol !== 'https:') {
+                                    alert('Only http, https, and mailto URLs are allowed.');
+                                    return;
+                                }
+                            } catch (e2) {
+                                alert('Invalid URL.');
+                                return;
+                            }
                         } else {
                             alert('Invalid URL.');
                             return;

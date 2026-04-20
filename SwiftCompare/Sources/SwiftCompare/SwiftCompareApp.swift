@@ -5,6 +5,10 @@ import SwiftUI
 struct SwiftCompareApp: App {
     @StateObject private var appState = AppState()
     
+    init() {
+        _ = NSApp.setActivationPolicy(.regular)
+    }
+    
     var body: some Scene {
         WindowGroup {
             ContentView()

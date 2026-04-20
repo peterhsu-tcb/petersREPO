@@ -7,6 +7,11 @@ struct ContentView: View {
     
     var body: some View {
         VStack(spacing: 0) {
+            // Toolbar
+            if settings.showToolbar {
+                ToolbarView()
+            }
+            
             // Tab bar
             if appState.documents.count > 0 {
                 TabBarView()
@@ -123,6 +128,9 @@ struct WelcomeView: View {
                 ShortcutHintView(shortcut: "⌘N", description: "New File")
                 ShortcutHintView(shortcut: "⌘O", description: "Open File")
                 ShortcutHintView(shortcut: "⌘⇧N", description: "New Window")
+                ShortcutHintView(shortcut: "⌘L", description: "Column Edit Mode")
+                ShortcutHintView(shortcut: "⌘F", description: "Find")
+                ShortcutHintView(shortcut: "⌘⌥F", description: "Find & Replace")
             }
             .padding(.top, 20)
         }

@@ -73,6 +73,9 @@ struct EditorSettingsView: View {
                         Text("Andale Mono").tag("Andale Mono")
                     }
                     .frame(width: 150)
+                    Text("(monospaced only)")
+                        .font(.system(size: 10))
+                        .foregroundColor(.secondary)
                 }
                 
                 HStack {

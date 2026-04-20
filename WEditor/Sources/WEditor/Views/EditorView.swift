@@ -7,6 +7,35 @@ struct EditorContainerView: View {
     @EnvironmentObject var appState: AppState
     
     var body: some View {
+        Group {
+            if document.isHTML && document.htmlEditMode == .visual {
+                // Full visual/WYSIWYG editor
+                #if canImport(WebKit)
+                HTMLVisualEditorView(document: document)
+                #else
+                sourceEditorView
+                #endif
+            } else if document.isHTML && document.htmlEditMode == .split {
+                // Split view: source on left, preview on right
+                #if canImport(WebKit)
+                HSplitView {
+                    sourceEditorView
+                        .frame(minWidth: 300)
+                    HTMLVisualEditorView(document: document)
+                        .frame(minWidth: 300)
+                }
+                #else
+                sourceEditorView
+                #endif
+            } else {
+                // Source code editor (default for non-HTML or source mode)
+                sourceEditorView
+            }
+        }
+    }
+    
+    @ViewBuilder
+    private var sourceEditorView: some View {
         HStack(spacing: 0) {
             // Gutter (line numbers)
             if settings.showLineNumbers {
@@ -40,11 +69,11 @@ struct EditorView: View {
                     Text("Column Edit Mode")
                         .font(.system(size: 11, weight: .medium))
                         .foregroundColor(.accentColor)
-                    Text("(Alt+Drag or Alt+Shift+Arrow)")
+                    Text("(⌘⌥Arrow to select, Delete/Type to edit)")
                         .font(.system(size: 11))
                         .foregroundColor(settings.currentTheme.textColor.opacity(0.5))
                     Spacer()
-                    Button("Exit") {
+                    Button("Exit (⌘L)") {
                         appState.isColumnEditMode = false
                         document.columnSelection = nil
                     }
@@ -88,6 +117,11 @@ struct EditorTextView: View {
             .padding(.trailing, 8)
         }
         .background(settings.currentTheme.backgroundColor)
+        .overlay(
+            ColumnEditKeyHandler(appState: appState)
+                .frame(width: 0, height: 0)
+                .opacity(0)
+        )
     }
     
     @ViewBuilder
@@ -113,10 +147,11 @@ struct EditorTextView: View {
     @ViewBuilder
     private func highlightedTextView(highlightedLine: HighlightedLine, theme: EditorTheme) -> some View {
         let text = highlightedLine.text
+        let fontDesign: Font.Design = .monospaced
         
         if highlightedLine.tokens.isEmpty {
             Text(text.isEmpty ? " " : text)
-                .font(.system(size: settings.fontSize, design: .monospaced))
+                .font(.system(size: settings.fontSize, design: fontDesign))
                 .foregroundColor(theme.textColor)
         } else {
             // Build attributed text using SwiftUI Text concatenation
@@ -194,3 +229,63 @@ struct EditorTextView: View {
         }
     }
 }
+
+// MARK: - Column Edit Key Handler
+
+#if canImport(AppKit)
+import AppKit
+
+/// NSViewRepresentable that captures keyboard events for column edit mode
+struct ColumnEditKeyHandler: NSViewRepresentable {
+    let appState: AppState
+    
+    func makeNSView(context: Context) -> ColumnEditKeyView {
+        let view = ColumnEditKeyView()
+        view.appState = appState
+        return view
+    }
+    
+    func updateNSView(_ nsView: ColumnEditKeyView, context: Context) {
+        nsView.appState = appState
+    }
+}
+
+/// NSView subclass that handles keyboard events for column editing
+class ColumnEditKeyView: NSView {
+    var appState: AppState?
+    
+    override var acceptsFirstResponder: Bool { true }
+    
+    override func keyDown(with event: NSEvent) {
+        guard let appState = appState, appState.isColumnEditMode else {
+            super.keyDown(with: event)
+            return
+        }
+        
+        // Handle delete/backspace in column mode
+        if event.keyCode == 51 { // Backspace
+            appState.columnBackspace()
+            return
+        }
+        
+        // Handle forward delete
+        if event.keyCode == 117 { // Forward Delete
+            appState.columnDeleteSelection()
+            return
+        }
+        
+        // Handle typed characters in column mode
+        if let chars = event.characters, !chars.isEmpty,
+           !event.modifierFlags.contains(.command),
+           !event.modifierFlags.contains(.control) {
+            let char = chars.first!
+            if char.isASCII && (char.isLetter || char.isNumber || char.isPunctuation || char.isSymbol || char == " ") {
+                appState.columnTypeText(String(char))
+                return
+            }
+        }
+        
+        super.keyDown(with: event)
+    }
+}
+#endif

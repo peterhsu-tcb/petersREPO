@@ -7,6 +7,11 @@ struct ContentView: View {
     
     var body: some View {
         VStack(spacing: 0) {
+            // Toolbar
+            if settings.showToolbar {
+                ToolbarView()
+            }
+            
             // Tab bar
             if appState.documents.count > 0 {
                 TabBarView()

@@ -194,6 +194,13 @@ struct WEditorApp: App {
                 
                 Divider()
                 
+                Toggle("Show Toolbar", isOn: $settings.showToolbar)
+                    .keyboardShortcut("t", modifiers: [.command, .option])
+                
+                Toggle("Show Status Bar", isOn: $settings.showStatusBar)
+                
+                Divider()
+                
                 // Language selection
                 Menu("Syntax Language") {
                     ForEach(SyntaxLanguage.allCases) { lang in

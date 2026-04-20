@@ -19,7 +19,15 @@ let package = Package(
         .executableTarget(
             name: "WEditor",
             dependencies: [],
-            path: "Sources/WEditor"
+            path: "Sources/WEditor",
+            linkerSettings: [
+                .unsafeFlags([
+                    "-Xlinker", "-sectcreate",
+                    "-Xlinker", "__TEXT",
+                    "-Xlinker", "__info_plist",
+                    "-Xlinker", "Info.plist"
+                ])
+            ]
         ),
         .testTarget(
             name: "WEditorTests",

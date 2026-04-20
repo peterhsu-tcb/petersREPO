@@ -1,9 +1,17 @@
 # Build artifacts
 .build/
 .swiftpm/
+DerivedData/
+
+# Xcode user data (keep project/workspace files, exclude user-specific data)
 *.xcodeproj/xcuserdata/
 *.xcworkspace/xcuserdata/
-DerivedData/
+xcuserdata/
+*.xcodeproj/project.xcworkspace/xcuserdata/
+
+# Xcode build state
+*.xcodeproj/project.xcworkspace/xcshareddata/swiftpm/
+*.xcscmblueprint
 
 # OS files
 .DS_Store

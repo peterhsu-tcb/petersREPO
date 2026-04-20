@@ -7,7 +7,9 @@ struct WEditorApp: App {
     @StateObject private var settings = EditorSettings()
     
     init() {
-        _ = NSApp.setActivationPolicy(.regular)
+        DispatchQueue.main.async {
+            NSApp?.setActivationPolicy(.regular)
+        }
     }
     
     var body: some Scene {

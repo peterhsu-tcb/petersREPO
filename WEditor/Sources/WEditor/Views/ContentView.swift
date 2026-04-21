@@ -1,10 +1,11 @@
 import SwiftUI
+import UniformTypeIdentifiers
 
 /// Main content view with tab bar and editor area
 struct ContentView: View {
     @EnvironmentObject var appState: AppState
     @EnvironmentObject var settings: EditorSettings
-    
+
     var body: some View {
         VStack(spacing: 0) {
             // Toolbar
@@ -18,12 +19,17 @@ struct ContentView: View {
             }
             
             // Editor area
-            if let document = appState.activeDocument {
-                EditorContainerView(document: document)
-            } else {
-                WelcomeView()
+            Group {
+                if let document = appState.activeDocument {
+                    EditorContainerView(document: document)
+                } else {
+                    WelcomeView()
+                }
             }
-            
+            .onDrop(of: [UTType.fileURL], isTargeted: nil) { providers in
+                handleDrop(providers: providers)
+            }
+
             // Find/Replace bar
             if appState.showFindReplace {
                 FindReplaceView()
@@ -35,6 +41,24 @@ struct ContentView: View {
             }
         }
         .background(settings.currentTheme.backgroundColor)
+    }
+
+    /// Open each dropped file URL as a new tab (existing tabs are reused
+    /// by `AppState.openFile(at:)`).
+    private func handleDrop(providers: [NSItemProvider]) -> Bool {
+        let fileURLType = UTType.fileURL.identifier
+        var didAccept = false
+        for provider in providers where provider.hasItemConformingToTypeIdentifier(fileURLType) {
+            didAccept = true
+            _ = provider.loadDataRepresentation(forTypeIdentifier: fileURLType) { data, _ in
+                guard let data = data,
+                      let url = URL(dataRepresentation: data, isAbsolute: true) else { return }
+                DispatchQueue.main.async {
+                    appState.openFile(at: url)
+                }
+            }
+        }
+        return didAccept
     }
 }
 
@@ -131,6 +155,7 @@ struct WelcomeView: View {
                 ShortcutHintView(shortcut: "⌘L", description: "Column Edit Mode")
                 ShortcutHintView(shortcut: "⌘F", description: "Find")
                 ShortcutHintView(shortcut: "⌘⌥F", description: "Find & Replace")
+                ShortcutHintView(shortcut: "Drop files", description: "Open in new tabs")
             }
             .padding(.top, 20)
         }

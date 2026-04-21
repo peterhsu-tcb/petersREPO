@@ -76,3 +76,26 @@ swift run WEditor
 - Multiple encoding and line ending support
 - Native macOS SwiftUI interface
 - Comprehensive keyboard shortcuts
+
+---
+
+## WxMEditSwift
+
+A native macOS port of [wxMEdit](https://github.com/wxmedit/wxMEdit) — the multi-mode text/hex editor — reimplemented from scratch in Swift and SwiftUI/AppKit.
+
+See [WxMEditSwift/README.md](WxMEditSwift/README.md) for full documentation.
+
+### Quick Start
+
+```bash
+cd WxMEditSwift
+swift build
+swift run WxMEditSwift
+```
+
+### Features
+- Text, Column (block), and Hex editing modes
+- Multi-encoding support (UTF-8/16/32, Latin-1/2, Windows-125x, Shift-JIS, EUC-JP, GB18030, Big5, EUC-KR, KOI8-R)
+- Line-ending detection and conversion (LF / CRLF / CR)
+- Find & replace with regex, case sensitivity, whole-word, wrap
+- Tabbed multi-document interface using native NSTextView

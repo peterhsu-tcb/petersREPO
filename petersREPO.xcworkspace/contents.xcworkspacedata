@@ -10,4 +10,7 @@
    <FileRef
       location = "group:WEditor">
    </FileRef>
+   <FileRef
+      location = "group:WxMEditSwift">
+   </FileRef>
 </Workspace>

@@ -32,9 +32,9 @@ final class WxMEditSwiftTests: XCTestCase {
     func testHexRenderBasic() {
         let data = Data("Hello".utf8)
         let rendered = HexService.render(data, bytesPerRow: 16)
-        XCTAssertTrue(rendered.hasPrefix("00000000  "))
-        XCTAssertTrue(rendered.contains("48 65 6C 6C 6F"))
-        XCTAssertTrue(rendered.hasSuffix("Hello           ") || rendered.contains("Hello"))
+        // Offset prefix, hex bytes for "Hello", and the ASCII pane is "Hello" + 11 spaces of padding.
+        XCTAssertTrue(rendered.hasPrefix("00000000  48 65 6C 6C 6F"))
+        XCTAssertTrue(rendered.hasSuffix("Hello           "))
     }
 
     func testHexRenderMultipleRows() {

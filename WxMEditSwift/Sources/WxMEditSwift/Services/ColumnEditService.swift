@@ -52,7 +52,7 @@ public enum ColumnEditService {
         var lines = split(text)
         for i in r.startLine...min(r.endLine, lines.count - 1) where i >= 0 {
             let head = takePrefix(lines[i], width: r.startColumn)
-            let tail = self.suffix(of: lines[i], from: r.endColumn)
+            let tail = suffix(of: lines[i], from: r.endColumn)
             lines[i] = head + block + tail
         }
         return lines.joined(separator: "\n")

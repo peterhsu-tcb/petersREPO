@@ -1,14 +1,56 @@
+//! # `claw` — main CLI binary
+//!
+//! This is the entry point for the `claw` executable.  It wires together all the
+//! crates in the Claw Code workspace into the user-facing command-line tool.
+//!
+//! ## Architecture overview
+//!
+//! ```text
+//! main()
+//!   └─► run()                    ← top-level error handler + JSON/text error routing
+//!         └─► dispatch on argv
+//!               ├─► run_one_shot()   ← non-interactive single-prompt mode
+//!               ├─► run_repl()       ← interactive REPL loop
+//!               ├─► status          ← print runtime status (model, auth, sessions, etc.)
+//!               ├─► sandbox         ← inspect sandbox/container detection
+//!               ├─► acp             ← ACP/Zed protocol status
+//!               ├─► agents          ← list/manage sub-agent workers
+//!               ├─► mcp             ← list/inspect MCP servers
+//!               ├─► skills          ← list/install skills
+//!               ├─► doctor          ← health check (API key, model, tools)
+//!               ├─► init            ← project initialisation (CLAUDE.md, .claw.json, etc.)
+//!               ├─► dump-manifests  ← extract tool/prompt manifests from upstream TS source
+//!               └─► ...             ← other subcommands
+//! ```
+//!
+//! ## Key design notes
+//!
+//! - Argument parsing is done **manually** via `argv` scanning rather than a
+//!   parser library.  This keeps the binary small and avoids introducing a
+//!   hard dependency on `clap` for what is primarily a runtime-driven tool.
+//! - All async work runs on a single-threaded `tokio` runtime created by `run()`.
+//! - The REPL and one-shot modes share the same `ConversationRuntime` from the
+//!   `runtime` crate; the difference is only in how input is read and how the
+//!   loop terminates.
+//! - The `#![allow(...)]` attributes at the top suppress warnings that arise from
+//!   the rapidly-evolving surface — they will be cleaned up as the API stabilises.
+
+// ── Lint allowances ───────────────────────────────────────────────────────────
+// These are temporary suppressions during active development; remove them as
+// the code stabilises and the unused items are either removed or used.
 #![allow(
-    dead_code,
-    unused_imports,
-    unused_variables,
-    clippy::unneeded_struct_pattern,
-    clippy::unnecessary_wraps,
-    clippy::unused_self
+    dead_code,              // Many items are defined for future use or introspection.
+    unused_imports,         // Some imports are pulled in speculatively.
+    unused_variables,       // Some variables are bound for debugging purposes.
+    clippy::unneeded_struct_pattern,  // Pattern matching style.
+    clippy::unnecessary_wraps,        // Some functions return `Ok(())` for uniformity.
+    clippy::unused_self               // Some `&self` methods don't use `self` yet.
 )]
-mod init;
-mod input;
-mod render;
+
+// ── Internal modules ──────────────────────────────────────────────────────────
+mod init;   // `claw init` — project initialisation (CLAUDE.md, .claw.json, .gitignore).
+mod input;  // REPL line editor — rustyline wrapper with slash-command tab completion.
+mod render; // Terminal rendering — Markdown-to-ANSI, spinner, color theme.
 
 use std::collections::BTreeSet;
 use std::env;

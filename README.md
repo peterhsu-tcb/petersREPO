@@ -1,104 +1,22 @@
 # petersREPO
 
-A collection of powerful macOS utilities written in Swift and SwiftUI.
+Personal development repository. The primary project here is **Claw Code** — a high-performance Rust implementation of the `claw` CLI agent harness.
 
-## SwiftCommander
+## Repository Contents
 
-A powerful dual-pane file manager for macOS, inspired by Total Commander, written in Swift and SwiftUI.
-
-See [SwiftCommander/README.md](SwiftCommander/README.md) for full documentation.
-
-### Quick Start
-
-```bash
-cd SwiftCommander
-swift build
-swift run SwiftCommander
-```
-
-### Features
-- Dual-pane file browser with independent navigation
-- File operations (copy, move, delete, rename)
-- Function key commands (F1-F10) like Total Commander
-- Quick search and file filtering
-- Bookmarks and recent directories
-- Archive support (ZIP, TAR)
-- Native macOS SwiftUI interface
-- Comprehensive keyboard shortcuts
-
----
-
-## SwiftCompare
-
-A powerful file and folder comparison tool for macOS, similar to Beyond Compare, written in Swift and SwiftUI.
-
-See [SwiftCompare/README.md](SwiftCompare/README.md) for full documentation.
-
-### Quick Start
-
-```bash
-cd SwiftCompare
-swift build
-swift run SwiftCompare
-```
-
-### Features
-- Side-by-side file diff view
-- Folder tree comparison
-- Merge and sync capabilities
-- Native macOS SwiftUI interface
-- Keyboard shortcuts for power users
-
----
-
-## WEditor
-
-A powerful text editor for macOS with column edit mode and comprehensive syntax highlighting, inspired by UltraEdit and Context editor. Written in Swift and SwiftUI.
-
-See [WEditor/README.md](WEditor/README.md) for full documentation.
-
-### Quick Start
-
-```bash
-cd WEditor
-swift build
-swift run WEditor
-```
-
-### Features
-- Column (block) edit mode with rectangular selection
-- Syntax highlighting for 30+ languages (Swift, Python, JavaScript, C++, Rust, Go, HTML, CSS, SQL, and more)
-- Multiple color themes (Dark, Light, Monokai, Solarized)
-- Find and replace with regex support
-- Multi-tab document editing
-- Line number gutter and mini map
-- Configurable fonts, tab width, and line spacing
-- Multiple encoding and line ending support
-- Native macOS SwiftUI interface
-- Comprehensive keyboard shortcuts
-
----
-
-## WxMEditSwift
-
-A native macOS port of [wxMEdit](https://github.com/wxmedit/wxMEdit) — the multi-mode text/hex editor — reimplemented from scratch in Swift and SwiftUI/AppKit.
-
-See [WxMEditSwift/README.md](WxMEditSwift/README.md) for full documentation.
-
-### Quick Start
-
-```bash
-cd WxMEditSwift
-swift build
-swift run WxMEditSwift
-```
-
-### Features
-- Text, Column (block), and Hex editing modes
-- Multi-encoding support (UTF-8/16/32, Latin-1/2, Windows-125x, Shift-JIS, EUC-JP, GB18030, Big5, EUC-KR, KOI8-R)
-- Line-ending detection and conversion (LF / CRLF / CR)
-- Find & replace with regex, case sensitivity, whole-word, wrap
-- Tabbed multi-document interface using native NSTextView
+| Path | Description |
+|------|-------------|
+| [`rust/`](./rust/) | Canonical Rust workspace — the `claw` binary and all supporting crates |
+| [`src/`](./src/) | Python/reference workspace and audit helpers (companion surface, not primary runtime) |
+| [`tests/`](./tests/) | Validation and parity-audit helpers |
+| [`docs/`](./docs/) | Supplemental documentation (container workflow, model compatibility) |
+| [`USAGE.md`](./USAGE.md) | Task-oriented usage guide for building, auth, sessions, and parity harness |
+| [`PARITY.md`](./PARITY.md) | Rust-port parity status and migration checkpoint notes |
+| [`ROADMAP.md`](./ROADMAP.md) | Active roadmap and cleanup backlog |
+| [`PHILOSOPHY.md`](./PHILOSOPHY.md) | Project intent and system-design framing |
+| [`STRUCTURE.md`](./STRUCTURE.md) | Architecture and crate-level structure note for Claw Code |
+| [`Containerfile`](./Containerfile) | Container-first build definition |
+| [`install.sh`](./install.sh) | Convenience install script |
 
 ---
 

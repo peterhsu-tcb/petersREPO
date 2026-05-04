@@ -1,28 +1,86 @@
-use std::fmt::Write as FmtWrite;
-use std::io::{self, Write};
+//! Terminal rendering — Markdown-to-ANSI conversion, spinner, and color theme.
+//!
+//! This module turns Markdown text into ANSI-escaped terminal output and manages
+//! the animated spinner used while the model streams a response.
+//!
+//! # Key types
+//!
+//! | Type | Purpose |
+//! |------|---------|
+//! | [`TerminalRenderer`] | Stateless Markdown-to-ANSI renderer (headings, code blocks, tables, emphasis) |
+//! | [`MarkdownStreamState`] | Stateful buffer for incremental streaming Markdown rendering |
+//! | [`Spinner`] | Animated braille-dot spinner for async wait feedback |
+//! | [`ColorTheme`] | Configurable ANSI color palette for all rendered elements |
+//!
+//! # Rendering pipeline
+//!
+//! ```text
+//! raw Markdown string
+//!      │
+//!      ▼
+//! normalize_nested_fences()   ← fix code fences that were broken by streaming
+//!      │
+//!      ▼
+//! pulldown_cmark::Parser       ← parse Markdown into events
+//!      │
+//!      ▼
+//! TerminalRenderer::render_event() (per event)
+//!      │
+//!      ├─► headings, paragraphs, lists → ANSI escape codes via crossterm
+//!      ├─► inline code → colored with `theme.inline_code`
+//!      └─► fenced code blocks → syntax-highlighted via syntect
+//!      │
+//!      ▼
+//! final ANSI string ready for `print!`/`eprintln!`
+//! ```
 
-use crossterm::cursor::{MoveToColumn, RestorePosition, SavePosition};
-use crossterm::style::{Color, Print, ResetColor, SetForegroundColor, Stylize};
-use crossterm::terminal::{Clear, ClearType};
-use crossterm::{execute, queue};
-use pulldown_cmark::{CodeBlockKind, Event, Options, Parser, Tag, TagEnd};
-use syntect::easy::HighlightLines;
-use syntect::highlighting::{Theme, ThemeSet};
-use syntect::parsing::SyntaxSet;
-use syntect::util::{as_24_bit_terminal_escaped, LinesWithEndings};
+use std::fmt::Write as FmtWrite; // `write!` macro target for building output strings.
+use std::io::{self, Write}; // `Write` trait for flushing to stdout/stderr.
 
+// ── crossterm imports ─────────────────────────────────────────────────────────
+use crossterm::cursor::{MoveToColumn, RestorePosition, SavePosition}; // Cursor positioning for spinner.
+use crossterm::style::{Color, Print, ResetColor, SetForegroundColor, Stylize}; // ANSI color/style.
+use crossterm::terminal::{Clear, ClearType}; // Terminal clearing for spinner animation.
+use crossterm::{execute, queue}; // Macros for sending crossterm commands to a writer.
+
+// ── Markdown parsing ──────────────────────────────────────────────────────────
+use pulldown_cmark::{CodeBlockKind, Event, Options, Parser, Tag, TagEnd}; // CommonMark parser.
+
+// ── Syntax highlighting ───────────────────────────────────────────────────────
+use syntect::easy::HighlightLines; // Per-line syntax highlighter.
+use syntect::highlighting::{Theme, ThemeSet}; // Color theme types for syntect.
+use syntect::parsing::SyntaxSet; // Language definition registry.
+use syntect::util::{as_24_bit_terminal_escaped, LinesWithEndings}; // ANSI escape output helpers.
+
+// ── Color theme ───────────────────────────────────────────────────────────────
+
+/// Configurable ANSI color palette for all rendered Markdown elements.
+///
+/// The default theme is selected for readability on dark terminals.  Callers can
+/// construct a custom theme and pass it to [`TerminalRenderer`] at creation time.
 #[derive(Debug, Clone, Copy, PartialEq, Eq)]
 pub struct ColorTheme {
+    /// Color for H1/H2/H3 headings.
     heading: Color,
+    /// Color for *italic* (emphasis) text.
     emphasis: Color,
+    /// Color for **bold** (strong) text.
     strong: Color,
+    /// Color for `inline code` spans.
     inline_code: Color,
+    /// Color for [hyperlinks](url).
     link: Color,
+    /// Color for > blockquotes.
     quote: Color,
+    /// Color for table border separators.
     table_border: Color,
+    /// Color for fenced-code-block border lines.
     code_block_border: Color,
+    /// Color for the spinner frame character while the model is streaming.
     spinner_active: Color,
+    /// Color for the ✔ checkmark when the spinner finishes successfully.
     spinner_done: Color,
+    /// Color for the ✘ cross when the spinner reports a failure.
     spinner_failed: Color,
 }
 
@@ -44,126 +102,181 @@ impl Default for ColorTheme {
     }
 }
 
+/// Animated braille-dot spinner for async wait feedback.
+///
+/// Renders a rotating braille character followed by a label on the current
+/// terminal line.  Each call to [`tick`] advances the animation one frame.
+/// Call [`finish`] or [`fail`] when the operation completes.
+///
+/// # Example output (successive ticks)
+/// ```text
+/// ⠋ Thinking…
+/// ⠙ Thinking…
+/// ⠹ Thinking…
+/// ✔ Done
+/// ```
 #[derive(Debug, Default, Clone, PartialEq, Eq)]
 pub struct Spinner {
+    /// Index into `FRAMES`; wraps around with modulo so it never overflows.
     frame_index: usize,
 }
 
 impl Spinner {
+    /// The 10-frame braille animation sequence.
     const FRAMES: [&str; 10] = ["⠋", "⠙", "⠹", "⠸", "⠼", "⠴", "⠦", "⠧", "⠇", "⠏"];
 
+    /// Create a new spinner (starts at frame 0).
     #[must_use]
     pub fn new() -> Self {
-        Self::default()
+        Self::default() // frame_index = 0
     }
 
+    /// Advance the spinner one frame and redraw the current terminal line.
+    ///
+    /// Uses `SavePosition` / `RestorePosition` to stay on the same line so the
+    /// spinner doesn't scroll the terminal.
     pub fn tick(
         &mut self,
-        label: &str,
-        theme: &ColorTheme,
-        out: &mut impl Write,
+        label: &str,           // Text displayed next to the spinning frame.
+        theme: &ColorTheme,    // Provides `spinner_active` color.
+        out: &mut impl Write,  // Destination writer (usually `io::stdout()`).
     ) -> io::Result<()> {
-        let frame = Self::FRAMES[self.frame_index % Self::FRAMES.len()];
-        self.frame_index += 1;
+        let frame = Self::FRAMES[self.frame_index % Self::FRAMES.len()]; // Select the current frame.
+        self.frame_index += 1; // Advance to the next frame for the next tick.
         queue!(
             out,
-            SavePosition,
-            MoveToColumn(0),
-            Clear(ClearType::CurrentLine),
-            SetForegroundColor(theme.spinner_active),
-            Print(format!("{frame} {label}")),
-            ResetColor,
-            RestorePosition
+            SavePosition,                         // Save cursor so we can restore after writing.
+            MoveToColumn(0),                      // Move to the start of the line.
+            Clear(ClearType::CurrentLine),        // Erase the previous spinner frame.
+            SetForegroundColor(theme.spinner_active), // Apply the active spinner color.
+            Print(format!("{frame} {label}")),    // Write the new frame and label.
+            ResetColor,                           // Restore terminal default color.
+            RestorePosition                       // Move the cursor back to where it was.
         )?;
-        out.flush()
+        out.flush() // Flush to ensure the frame is visible immediately.
     }
 
+    /// Replace the spinner with a ✔ success indicator and move to the next line.
+    ///
+    /// Resets `frame_index` to 0 so the spinner can be reused for the next operation.
     pub fn finish(
         &mut self,
-        label: &str,
-        theme: &ColorTheme,
-        out: &mut impl Write,
+        label: &str,           // Text displayed next to the checkmark.
+        theme: &ColorTheme,    // Provides `spinner_done` color.
+        out: &mut impl Write,  // Destination writer.
     ) -> io::Result<()> {
-        self.frame_index = 0;
+        self.frame_index = 0; // Reset for potential reuse.
         execute!(
             out,
-            MoveToColumn(0),
-            Clear(ClearType::CurrentLine),
-            SetForegroundColor(theme.spinner_done),
-            Print(format!("✔ {label}\n")),
-            ResetColor
+            MoveToColumn(0),                      // Move to the start of the line.
+            Clear(ClearType::CurrentLine),        // Erase the spinner animation.
+            SetForegroundColor(theme.spinner_done), // Apply the success (green) color.
+            Print(format!("✔ {label}\n")),        // Write the success indicator and newline.
+            ResetColor                            // Restore terminal default color.
         )?;
-        out.flush()
+        out.flush() // Flush to ensure the ✔ is visible immediately.
     }
 
+    /// Replace the spinner with a ✘ failure indicator and move to the next line.
+    ///
+    /// Resets `frame_index` to 0 so the spinner can be reused for the next operation.
     pub fn fail(
         &mut self,
-        label: &str,
-        theme: &ColorTheme,
-        out: &mut impl Write,
+        label: &str,           // Text displayed next to the ✘.
+        theme: &ColorTheme,    // Provides `spinner_failed` color.
+        out: &mut impl Write,  // Destination writer.
     ) -> io::Result<()> {
-        self.frame_index = 0;
+        self.frame_index = 0; // Reset for potential reuse.
         execute!(
             out,
-            MoveToColumn(0),
-            Clear(ClearType::CurrentLine),
-            SetForegroundColor(theme.spinner_failed),
-            Print(format!("✘ {label}\n")),
-            ResetColor
+            MoveToColumn(0),                        // Move to the start of the line.
+            Clear(ClearType::CurrentLine),          // Erase the spinner animation.
+            SetForegroundColor(theme.spinner_failed), // Apply the failure (red) color.
+            Print(format!("✘ {label}\n")),          // Write the failure indicator and newline.
+            ResetColor                              // Restore terminal default color.
         )?;
-        out.flush()
+        out.flush() // Flush to ensure the ✘ is visible immediately.
     }
 }
 
+/// Tracks which kind of list is currently being rendered.
 #[derive(Debug, Clone, PartialEq, Eq)]
 enum ListKind {
+    /// A bullet list (rendered with `•` or `-` markers).
     Unordered,
+    /// A numbered list; `next_index` tracks the current item number.
     Ordered { next_index: u64 },
 }
 
+/// Accumulates the content of one Markdown table as it is parsed event-by-event.
+///
+/// `pulldown_cmark` emits table content as a stream of cell/row events; this
+/// struct buffers them until the table is complete, then [`TerminalRenderer`]
+/// flushes it to the output with calculated column widths.
 #[derive(Debug, Default, Clone, PartialEq, Eq)]
 struct TableState {
+    /// Parsed header row (column names).
     headers: Vec<String>,
+    /// All data rows (each row is a `Vec<String>` of cell values).
     rows: Vec<Vec<String>>,
+    /// The row currently being accumulated (not yet moved to `rows`).
     current_row: Vec<String>,
+    /// The cell currently being accumulated (not yet moved to `current_row`).
     current_cell: String,
+    /// `true` while parsing the header row; `false` when parsing data rows.
     in_head: bool,
 }
 
 impl TableState {
+    /// Finalise the current cell: trim it, push it onto `current_row`, and reset the buffer.
     fn push_cell(&mut self) {
-        let cell = self.current_cell.trim().to_string();
-        self.current_row.push(cell);
-        self.current_cell.clear();
+        let cell = self.current_cell.trim().to_string(); // Trim surrounding whitespace.
+        self.current_row.push(cell);                     // Append to the in-progress row.
+        self.current_cell.clear();                       // Reset the cell buffer.
     }
 
+    /// Finalise the current row: move it to `headers` or `rows`, then reset.
     fn finish_row(&mut self) {
         if self.current_row.is_empty() {
-            return;
+            return; // Nothing accumulated — skip (can happen with empty tables).
         }
-        let row = std::mem::take(&mut self.current_row);
+        let row = std::mem::take(&mut self.current_row); // Take the row, leaving an empty Vec.
         if self.in_head {
-            self.headers = row;
+            self.headers = row; // First row goes to headers.
         } else {
-            self.rows.push(row);
+            self.rows.push(row); // Subsequent rows go to data rows.
         }
     }
 }
 
+/// Mutable rendering state threaded through all `pulldown_cmark` event handlers.
+///
+/// Tracks nesting depth of inline formatting (emphasis, strong, blockquote)
+/// and accumulation of complex structures (lists, links, tables).
 #[derive(Debug, Default, Clone, PartialEq, Eq)]
 struct RenderState {
+    /// Current nesting depth of `*italic*` / `_italic_` (typically 0 or 1).
     emphasis: usize,
+    /// Current nesting depth of `**bold**` / `__bold__` (typically 0 or 1).
     strong: usize,
+    /// Heading level currently being rendered (1–6), or `None` outside a heading.
     heading_level: Option<u8>,
+    /// Nesting depth of `> blockquote` blocks.
     quote: usize,
+    /// Stack of active list contexts (supports nested lists).
     list_stack: Vec<ListKind>,
+    /// Stack of active link contexts (supports nested image/link parsing).
     link_stack: Vec<LinkState>,
+    /// Active table accumulator, or `None` when not inside a table.
     table: Option<TableState>,
 }
 
+/// Records the destination URL and accumulated text of a link being parsed.
 #[derive(Debug, Clone, PartialEq, Eq)]
 struct LinkState {
+    /// The link target URL (e.g. `"https://example.com"`).
     destination: String,
+    /// The visible link text (e.g. `"click here"`), accumulated from child events.
     text: String,
 }
 
@@ -214,10 +327,21 @@ impl RenderState {
     }
 }
 
+/// Stateless Markdown-to-ANSI renderer.
+///
+/// Loads syntax-highlighting language definitions and a color theme at
+/// construction time, then renders Markdown strings on demand.
+///
+/// `TerminalRenderer` is intentionally stateless — it holds only immutable
+/// resources (the syntax set and theme).  Mutable per-render state lives in
+/// the local [`RenderState`] struct inside each `render_markdown` call.
 #[derive(Debug)]
 pub struct TerminalRenderer {
+    /// Registry of `syntect` language definitions (loaded from bundled defaults).
     syntax_set: SyntaxSet,
+    /// Active `syntect` color theme used for syntax-highlighted code blocks.
     syntax_theme: Theme,
+    /// ANSI color palette for non-code Markdown elements.
     color_theme: ColorTheme,
 }
 

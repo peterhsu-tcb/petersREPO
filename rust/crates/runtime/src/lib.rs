@@ -1,8 +1,39 @@
 //! Core runtime primitives for the `claw` CLI and supporting crates.
 //!
-//! This crate owns session persistence, permission evaluation, prompt assembly,
-//! MCP plumbing, tool-facing file operations, and the core conversation loop
-//! that drives interactive and one-shot turns.
+//! This crate is the heart of the Claw Code workspace.  It owns:
+//!
+//! - **Session persistence** — loading, saving, forking, and compacting JSONL
+//!   session files so conversations survive restarts.
+//! - **Permission evaluation** — deciding whether a tool call is allowed based
+//!   on the active `PermissionMode` and per-rule overrides.
+//! - **Prompt assembly** — building the system prompt from `CLAUDE.md`, project
+//!   context, tool descriptions, and cached breakpoints.
+//! - **MCP plumbing** — spawning and talking to MCP server processes, bridging
+//!   their tools into the tool executor, and managing their lifecycle.
+//! - **Tool-facing file operations** — `read_file`, `write_file`, `edit_file`,
+//!   `glob_search`, `grep_search` (the built-in file-system tools live here).
+//! - **The core conversation loop** — `ConversationRuntime` drives multi-turn
+//!   agentic interactions: streaming from the provider, rendering deltas, and
+//!   executing tool calls in a loop until `stop_reason == "end_turn"`.
+//!
+//! ## Module map (selected)
+//!
+//! | Module | Key export(s) |
+//! |--------|--------------|
+//! | `conversation` | `ConversationRuntime`, `AssistantEvent`, `ToolExecutor` |
+//! | `config` | `RuntimeConfig`, `ConfigLoader` |
+//! | `session` | `Session`, `ConversationMessage`, `MessageRole` |
+//! | `permissions` | `PermissionPolicy`, `PermissionOutcome`, `PermissionMode` |
+//! | `file_ops` | `read_file`, `write_file`, `edit_file`, `glob_search`, `grep_search` |
+//! | `bash` | `execute_bash`, `BashCommandInput`, `BashCommandOutput` |
+//! | `mcp_stdio` | `McpServerManager`, `McpStdioProcess`, `McpTool` |
+//! | `prompt` | `SystemPromptBuilder`, `load_system_prompt` |
+//! | `session_control` | `SessionStore` |
+//! | `usage` | `UsageTracker`, `TokenUsage`, `format_usd` |
+//! | `worker_boot` | `Worker`, `WorkerRegistry` |
+//!
+//! Everything listed in the `pub use` statements below is part of the stable
+//! public API consumed by `rusty-claude-cli` and `tools`.
 
 mod bash;
 pub mod bash_validation;
